@@ -343,6 +343,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .section-complete-btn:hover { border-color:var(--pass); color:var(--pass); background:var(--pass-light); }
 .section-complete-btn.done { background:var(--pass); border-color:var(--pass); color:#fff; }
 .section-complete-btn.done:hover { background:#174f2b; border-color:#174f2b; }
+.section-complete-btn.rejected { background:var(--red-light); border-color:var(--red); color:var(--red); cursor:default; }
+.section-complete-btn.rejected:hover { background:var(--red-light); border-color:var(--red); color:var(--red); }
 
 /* ─── Accordion ──────────────────────────────────────── */
 .band-block { margin-bottom:28px; }
@@ -1773,7 +1775,7 @@ function showNamePreview(id) {
 // ═══════════════════════════════════════════════════════════════
 // LAUNCH APP
 // ═══════════════════════════════════════════════════════════════
-function launchApp() {
+async function launchApp() {
   document.getElementById('loginScreen').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
 
@@ -1788,6 +1790,29 @@ function launchApp() {
   setInterval(syncProgress, CONFIG.SYNC_INTERVAL);
   initNav();
   initLeaderboard();
+
+  // Pull fresh server data — picks up any tutor overrides/rejections since last login
+  try {
+    const fresh = await apiGet({ action: 'getStudent', studentId: STATE.student.studentId });
+    if (fresh.ok && fresh.student) {
+      const s = fresh.student;
+      // Merge: server is authoritative for sections/xp/tutorOverrides
+      STATE.student.completedSections = s.completedSections || STATE.student.completedSections;
+      STATE.student.xp                = s.xp               ?? STATE.student.xp;
+      STATE.student.badges            = s.badges            || STATE.student.badges;
+      STATE.student.streak            = s.streak            || STATE.student.streak;
+      STATE.student.tutorOverrides    = s.tutorOverrides    || {};
+      STATE.student.tutorNote         = s.tutorNote         || '';
+      // Update local cache
+      localStorage.setItem('cs_' + STATE.student.studentId, JSON.stringify(STATE.student.completedSections));
+      localStorage.setItem('xp_' + STATE.student.studentId, STATE.student.xp);
+      localStorage.setItem('bd_' + STATE.student.studentId, JSON.stringify(STATE.student.badges));
+      refreshUI();
+      updateSectionButtons();
+    }
+  } catch(e) {
+    // Offline — use local data silently
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -2023,11 +2048,26 @@ function showBossMessage(key) {
 function updateSectionButtons() {
   if (!STATE.student) return;
   const completed = STATE.student.completedSections;
+  const overrides = STATE.student.tutorOverrides || {};
   document.querySelectorAll('.section-complete-btn').forEach(btn => {
-    const sid  = btn.dataset.section;
-    const done = completed.includes(sid);
-    btn.classList.toggle('done', done);
-    btn.innerHTML = done ? '✓ Completed' : '○ Mark as Done';
+    const sid      = btn.dataset.section;
+    const done     = completed.includes(sid);
+    const rejected = overrides[sid] === false;
+    const verified = overrides[sid] === true;
+
+    btn.classList.remove('done', 'rejected');
+    if (rejected) {
+      btn.classList.add('rejected');
+      btn.innerHTML = '✗ Rejected by Mr Ravindu — resubmit on Canvas';
+      btn.disabled = true;
+    } else if (done || verified) {
+      btn.classList.add('done');
+      btn.innerHTML = verified ? '✓ Verified by Mr Ravindu' : '✓ Completed';
+      btn.disabled = false;
+    } else {
+      btn.innerHTML = '○ Mark as Done';
+      btn.disabled = false;
+    }
   });
   document.querySelectorAll('.acc-done-chip').forEach(chip => {
     const sid = chip.dataset.section;
@@ -2716,27 +2756,28 @@ async function saveTutorOverrides() {
     .reduce((a, s) => a + s.xp, 0);
 
   try {
-    const result = await apiPost({
+    // Use JSONP GET so we can actually read the server response (no-cors POST is blind)
+    const result = await apiGet({
       action:            'updateProgressTutor',
       studentId:         modalStudent.studentId,
-      completedSections: finalSections,
+      completedSections: JSON.stringify(finalSections),
       xp:                finalXP,
-      badges:            modalStudent.badges || [],
-      tutorOverrides:    modalOverrides,
+      badges:            JSON.stringify(modalStudent.badges || []),
+      tutorOverrides:    JSON.stringify(modalOverrides),
       tutorNote:         document.getElementById('modalNote').value.trim(),
+      pin:               STATE.tutorPin || '',
     });
 
-    if (result.error && !result.offline) {
+    if (result.error) {
       status.textContent = '✗ Save failed — ' + result.error;
       status.className = 'modal-save-status error';
     } else {
-      status.textContent = '✓ Saved successfully';
+      status.textContent = '✓ Saved — student view will update on their next sync';
       status.className = 'modal-save-status saved';
-      // Update cached student data
+      // Update local tutor cache immediately
       modalStudent.completedSections = finalSections;
       modalStudent.xp                = finalXP;
       modalStudent.tutorOverrides    = { ...modalOverrides };
-      // Refresh the tutor table row
       if (window._tutorStudents) {
         const idx = window._tutorStudents.findIndex(s => s.studentId === modalStudent.studentId);
         if (idx > -1) {
@@ -2746,8 +2787,8 @@ async function saveTutorOverrides() {
       }
     }
   } catch(e) {
-    status.textContent = '⚠️ Saved locally (offline)';
-    status.className = 'modal-save-status';
+    status.textContent = '⚠️ Could not reach server — check your connection';
+    status.className = 'modal-save-status error';
   }
 
   btn.classList.remove('saving');
