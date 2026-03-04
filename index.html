@@ -1307,14 +1307,14 @@ const STUDENT_ROSTER = {
   "SUF25252926": "Mohammed Sufiyan",
   "SYL23216419": "Ben Sylla",
   "WEE24247011": "Devmith Weerakkody",
-  "TEST": "Test Student",
+  "TEST": "Test Student"
 };
 
 // ═══════════════════════════════════════════════════════════════
 // CONFIGURATION — update SHEET_URL after deploying Apps Script
 // ═══════════════════════════════════════════════════════════════
 const CONFIG = {
-  SHEET_URL: 'https://script.google.com/macros/library/d/10i6b-0InEqGzGOSV5r0uWVLE-fqjnSa3_ndCHblpJSUgJAQUi2id1z1F/2', // ← paste your deployed URL
+  SHEET_URL: 'https://script.google.com/macros/s/AKfycbxz23JcweklZHesLJ_Kclk_9uc-HaxD1jfA2eVtW6zkBivOyEt2WlEeIMuqUu_uitX8qA/exec', // ← paste your deployed URL
   DEADLINE:   new Date('2026-04-15T23:59:59'),
   START_DATE: new Date('2026-03-04T00:00:00'),
   SYNC_INTERVAL: 30000, // sync every 30 seconds
@@ -1598,12 +1598,30 @@ async function handleTutorLogin() {
   const pin = document.getElementById('inputTutorPin').value.trim();
   if (!pin) { showError('Please enter your PIN.'); return; }
 
-  try {
-    const result = await apiPost({ action: 'tutorLogin', pin });
-    if (result.error && !result.offline) { showError('Incorrect PIN. Try again.'); return; }
-  } catch(e) {}
+  const btn = document.getElementById('btnTutorLogin');
+  btn.classList.add('loading');
+  btn.textContent = 'Checking...';
 
+  try {
+    // Use JSONP GET so we can actually read the response (no-cors POST can't return data)
+    const result = await apiGet({ action: 'tutorLogin', pin });
+    if (result.error) {
+      showError('Incorrect PIN. Try again.');
+      btn.classList.remove('loading');
+      btn.textContent = 'Access Dashboard →';
+      return;
+    }
+  } catch(e) {
+    showError('Could not reach server. Check your internet connection.');
+    btn.classList.remove('loading');
+    btn.textContent = 'Access Dashboard →';
+    return;
+  }
+
+  btn.classList.remove('loading');
+  btn.textContent = 'Access Dashboard →';
   STATE.isTutor = true;
+  STATE.tutorPin = pin;
   document.getElementById('loginScreen').classList.add('hidden');
   document.getElementById('tutorDashboard').classList.remove('hidden');
   loadTutorDashboard(pin);
@@ -2111,18 +2129,16 @@ function showToast(msg) {
 // ═══════════════════════════════════════════════════════════════
 // TUTOR DASHBOARD
 // ═══════════════════════════════════════════════════════════════
+let _tutorEventsBound = false;
+
 async function loadTutorDashboard(pin) {
   const container = document.getElementById('tutorTableContainer');
-  container.innerHTML = '<p style="padding:20px;color:var(--slate)">Loading student data...</p>';
+  container.innerHTML = '<p style="padding:20px;color:var(--slate)">⏳ Loading student data...</p>';
 
-  try {
-    const result = await apiGet({ action: 'getAllStudents', pin });
-    if (result.error) { container.innerHTML = `<p style="padding:20px;color:var(--red)">${result.error}</p>`; return; }
-
-    const students = result.students || [];
-    renderTutorDashboard(students);
-
-    document.getElementById('btnRefresh').addEventListener('click', () => loadTutorDashboard(pin));
+  // Bind events only once
+  if (!_tutorEventsBound) {
+    _tutorEventsBound = true;
+    document.getElementById('btnRefresh').addEventListener('click', () => loadTutorDashboard(STATE.tutorPin));
     document.getElementById('tutorSearch').addEventListener('input', e => {
       const q = e.target.value.toLowerCase();
       document.querySelectorAll('.tutor-row').forEach(row => {
@@ -2131,11 +2147,37 @@ async function loadTutorDashboard(pin) {
     });
     document.getElementById('btnTutorLogout').addEventListener('click', () => {
       STATE.isTutor = false;
+      STATE.tutorPin = null;
       document.getElementById('tutorDashboard').classList.add('hidden');
       document.getElementById('loginScreen').classList.remove('hidden');
     });
+  }
+
+  try {
+    const result = await apiGet({ action: 'getAllStudents', pin });
+    if (result.error) {
+      container.innerHTML = `<div style="padding:24px;color:var(--red);font-size:14px">
+        ❌ <strong>Error:</strong> ${result.error}<br>
+        <span style="color:var(--slate);font-size:12px;margin-top:6px;display:block">Check that your Apps Script is deployed and the URL is correct.</span>
+      </div>`;
+      return;
+    }
+    const students = result.students || [];
+    if (students.length === 0) {
+      container.innerHTML = '<p style="padding:20px;color:var(--slate)">No students have logged in yet.</p>';
+      return;
+    }
+    renderTutorDashboard(students);
   } catch(e) {
-    container.innerHTML = '<p style="padding:20px;color:var(--slate)">Could not load data. Check your Google Sheets URL in config.</p>';
+    container.innerHTML = `<div style="padding:24px;color:var(--slate);font-size:14px">
+      ⚠️ <strong>Could not load data.</strong><br>
+      <span style="font-size:12px;margin-top:6px;display:block">
+        Make sure you have:<br>
+        1. Deployed the Apps Script (Extensions → Apps Script → Deploy → New version)<br>
+        2. Set access to <strong>Anyone</strong> when deploying<br>
+        3. Pasted the correct Web App URL in CONFIG.SHEET_URL
+      </span>
+    </div>`;
   }
 }
 
