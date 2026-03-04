@@ -473,6 +473,22 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .card-grid{grid-template-columns:1fr 1fr}
 }
 
+/* ─── Login name preview ─────────────────────────────── */
+.login-name-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--pass-light);
+  border: 1.5px solid var(--pass-mid);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pass);
+  animation: fadeIn 0.2s ease;
+}
+.login-name-icon { font-size: 18px; }
+
 </style>
 </head>
 <body>
@@ -497,17 +513,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     <!-- Student login -->
     <div class="login-form" id="formStudent">
       <div class="input-group">
-        <label class="input-label">Full Name</label>
-        <input type="text" id="inputName" placeholder="e.g. Alex Johnson" autocomplete="name"/>
-      </div>
-      <div class="input-group">
         <label class="input-label">Student ID</label>
-        <input type="text" id="inputStudentId" placeholder="e.g. UCB12345" autocomplete="off"/>
+        <input type="text" id="inputStudentId" placeholder="e.g. ABD24224712" autocomplete="off" style="text-transform:uppercase"/>
+      </div>
+      <div class="login-name-preview hidden" id="loginNamePreview">
+        <span class="login-name-icon">👋</span>
+        <span id="loginNameText"></span>
       </div>
       <button class="login-btn" id="btnStudentLogin">
         <span id="loginBtnText">Let's Go →</span>
       </button>
-      <div class="login-note">Your progress is saved automatically. Use the same Student ID each time.</div>
+      <div class="login-note">Enter your Student ID — your name will be recognised automatically.</div>
     </div>
 
     <!-- Tutor login -->
@@ -778,6 +794,112 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <div class="toast hidden" id="toast"></div>
 
 <script>
+const STUDENT_ROSTER = {
+  "ABD24224712": "Ayman Abdirashid",
+  "ADI24234148": "Muhammad Adil",
+  "AHM24230539": "Syed Ahmed",
+  "ALI24225548": "Umarah Asghar Ali",
+  "ALI25247496": "Nahyan Al-Imran",
+  "ALI25251756": "Haseeb Ali",
+  "ALO24232041": "Shahriar Maruf Alom",
+  "BAS23209704": "Mohammad Arman Bashir Kusar",
+  "BIB25252595": "Amina Bibi",
+  "DAR24231366": "David Damilola Daramola",
+  "DHI23208258": "Kareena Dhillon",
+  "FAT25251679": "Amirah Fatima",
+  "FAU24240630": "Anish Faugoo",
+  "GRE23219497": "Taylor Green",
+  "HUS22191617": "Asim Hussain",
+  "KHA23211008": "Ahdam Khan",
+  "KHA24230244": "Muhammad Roshan Khan",
+  "MAH23208652": "Raheesh Mahmood",
+  "MAS23211157": "Sydney Massamba",
+  "MUS24231709": "Abdulazim Musa",
+  "NUR23209054": "Asad Nur",
+  "OKO24241235": "Chisom Okoro",
+  "OLU24236406": "Bowofoluwa Olukoya",
+  "OSO24236342": "Derek Osonwa",
+  "PAT24228487": "Devan Patel",
+  "PRI24236984": "Nicholas Samuel Priboi",
+  "RAZ24236643": "Arib Jan Raza",
+  "SAI24224873": "Abdulqadir Said",
+  "SAL24225471": "Awaab Salman",
+  "SHA24241723": "Adam Shah",
+  "UDD25253100": "Sayeam Uddin",
+  "ULH23222427": "Sahd Ulhaq",
+  "ABD23215770": "Liban Abdullahi",
+  "ABD23221203": "Hasan Abdul",
+  "ABD24224658": "Muath Abdomagid",
+  "ABD25252079": "Adnan Abdulgaadir",
+  "ADE24246302": "Aderinsoro Adejoro",
+  "AHM23211731": "Muhammad Awais Ahmed",
+  "AKO24238862": "Chinemerem Daniel Akonye",
+  "ALI22177959": "Mohammed Ashfaq Ali",
+  "BYR23213714": "Jayden Byrne",
+  "DAD25252894": "Benson Dada",
+  "DAS25252452": "Anusha Das",
+  "HUS24232369": "Rohan Hussain",
+  "ISL24231915": "Imanul Islam",
+  "JEP25247538": "Kian Jepson",
+  "KAM23216387": "Raja Ghulam Haider Kamal",
+  "KEN24236940": "Milana Kenny-Osbourne",
+  "KHA23220607": "Wahid Khan",
+  "KHA24245047": "Yahya Khan",
+  "KHA25251630": "Mohammad Khan",
+  "KUM24233100": "Kian Kumar",
+  "LAM24225160": "Marcus La",
+  "MAK24231199": "Elias Maknoun Faik",
+  "MIA24228472": "Mohammed Rasel Miah",
+  "MIK23209145": "Yanis-Miguel Mikong Nchang",
+  "MOH23221996": "Najah Mohamed",
+  "MOH25252027": "Esa Mohammed",
+  "OGU24236641": "Favour Zerah Ogunbanwo",
+  "OKO24238917": "Emmanuel Okoye",
+  "OYE24240934": "Oluwaferanmi Oyede",
+  "ROT24230838": "Emmanuel Rothe-Ofoedu",
+  "SAL23212095": "Mohammed Tameem Salam",
+  "SEC24230483": "Mouhamed Seck",
+  "SID23211578": "Mohammad Sidiq",
+  "SIO24236118": "Alexandru Sion",
+  "ZOL24232976": "Joseph Zolana",
+  "ABD23216367": "Hana Abdulahi",
+  "ADE24238327": "Stanley Adesona",
+  "AKE24239935": "Raphael Ake",
+  "BAR25252103": "Ibrahim Barre",
+  "BOU22189283": "Salhodine Bouselham",
+  "DAN24233537": "Lewi Daniels",
+  "DIA23209719": "Abdoul Diallo",
+  "FAR23213857": "Hamza Farhan",
+  "GOR24233229": "Jamari Gordon-Stanley",
+  "GUL24230801": "Isa Gul",
+  "HUS22195364": "Abdul Hussain",
+  "HUS23219183": "Jasim Hussain",
+  "IBR24233972": "Mohammed Ibrahim",
+  "ILI24240639": "Kyryl Ilin",
+  "ISL24237758": "Zakirul Islam",
+  "JAT24235378": "Oliver Jatczak",
+  "JOY24231397": "Lucas William Joynes-Routledge",
+  "KIB23223162": "Elana Kibrom",
+  "KUM23212965": "Evgjenio Kumaraku",
+  "LEW24231423": "Corey Lewis",
+  "LIU24224739": "Andy Liu",
+  "MAL23204389": "Aqeel Abbas Malik",
+  "MIA22173045": "Md Nasir Uddin Miah",
+  "MOH24242871": "Suhaib Mohamed",
+  "MOH25252852": "Ameen Mohammed",
+  "MOL23218049": "Geovani Moldoveanu",
+  "MUH25252072": "Ramzan Muhammad",
+  "MUJ23215646": "Sara Mujaxhi",
+  "NIC23210271": "Armani Nicholson",
+  "NZU23218660": "Jeremy Nzunu",
+  "RAH22185548": "Umer Rahmani",
+  "RAH23213741": "Mohinur Rahman",
+  "SAR23210762": "Amin Sarhan",
+  "SUF25252926": "Mohammed Sufiyan",
+  "SYL23216419": "Ben Sylla",
+  "WEE24247011": "Devmith Weerakkody"
+};
+
 // ═══════════════════════════════════════════════════════════════
 // CONFIGURATION — update SHEET_URL after deploying Apps Script
 // ═══════════════════════════════════════════════════════════════
@@ -975,7 +1097,7 @@ function initLogin() {
   document.getElementById('btnStudentLogin').addEventListener('click', handleStudentLogin);
   document.getElementById('btnTutorLogin').addEventListener('click', handleTutorLogin);
 
-  ['inputName','inputStudentId','inputTutorPin'].forEach(id => {
+  ['inputStudentId','inputTutorPin'].forEach(id => {
     document.getElementById(id).addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         if (id === 'inputTutorPin') handleTutorLogin();
@@ -986,9 +1108,12 @@ function initLogin() {
 }
 
 async function handleStudentLogin() {
-  const name      = document.getElementById('inputName').value.trim();
-  const studentId = document.getElementById('inputStudentId').value.trim();
-  if (!name || !studentId) { showError('Please enter your full name and Student ID.'); return; }
+  const studentId = document.getElementById('inputStudentId').value.trim().toUpperCase();
+  if (!studentId) { showError('Please enter your Student ID.'); return; }
+
+  // Validate against roster
+  const name = STUDENT_ROSTER[studentId];
+  if (!name) { showError('Student ID not recognised. Please check and try again, or speak to Mr Abeyrathne.'); return; }
 
   setBtnLoading(true);
   try {
@@ -1050,14 +1175,34 @@ function setBtnLoading(on) {
   txt.textContent = on ? 'Loading...' : "Let's Go →";
 }
 
-// Auto-fill from last session
+// Auto-fill from last session + live name preview
 window.addEventListener('DOMContentLoaded', () => {
-  const id   = localStorage.getItem('lastStudentId');
-  const name = localStorage.getItem('lastStudentName');
-  if (id)   document.getElementById('inputStudentId').value = id;
-  if (name) document.getElementById('inputName').value = name;
+  const id = localStorage.getItem('lastStudentId');
+  if (id) {
+    const el = document.getElementById('inputStudentId');
+    el.value = id;
+    showNamePreview(id);
+  }
   initLogin();
+
+  // Live preview as they type
+  document.getElementById('inputStudentId').addEventListener('input', e => {
+    showNamePreview(e.target.value.trim().toUpperCase());
+  });
 });
+
+function showNamePreview(id) {
+  const preview  = document.getElementById('loginNamePreview');
+  const nameText = document.getElementById('loginNameText');
+  const name = STUDENT_ROSTER[id.toUpperCase()];
+  if (name) {
+    nameText.textContent = `Hi, ${name}!`;
+    preview.classList.remove('hidden');
+    document.getElementById('loginError').classList.add('hidden');
+  } else {
+    preview.classList.add('hidden');
+  }
+}
 
 // ═══════════════════════════════════════════════════════════════
 // LAUNCH APP
