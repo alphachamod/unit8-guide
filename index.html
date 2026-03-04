@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Unit 8 — Social Media in Business</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-/* ─── Variables ─────────────────────────────────────────────── */
+/* ─── Variables ──────────────────────────────────────── */
 :root {
   --pass:        #1F6B3A;
   --pass-light:  #E8F5EC;
@@ -26,997 +26,513 @@
   --border:      #E2E8F0;
   --red:         #C0392B;
   --red-light:   #FFF0EF;
+  --gold:        #F59E0B;
   --font-head:   'Fraunces', Georgia, serif;
   --font-body:   'DM Sans', system-ui, sans-serif;
   --font-mono:   'DM Mono', monospace;
   --radius:      10px;
   --shadow:      0 2px 12px rgba(0,0,0,0.07);
-  --shadow-md:   0 6px 24px rgba(0,0,0,0.10);
+  --shadow-md:   0 6px 24px rgba(0,0,0,0.11);
 }
 
-/* ─── Reset ──────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-body);
-  background: var(--light);
-  color: var(--navy);
-  line-height: 1.6;
-  font-size: 15px;
-}
+body { font-family: var(--font-body); background: var(--light); color: var(--navy); line-height: 1.6; font-size: 15px; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
+.hidden { display: none !important; }
 
-/* ─── Nav ────────────────────────────────────────────────────── */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-.nav-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 58px;
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-.nav-unit {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--white);
-  background: var(--navy);
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.05em;
-}
-.nav-sep { color: var(--border); }
-.nav-title {
-  font-family: var(--font-head);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--navy);
-}
-.nav-links {
-  display: flex;
-  gap: 4px;
-  margin-left: auto;
-  align-items: center;
-}
-.nav-link {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--slate);
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: background 0.15s, color 0.15s;
-  display: block;
-}
-.nav-link:hover { background: var(--light); color: var(--navy); }
-.nav-link.active { background: var(--navy); color: var(--white); }
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  padding: 6px;
-  margin-left: auto;
-}
-.hamburger span {
-  width: 22px; height: 2px;
-  background: var(--navy);
-  border-radius: 2px;
-  transition: all 0.2s;
-  display: block;
-}
-.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-/* ─── Pages ──────────────────────────────────────────────────── */
-.main { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
-.page { display: none; animation: fadeIn 0.25s ease; }
-.page.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-/* ─── Hero ───────────────────────────────────────────────────── */
-.hero {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-  border-radius: 16px;
-  padding: 52px 48px;
-  margin-bottom: 40px;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -40px; right: -40px;
-  width: 220px; height: 220px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-}
-.hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: rgba(255,255,255,0.55);
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
-.hero-title {
-  font-family: var(--font-head);
-  font-size: 36px;
-  font-weight: 900;
-  color: var(--white);
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-.hero-sub {
-  font-size: 15px;
-  color: rgba(255,255,255,0.72);
-  max-width: 520px;
-  margin-bottom: 28px;
-}
-.hero-dates {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.date-chip {
-  background: rgba(255,255,255,0.10);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
-  padding: 8px 16px;
-}
-.date-chip.deadline { border-color: #F87171; background: rgba(248,113,113,0.15); }
-.date-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.5);
-  text-transform: uppercase;
-}
-.date-val {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--white);
-  margin-top: 2px;
-}
-.date-chip.deadline .date-val { color: #FCA5A5; }
-.date-divider { color: rgba(255,255,255,0.3); font-size: 18px; }
-
-/* ─── Nav Cards ──────────────────────────────────────────────── */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 14px;
-  margin-bottom: 40px;
-}
-.nav-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 16px;
-  text-align: left;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-}
-.nav-card:hover {
-  border-color: var(--navy);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-.nav-card-icon { font-size: 22px; margin-bottom: 10px; }
-.nav-card-label {
-  font-family: var(--font-head);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 4px;
-}
-.nav-card-desc { font-size: 12px; color: var(--slate); line-height: 1.4; }
-
-/* ─── Section Blocks ─────────────────────────────────────────── */
-.section-block {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  margin-bottom: 24px;
-}
-.section-heading {
-  font-family: var(--font-head);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 16px;
-}
-.body-text { color: var(--slate); margin-bottom: 16px; }
-
-/* ─── Step List ──────────────────────────────────────────────── */
-.step-list { display: flex; flex-direction: column; gap: 10px; }
-.step-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 16px;
-  background: var(--light);
-  border-radius: 8px;
-  font-size: 14px;
-  color: var(--navy);
-}
-.step-num {
-  background: var(--navy);
-  color: var(--white);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  width: 22px; height: 22px;
-  border-radius: 50%;
+/* ─── Login Screen ───────────────────────────────────── */
+.login-screen {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* ─── Grade Strip ────────────────────────────────────────────── */
-.grade-strip {
-  display: flex;
-  gap: 12px;
-  align-items: stretch;
-  flex-wrap: wrap;
-}
-.grade-box {
-  flex: 1;
-  min-width: 160px;
-  border-radius: var(--radius);
-  padding: 20px;
-  border: 2px solid transparent;
-}
-.grade-box.pass { background: var(--pass-light); border-color: var(--pass-mid); }
-.grade-box.merit { background: var(--merit-light); border-color: var(--merit-mid); }
-.grade-box.distinction { background: var(--dist-light); border-color: var(--dist-mid); }
-.grade-letter {
-  font-family: var(--font-head);
-  font-size: 32px;
-  font-weight: 900;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.grade-box.pass .grade-letter { color: var(--pass); }
-.grade-box.merit .grade-letter { color: var(--merit); }
-.grade-box.distinction .grade-letter { color: var(--dist); }
-.grade-name { font-weight: 700; font-size: 14px; margin-bottom: 8px; }
-.grade-desc { font-size: 13px; color: var(--slate); line-height: 1.5; }
-.grade-arrow {
-  font-size: 22px;
-  color: var(--border);
-  align-self: center;
-  flex-shrink: 0;
-}
-
-/* ─── Page Header ────────────────────────────────────────────── */
-.page-header { margin-bottom: 36px; }
-.page-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: var(--slate);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.page-title {
-  font-family: var(--font-head);
-  font-size: 34px;
-  font-weight: 900;
-  color: var(--navy);
-  line-height: 1.15;
-  margin-bottom: 10px;
-}
-.page-sub { font-size: 15px; color: var(--slate); }
-
-/* ─── Timeline ───────────────────────────────────────────────── */
-.timeline { display: flex; flex-direction: column; gap: 0; }
-.tl-week {
-  display: flex;
-  gap: 0;
+  padding: 24px;
   position: relative;
+  overflow: hidden;
 }
-.tl-week:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 76px;
-  top: 72px;
-  bottom: -8px;
-  width: 2px;
-  background: var(--border);
+.login-bg {
+  position: fixed; inset: 0;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #1a2035 100%);
   z-index: 0;
 }
-.tl-week-label {
-  width: 96px;
-  flex-shrink: 0;
-  padding-top: 6px;
-  padding-right: 20px;
-  text-align: right;
-  position: relative;
-  z-index: 1;
-}
-.tl-week-label::after {
+.login-bg::before {
   content: '';
-  position: absolute;
-  right: -7px;
-  top: 14px;
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: var(--navy);
-  border: 2px solid var(--white);
-  box-shadow: 0 0 0 2px var(--border);
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(31,107,58,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(139,98,0,0.12) 0%, transparent 50%);
 }
-.submit-week .tl-week-label::after { background: var(--red); }
-.tl-week-name {
-  font-family: var(--font-head);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--navy);
-}
-.tl-week-dates {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--slate);
-  margin-top: 2px;
-  line-height: 1.4;
-}
-.tl-items {
-  flex: 1;
-  padding-left: 24px;
-  padding-bottom: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.tl-item {
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  border: 1.5px solid var(--border);
-  background: var(--white);
-  transition: box-shadow 0.15s;
-}
-.tl-item:hover { box-shadow: var(--shadow-md); }
-.tl-item.pass { border-color: var(--pass-mid); background: var(--pass-light); }
-.tl-item.merit { border-color: var(--merit-mid); background: var(--merit-light); }
-.tl-item.distinction { border-color: var(--dist-mid); background: var(--dist-light); }
-.tl-item.submit { border-color: #FCA5A5; background: #FFF0EF; }
-.tl-item-top {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-.tl-stage {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--slate);
-  letter-spacing: 0.05em;
-}
-.tl-item-title {
-  font-family: var(--font-head);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 6px;
-}
-.tl-item-desc { font-size: 13px; color: var(--slate); line-height: 1.6; }
-.tl-note {
-  margin-top: 10px;
-  padding: 7px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  background: rgba(255,255,255,0.6);
-  border-left: 3px solid var(--pass);
-  color: var(--pass);
-}
-.tl-note.warn { border-color: var(--red); color: var(--red); }
-.deadline-note { border-color: var(--red); color: var(--red); }
-.tl-parallel-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--slate);
-  text-align: center;
-  letter-spacing: 0.08em;
-  padding: 4px 0;
-}
-.tl-parallel-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.tl-item.parallel { margin: 0; }
-
-/* ─── Criteria Tags ──────────────────────────────────────────── */
-.tl-criteria, .acc-criteria {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 2px 8px;
-  border-radius: 4px;
-  display: inline-block;
-}
-.pass-tag { background: var(--pass); color: var(--white); }
-.merit-tag { background: var(--merit); color: var(--white); }
-.distinction-tag { background: var(--dist); color: var(--white); }
-
-/* ─── Band Blocks ────────────────────────────────────────────── */
-.band-block { margin-bottom: 32px; }
-.band-header {
-  font-family: var(--font-head);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--white);
-  padding: 12px 20px;
-  border-radius: var(--radius) var(--radius) 0 0;
-  letter-spacing: 0.02em;
-}
-.pass-band { background: var(--pass); }
-.merit-band { background: var(--merit); }
-.distinction-band { background: var(--dist); }
-
-/* ─── Accordion ──────────────────────────────────────────────── */
-.accordion {
-  border: 1px solid var(--border);
-  border-top: none;
-  border-radius: 0 0 var(--radius) var(--radius);
-  overflow: hidden;
-}
-.acc-item { border-bottom: 1px solid var(--border); }
-.acc-item:last-child { border-bottom: none; }
-.acc-trigger {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  background: var(--white);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--navy);
-  transition: background 0.15s;
-  text-align: left;
-}
-.acc-trigger:hover { background: var(--light); }
-.acc-trigger.open { background: var(--light); }
-.acc-title { flex: 1; }
-.acc-arrow {
-  font-size: 14px;
-  color: var(--slate);
-  transition: transform 0.2s;
-  flex-shrink: 0;
-}
-.acc-trigger.open .acc-arrow { transform: rotate(180deg); }
-.acc-body {
-  display: none;
-  padding: 20px 24px;
-  background: var(--white);
-  border-top: 1px solid var(--border);
-  font-size: 14px;
-  color: var(--slate);
-  line-height: 1.7;
-}
-.acc-body.open { display: block; }
-.acc-body p { margin-bottom: 12px; }
-.acc-body p:last-child { margin-bottom: 0; }
-.acc-sub {
-  font-family: var(--font-head);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--navy);
-  margin: 16px 0 6px;
-}
-.acc-checklist { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
-.acc-check {
-  font-size: 13px;
-  color: var(--pass);
-  padding: 7px 12px;
-  background: var(--pass-light);
-  border-radius: 6px;
-  font-weight: 500;
-}
-.acc-highlight {
-  padding: 12px 16px;
-  background: #EEF2FF;
-  border-left: 3px solid #6366F1;
-  border-radius: 0 6px 6px 0;
-  font-size: 13px;
-  color: var(--navy);
-  margin: 12px 0;
-}
-.acc-highlight.important {
-  background: var(--red-light);
-  border-color: var(--red);
-  color: var(--red);
-}
-
-/* ─── Integrity Page ─────────────────────────────────────────── */
-.integrity-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 24px;
-}
-.integrity-card {
-  border-radius: var(--radius);
-  padding: 28px;
-  border: 2px solid transparent;
-}
-.integrity-card.allowed {
-  background: var(--pass-light);
-  border-color: var(--pass-mid);
-}
-.integrity-card.forbidden {
-  background: var(--red-light);
-  border-color: #FCA5A5;
-}
-.integrity-icon { font-size: 28px; margin-bottom: 12px; }
-.integrity-card h3 {
-  font-family: var(--font-head);
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 14px;
-  color: var(--navy);
-}
-.integrity-card li {
-  font-size: 13px;
-  color: var(--slate);
-  padding: 6px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  padding-left: 16px;
-  position: relative;
-  line-height: 1.5;
-}
-.integrity-card li::before {
-  content: '•';
-  position: absolute;
-  left: 4px;
-  color: var(--slate);
-}
-.integrity-card li:last-child { border-bottom: none; }
-.integrity-data {
-  display: flex;
-  gap: 20px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 20px;
-  align-items: flex-start;
-}
-.integrity-data-icon { font-size: 32px; flex-shrink: 0; }
-.integrity-data h3 {
-  font-family: var(--font-head);
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: var(--navy);
-}
-.integrity-data p { font-size: 14px; color: var(--slate); margin-bottom: 8px; line-height: 1.6; }
-.integrity-consequence {
-  display: flex;
-  gap: 20px;
-  background: var(--red-light);
-  border: 2px solid #FCA5A5;
-  border-radius: var(--radius);
-  padding: 24px;
-  align-items: flex-start;
-}
-.consequence-icon { font-size: 32px; flex-shrink: 0; }
-.integrity-consequence h3 {
-  font-family: var(--font-head);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--red);
-  margin-bottom: 10px;
-}
-.integrity-consequence p { font-size: 14px; color: var(--red); margin-bottom: 8px; line-height: 1.6; }
-.integrity-consequence ul { margin-top: 8px; }
-.integrity-consequence li {
-  font-size: 14px;
-  color: var(--red);
-  padding: 4px 0 4px 16px;
-  position: relative;
-  line-height: 1.5;
-}
-.integrity-consequence li::before { content: '→'; position: absolute; left: 0; }
-
-/* ─── Resources Page ─────────────────────────────────────────── */
-.resources-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-.res-group {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.res-group-title {
-  font-family: var(--font-head);
-  font-size: 14px;
-  font-weight: 700;
-  padding: 14px 18px;
-  background: var(--light);
-  border-bottom: 1px solid var(--border);
-  color: var(--navy);
-}
-.res-link {
-  display: block;
-  padding: 12px 18px;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-}
-.res-link:last-child { border-bottom: none; }
-.res-link:hover { background: var(--light); }
-.res-name {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--navy);
-  margin-bottom: 2px;
-}
-.res-link:hover .res-name { color: #2563EB; text-decoration: underline; }
-.res-desc { display: block; font-size: 11px; color: var(--slate); }
-
-/* ─── FAQ Page ───────────────────────────────────────────────── */
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--white);
-}
-.faq-item { border-bottom: 1px solid var(--border); }
-.faq-item:last-child { border-bottom: none; }
-.faq-trigger {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 22px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--navy);
-  text-align: left;
-  transition: background 0.15s;
-}
-.faq-trigger:hover { background: var(--light); }
-.faq-trigger.open { background: var(--light); }
-.faq-arrow {
-  font-size: 14px;
-  color: var(--slate);
-  transition: transform 0.2s;
-  flex-shrink: 0;
-  margin-left: 16px;
-}
-.faq-trigger.open .faq-arrow { transform: rotate(180deg); }
-.faq-body {
-  display: none;
-  padding: 18px 22px;
-  font-size: 14px;
-  color: var(--slate);
-  line-height: 1.7;
-  border-top: 1px solid var(--border);
-}
-.faq-body.open { display: block; }
-.faq-body p { margin-bottom: 10px; }
-.faq-body p:last-child { margin-bottom: 0; }
-
-/* ─── Footer ─────────────────────────────────────────────────── */
-.footer {
-  border-top: 1px solid var(--border);
-  background: var(--white);
-  padding: 16px 24px;
-}
-.footer-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: var(--slate);
-  font-family: var(--font-mono);
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-/* ─── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 700px) {
-  .nav-links { display: none; flex-direction: column; position: absolute; top: 58px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); padding: 12px 16px; gap: 4px; box-shadow: var(--shadow-md); }
-  .nav-links.open { display: flex; }
-  .nav-inner { position: relative; }
-  .hamburger { display: flex; }
-  .hero { padding: 36px 28px; }
-  .hero-title { font-size: 26px; }
-  .card-grid { grid-template-columns: repeat(2, 1fr); }
-  .integrity-grid { grid-template-columns: 1fr; }
-  .resources-grid { grid-template-columns: 1fr; }
-  .tl-parallel-row { grid-template-columns: 1fr; }
-  .grade-strip { flex-direction: column; }
-  .grade-arrow { display: none; }
-  .tl-week-label { width: 72px; }
-  .tl-week:not(:last-child)::after { left: 62px; }
-  .page-title { font-size: 26px; }
-}
-@media (max-width: 480px) {
-  .main { padding: 24px 16px 60px; }
-  .hero { padding: 28px 22px; }
-  .nav-title { display: none; }
-  .card-grid { grid-template-columns: 1fr 1fr; }
-}
-
-/* ─── Tutor name ─────────────────────────────────────────────── */
-.hero-meta {
-  margin-bottom: 12px;
-}
-.hero-tutor {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-  font-family: var(--font-mono);
-  letter-spacing: 0.03em;
-}
-.hero-tutor strong { color: rgba(255,255,255,0.9); }
-
-/* ─── Countdown ──────────────────────────────────────────────── */
-.countdown-bar {
-  margin-top: 24px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 12px;
-  padding: 18px 22px;
-  max-width: 520px;
-}
-.countdown-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.45);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.countdown-blocks {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-.countdown-unit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 48px;
-}
-.countdown-num {
-  font-family: var(--font-head);
-  font-size: 28px;
-  font-weight: 900;
-  color: #fff;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-.countdown-unit-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.08em;
-  margin-top: 3px;
-  text-transform: uppercase;
-}
-.countdown-sep {
-  font-size: 22px;
-  color: rgba(255,255,255,0.25);
-  font-weight: 300;
-  margin-bottom: 14px;
-}
-.countdown-progress-wrap {
-  height: 4px;
-  background: rgba(255,255,255,0.12);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 6px;
-}
-.countdown-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #34D399, #60A5FA);
-  border-radius: 4px;
-  transition: width 1s linear;
-}
-.countdown-progress-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.05em;
-}
-.countdown-bar.urgent .countdown-num { color: #FCA5A5; }
-.countdown-bar.urgent .countdown-progress-bar { background: linear-gradient(90deg, #F87171, #EF4444); }
-
-/* ─── Where you are now ──────────────────────────────────────── */
-.where-now {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  background: var(--white);
-  border: 2px solid var(--navy);
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-.where-now-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--navy);
-  margin-bottom: 6px;
-}
-.where-now-title {
-  font-family: var(--font-head);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 4px;
-}
-.where-now-desc {
-  font-size: 13px;
-  color: var(--slate);
-}
-.where-now-btn {
-  background: var(--navy);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 18px;
-  border-radius: 8px;
-  white-space: nowrap;
-  transition: background 0.15s, transform 0.15s;
-  flex-shrink: 0;
-}
-.where-now-btn:hover { background: var(--navy-mid); transform: translateY(-1px); }
-
-/* ─── Timeline "You Are Here" indicator ─────────────────────── */
-.tl-week.current-week { position: relative; }
-.tl-week.current-week .tl-week-label::after {
-  background: #F59E0B;
-  box-shadow: 0 0 0 3px rgba(245,158,11,0.3);
-  animation: pulse-dot 2s infinite;
-}
-.you-are-here-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: #F59E0B;
-  color: #fff;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 4px 10px;
+.login-card {
+  position: relative; z-index: 1;
+  background: rgba(255,255,255,0.97);
   border-radius: 20px;
-  margin-bottom: 10px;
-  animation: pulse-badge 2s infinite;
+  padding: 44px 40px;
+  width: 100%; max-width: 420px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1);
 }
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(245,158,11,0.3); }
-  50%       { box-shadow: 0 0 0 6px rgba(245,158,11,0.1); }
-}
-@keyframes pulse-badge {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.8; }
-}
-.tl-week.past-week { opacity: 0.55; }
-.tl-week.past-week .tl-week-label::after { background: #9CA3AF; }
-
-/* ─── Funny tutor message ────────────────────────────────────── */
-.tutor-message {
-  background: #FFFBEB;
-  border: 2px dashed #F59E0B;
-  border-radius: var(--radius);
-  padding: 18px 22px;
-  margin-bottom: 16px;
-}
-.tutor-message-inner {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-}
-.tutor-avatar {
-  font-size: 30px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.tutor-message-text {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.tutor-message-name {
+@keyframes slideUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+.login-logo { margin-bottom: 16px; }
+.login-unit-badge {
+  display: inline-block;
+  background: var(--navy);
+  color: #fff;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: #92400E;
-  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
 }
-.tutor-message-body {
-  font-size: 14px;
-  color: #78350F;
-  line-height: 1.65;
+.login-title {
+  font-family: var(--font-head);
+  font-size: 30px; font-weight: 900;
+  color: var(--navy);
+  line-height: 1.15; margin-bottom: 6px;
 }
-.tutor-message-body strong {
-  color: #92400E;
-  text-decoration: underline;
-  text-decoration-style: wavy;
-  text-underline-offset: 3px;
+.login-sub {
+  font-size: 13px; color: var(--slate);
+  font-family: var(--font-mono);
+  margin-bottom: 28px;
+}
+.login-tabs {
+  display: flex; gap: 4px;
+  background: var(--light);
+  border-radius: 8px; padding: 4px;
+  margin-bottom: 24px;
+}
+.login-tab {
+  flex: 1; padding: 8px;
+  border-radius: 6px;
+  font-size: 13px; font-weight: 600;
+  color: var(--slate);
+  transition: all 0.15s;
+}
+.login-tab.active { background: var(--white); color: var(--navy); box-shadow: var(--shadow); }
+.login-form { display: flex; flex-direction: column; gap: 16px; }
+.input-group { display: flex; flex-direction: column; gap: 6px; }
+.input-label { font-size: 12px; font-weight: 600; color: var(--navy); letter-spacing: 0.03em; }
+.login-form input {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-body); font-size: 14px;
+  color: var(--navy);
+  transition: border-color 0.15s;
+  outline: none;
+}
+.login-form input:focus { border-color: var(--navy); }
+.login-btn {
+  padding: 13px;
+  background: var(--navy);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: background 0.15s, transform 0.1s;
+  margin-top: 4px;
+}
+.login-btn:hover { background: var(--navy-mid); transform: translateY(-1px); }
+.login-btn:active { transform: translateY(0); }
+.login-btn.loading { opacity: 0.6; pointer-events: none; }
+.tutor-btn { background: var(--pass); }
+.tutor-btn:hover { background: #174f2b; }
+.login-note { font-size: 11px; color: var(--slate); text-align: center; line-height: 1.5; }
+.login-error {
+  margin-top: 8px; padding: 10px 14px;
+  background: var(--red-light); border: 1px solid #FCA5A5;
+  border-radius: 8px; font-size: 13px; color: var(--red);
+  text-align: center;
 }
 
-/* ─── Timeline subsections ───────────────────────────────────── */
-.tl-subsections {
-  margin-top: 12px;
-  padding: 12px 14px;
-  background: rgba(255,255,255,0.55);
-  border-radius: 7px;
-  border: 1px solid rgba(0,0,0,0.07);
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+/* ─── Nav ────────────────────────────────────────────── */
+.nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); }
+.nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 58px; display: flex; align-items: center; gap: 20px; }
+.nav-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.nav-unit { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: #fff; background: var(--navy); padding: 3px 8px; border-radius: 4px; letter-spacing: 0.05em; }
+.nav-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--navy); }
+.nav-links { display: flex; gap: 2px; margin-left: auto; align-items: center; }
+.nav-link { font-size: 13px; font-weight: 500; color: var(--slate); padding: 6px 11px; border-radius: 6px; transition: background 0.15s, color 0.15s; display: block; }
+.nav-link:hover { background: var(--light); color: var(--navy); }
+.nav-link.active { background: var(--navy); color: var(--white); }
+.nav-right { display: flex; align-items: center; gap: 8px; margin-left: 8px; }
+.nav-student-chip { display: flex; flex-direction: column; align-items: flex-end; }
+.nav-student-name { font-size: 12px; font-weight: 600; color: var(--navy); }
+.nav-student-xp { font-family: var(--font-mono); font-size: 10px; color: var(--gold); font-weight: 700; }
+.nav-logout { font-size: 16px; color: var(--slate); padding: 6px; border-radius: 6px; transition: background 0.15s; }
+.nav-logout:hover { background: var(--light); color: var(--red); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px; }
+.hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; display: block; transition: all 0.2s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* ─── Main ───────────────────────────────────────────── */
+.main { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+.page { display: none; animation: fadeIn 0.25s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* ─── Hero ───────────────────────────────────────────── */
+.hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); border-radius: 16px; padding: 44px 40px; margin-bottom: 20px; position: relative; overflow: hidden; }
+.hero::before { content:''; position:absolute; top:-40px; right:-40px; width:220px; height:220px; border-radius:50%; background:rgba(255,255,255,0.04); }
+.hero-eyebrow { font-family:var(--font-mono); font-size:11px; letter-spacing:0.15em; color:rgba(255,255,255,0.5); text-transform:uppercase; margin-bottom:14px; }
+.hero-title { font-family:var(--font-head); font-size:32px; font-weight:900; color:#fff; line-height:1.15; margin-bottom:12px; }
+.hero-sub { font-size:14px; color:rgba(255,255,255,0.7); max-width:520px; margin-bottom:20px; }
+.hero-meta { margin-bottom:12px; }
+.hero-tutor { font-size:12px; color:rgba(255,255,255,0.55); font-family:var(--font-mono); }
+.hero-tutor strong { color:rgba(255,255,255,0.88); }
+.hero-dates { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:20px; }
+.date-chip { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:8px 14px; }
+.date-chip.deadline { border-color:#F87171; background:rgba(248,113,113,0.15); }
+.date-label { display:block; font-family:var(--font-mono); font-size:9px; letter-spacing:0.12em; color:rgba(255,255,255,0.45); text-transform:uppercase; }
+.date-val { display:block; font-size:13px; font-weight:600; color:#fff; margin-top:2px; }
+.date-chip.deadline .date-val { color:#FCA5A5; }
+.date-divider { color:rgba(255,255,255,0.25); font-size:16px; }
+
+/* ─── Countdown ──────────────────────────────────────── */
+.countdown-bar { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:16px 20px; max-width:480px; }
+.countdown-label { font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:10px; }
+.countdown-blocks { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.countdown-unit { display:flex; flex-direction:column; align-items:center; min-width:44px; }
+.countdown-num { font-family:var(--font-head); font-size:26px; font-weight:900; color:#fff; line-height:1; }
+.countdown-unit-label { font-family:var(--font-mono); font-size:9px; color:rgba(255,255,255,0.38); letter-spacing:0.08em; margin-top:2px; text-transform:uppercase; }
+.countdown-sep { font-size:20px; color:rgba(255,255,255,0.2); margin-bottom:12px; }
+.countdown-progress-wrap { height:3px; background:rgba(255,255,255,0.1); border-radius:4px; overflow:hidden; margin-bottom:5px; }
+.countdown-progress-bar { height:100%; background:linear-gradient(90deg,#34D399,#60A5FA); border-radius:4px; transition:width 1s linear; }
+.countdown-progress-label { font-family:var(--font-mono); font-size:10px; color:rgba(255,255,255,0.35); }
+.countdown-bar.urgent .countdown-num { color:#FCA5A5; }
+.countdown-bar.urgent .countdown-progress-bar { background:linear-gradient(90deg,#F87171,#EF4444); }
+
+/* ─── Tutor message ──────────────────────────────────── */
+.tutor-message { background:#FFFBEB; border:2px dashed #F59E0B; border-radius:var(--radius); padding:18px 22px; margin-bottom:20px; }
+.tutor-message-inner { display:flex; align-items:flex-start; gap:14px; }
+.tutor-avatar { font-size:28px; flex-shrink:0; margin-top:2px; }
+.tutor-message-text { display:flex; flex-direction:column; gap:4px; }
+.tutor-message-name { font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:0.1em; color:#92400E; text-transform:uppercase; }
+.tutor-message-body { font-size:14px; color:#78350F; line-height:1.65; }
+.tutor-message-body strong { color:#92400E; text-decoration:underline; text-decoration-style:wavy; text-underline-offset:3px; }
+
+/* ─── XP Dashboard ───────────────────────────────────── */
+.xp-dashboard { display:flex; align-items:center; gap:24px; background:var(--white); border:1px solid var(--border); border-radius:14px; padding:24px 28px; margin-bottom:20px; box-shadow:var(--shadow); }
+.xp-left { flex:1; }
+.xp-greeting { font-family:var(--font-head); font-size:20px; font-weight:700; color:var(--navy); margin-bottom:14px; }
+.xp-bar-wrap { margin-bottom:16px; }
+.xp-bar-track { height:10px; background:var(--light); border-radius:10px; overflow:hidden; margin-bottom:6px; }
+.xp-bar-fill { height:100%; border-radius:10px; background:linear-gradient(90deg,#1F6B3A,#34D399); transition:width 0.8s cubic-bezier(0.34,1.56,0.64,1); }
+.xp-bar-labels { display:flex; justify-content:space-between; font-size:12px; font-family:var(--font-mono); color:var(--slate); }
+.xp-stats { display:flex; gap:20px; flex-wrap:wrap; }
+.xp-stat { display:flex; flex-direction:column; }
+.xp-stat-val { font-family:var(--font-head); font-size:22px; font-weight:900; color:var(--navy); line-height:1; }
+.xp-stat-label { font-size:11px; color:var(--slate); margin-top:2px; }
+.xp-grade-ring-wrap { position:relative; width:100px; height:100px; flex-shrink:0; }
+.xp-ring { width:100%; height:100%; transform:rotate(-90deg); }
+.xp-ring-bg { fill:none; stroke:var(--light); stroke-width:10; }
+.xp-ring-fill { fill:none; stroke:var(--pass); stroke-width:10; stroke-linecap:round; stroke-dasharray:251.2; stroke-dashoffset:251.2; transition:stroke-dashoffset 0.8s cubic-bezier(0.34,1.56,0.64,1), stroke 0.4s; }
+.xp-ring-label { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.xp-ring-grade { font-family:var(--font-head); font-size:22px; font-weight:900; color:var(--navy); line-height:1; }
+.xp-ring-sub { font-size:9px; font-family:var(--font-mono); color:var(--slate); letter-spacing:0.08em; text-transform:uppercase; }
+
+/* ─── Where now ──────────────────────────────────────── */
+.where-now { display:flex; align-items:center; justify-content:space-between; gap:20px; background:var(--white); border:2px solid var(--navy); border-radius:var(--radius); padding:18px 22px; margin-bottom:20px; flex-wrap:wrap; }
+.where-now-eyebrow { font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:0.12em; color:var(--navy); margin-bottom:5px; }
+.where-now-title { font-family:var(--font-head); font-size:16px; font-weight:700; color:var(--navy); margin-bottom:3px; }
+.where-now-desc { font-size:13px; color:var(--slate); }
+.where-now-btn { background:var(--navy); color:#fff; font-size:13px; font-weight:600; padding:9px 16px; border-radius:8px; white-space:nowrap; transition:background 0.15s; flex-shrink:0; }
+.where-now-btn:hover { background:var(--navy-mid); }
+
+/* ─── Badges ─────────────────────────────────────────── */
+.badges-grid { display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+.badge-item { display:flex; flex-direction:column; align-items:center; gap:4px; padding:12px 16px; background:var(--light); border:1.5px solid var(--border); border-radius:10px; min-width:90px; transition:all 0.15s; }
+.badge-item.earned { background:linear-gradient(135deg,#FFFBEB,#FFF8E7); border-color:var(--gold); box-shadow:0 2px 8px rgba(245,158,11,0.2); }
+.badge-item.locked { opacity:0.4; filter:grayscale(1); }
+.badge-icon { font-size:26px; }
+.badge-name { font-size:11px; font-weight:700; color:var(--navy); text-align:center; font-family:var(--font-mono); }
+.badge-desc { font-size:10px; color:var(--slate); text-align:center; line-height:1.4; }
+
+/* ─── Boss message ───────────────────────────────────── */
+.boss-message { display:flex; align-items:flex-end; gap:12px; margin-bottom:20px; animation:fadeIn 0.4s ease; }
+.boss-avatar { font-size:36px; flex-shrink:0; }
+.boss-bubble { background:var(--navy); color:#fff; border-radius:14px 14px 14px 2px; padding:14px 18px; font-size:14px; line-height:1.6; max-width:480px; position:relative; box-shadow:var(--shadow-md); }
+
+/* ─── Section block / cards ──────────────────────────── */
+.section-block { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:28px; margin-bottom:20px; }
+.section-heading { font-family:var(--font-head); font-size:20px; font-weight:700; color:var(--navy); margin-bottom:14px; }
+.body-text { color:var(--slate); margin-bottom:14px; }
+.step-list { display:flex; flex-direction:column; gap:8px; }
+.step-item { display:flex; align-items:flex-start; gap:12px; padding:11px 14px; background:var(--light); border-radius:8px; font-size:14px; color:var(--navy); }
+.step-num { background:var(--navy); color:#fff; font-family:var(--font-mono); font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+.grade-strip { display:flex; gap:12px; align-items:stretch; flex-wrap:wrap; }
+.grade-box { flex:1; min-width:150px; border-radius:var(--radius); padding:18px; border:2px solid transparent; }
+.grade-box.pass { background:var(--pass-light); border-color:var(--pass-mid); }
+.grade-box.merit { background:var(--merit-light); border-color:var(--merit-mid); }
+.grade-box.distinction { background:var(--dist-light); border-color:var(--dist-mid); }
+.grade-letter { font-family:var(--font-head); font-size:30px; font-weight:900; line-height:1; margin-bottom:4px; }
+.grade-box.pass .grade-letter { color:var(--pass); }
+.grade-box.merit .grade-letter { color:var(--merit); }
+.grade-box.distinction .grade-letter { color:var(--dist); }
+.grade-name { font-weight:700; font-size:14px; margin-bottom:6px; }
+.grade-desc { font-size:13px; color:var(--slate); line-height:1.5; margin-bottom:8px; }
+.grade-xp { font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--gold); }
+.grade-arrow { font-size:20px; color:var(--border); align-self:center; flex-shrink:0; }
+.card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:20px; }
+.nav-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:18px 14px; text-align:left; transition:all 0.15s; }
+.nav-card:hover { border-color:var(--navy); box-shadow:var(--shadow-md); transform:translateY(-2px); }
+.nav-card-icon { font-size:20px; margin-bottom:8px; }
+.nav-card-label { font-family:var(--font-head); font-size:14px; font-weight:700; color:var(--navy); margin-bottom:3px; }
+.nav-card-desc { font-size:12px; color:var(--slate); line-height:1.4; }
+
+/* ─── Page header ────────────────────────────────────── */
+.page-header { margin-bottom:32px; }
+.page-eyebrow { font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; color:var(--slate); text-transform:uppercase; margin-bottom:8px; }
+.page-title { font-family:var(--font-head); font-size:32px; font-weight:900; color:var(--navy); line-height:1.15; margin-bottom:8px; }
+.page-sub { font-size:15px; color:var(--slate); }
+
+/* ─── Timeline ───────────────────────────────────────── */
+.timeline { display:flex; flex-direction:column; }
+.tl-week { display:flex; gap:0; position:relative; }
+.tl-week:not(:last-child)::after { content:''; position:absolute; left:76px; top:72px; bottom:-8px; width:2px; background:var(--border); z-index:0; }
+.tl-week-label { width:96px; flex-shrink:0; padding-top:6px; padding-right:20px; text-align:right; position:relative; z-index:1; }
+.tl-week-label::after { content:''; position:absolute; right:-7px; top:14px; width:12px; height:12px; border-radius:50%; background:var(--navy); border:2px solid var(--white); box-shadow:0 0 0 2px var(--border); }
+.submit-week .tl-week-label::after { background:var(--red); }
+.tl-week-name { font-family:var(--font-head); font-size:13px; font-weight:700; color:var(--navy); }
+.tl-week-dates { font-family:var(--font-mono); font-size:10px; color:var(--slate); margin-top:2px; line-height:1.4; }
+.tl-items { flex:1; padding-left:24px; padding-bottom:28px; display:flex; flex-direction:column; gap:10px; }
+.tl-item { border-radius:var(--radius); padding:16px 18px; border:1.5px solid var(--border); background:var(--white); transition:box-shadow 0.15s; }
+.tl-item.pass { border-color:var(--pass-mid); background:var(--pass-light); }
+.tl-item.merit { border-color:var(--merit-mid); background:var(--merit-light); }
+.tl-item.distinction { border-color:var(--dist-mid); background:var(--dist-light); }
+.tl-item.submit-item { border-color:#FCA5A5; background:#FFF0EF; }
+.tl-item-top { display:flex; align-items:center; gap:8px; margin-bottom:5px; flex-wrap:wrap; }
+.tl-stage { font-family:var(--font-mono); font-size:10px; font-weight:500; color:var(--slate); letter-spacing:0.05em; }
+.tl-item-title { font-family:var(--font-head); font-size:15px; font-weight:700; color:var(--navy); margin-bottom:5px; }
+.tl-item-desc { font-size:13px; color:var(--slate); line-height:1.6; }
+.tl-note { margin-top:8px; padding:6px 10px; border-radius:5px; font-size:12px; font-weight:600; background:rgba(255,255,255,0.6); border-left:3px solid var(--pass); color:var(--pass); }
+.tl-note.warn { border-color:var(--red); color:var(--red); }
+.tl-parallel-label { font-family:var(--font-mono); font-size:10px; font-weight:500; color:var(--slate); text-align:center; letter-spacing:0.08em; padding:4px 0; }
+.tl-parallel-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.tl-subsections { margin-top:10px; padding:10px 12px; background:rgba(255,255,255,0.55); border-radius:7px; border:1px solid rgba(0,0,0,0.07); display:flex; flex-direction:column; gap:5px; }
+.tl-sub-item { display:flex; align-items:flex-start; gap:8px; font-size:12px; color:var(--slate); line-height:1.5; }
+.tl-sub-dot { color:var(--pass); font-weight:700; flex-shrink:0; margin-top:1px; }
+.tl-item.merit .tl-sub-dot { color:var(--merit); }
+.tl-item.distinction .tl-sub-dot { color:var(--dist); }
+.tl-item.submit-item .tl-sub-dot { color:var(--red); }
+.tl-sub-item strong { color:var(--navy); }
+.tl-criteria,.acc-criteria { font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:0.08em; padding:2px 8px; border-radius:4px; display:inline-block; }
+.pass-tag { background:var(--pass); color:#fff; }
+.merit-tag { background:var(--merit); color:#fff; }
+.distinction-tag { background:var(--dist); color:#fff; }
+.tl-week.current-week .tl-week-label::after { background:var(--gold); box-shadow:0 0 0 3px rgba(245,158,11,0.3); animation:pulse-dot 2s infinite; }
+.you-are-here-badge { display:inline-flex; align-items:center; gap:5px; background:var(--gold); color:#fff; font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:0.08em; padding:4px 10px; border-radius:20px; margin-bottom:8px; animation:pulse-badge 2s infinite; }
+.tl-week.past-week { opacity:0.5; }
+.tl-week.past-week .tl-week-label::after { background:#9CA3AF; }
+@keyframes pulse-dot { 0%,100%{box-shadow:0 0 0 3px rgba(245,158,11,0.3)} 50%{box-shadow:0 0 0 6px rgba(245,158,11,0.1)} }
+@keyframes pulse-badge { 0%,100%{opacity:1} 50%{opacity:0.8} }
+
+/* ─── Section complete button ────────────────────────── */
+.section-complete-btn {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:7px 14px; border-radius:20px;
+  font-size:12px; font-weight:700; font-family:var(--font-mono);
+  border:2px solid var(--border); color:var(--slate);
+  transition:all 0.2s; margin-top:12px;
+  background:var(--white);
 }
-.tl-sub-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--slate);
-  line-height: 1.5;
+.section-complete-btn:hover { border-color:var(--pass); color:var(--pass); background:var(--pass-light); }
+.section-complete-btn.done { background:var(--pass); border-color:var(--pass); color:#fff; }
+.section-complete-btn.done:hover { background:#174f2b; border-color:#174f2b; }
+
+/* ─── Accordion ──────────────────────────────────────── */
+.band-block { margin-bottom:28px; }
+.band-header { font-family:var(--font-head); font-size:15px; font-weight:700; color:#fff; padding:12px 20px; border-radius:var(--radius) var(--radius) 0 0; }
+.pass-band { background:var(--pass); }
+.merit-band { background:var(--merit); }
+.distinction-band { background:var(--dist); }
+.accordion { border:1px solid var(--border); border-top:none; border-radius:0 0 var(--radius) var(--radius); overflow:hidden; }
+.acc-item { border-bottom:1px solid var(--border); }
+.acc-item:last-child { border-bottom:none; }
+.acc-trigger { width:100%; display:flex; align-items:center; gap:10px; padding:14px 18px; background:var(--white); font-size:14px; font-weight:600; color:var(--navy); transition:background 0.15s; text-align:left; }
+.acc-trigger:hover,.acc-trigger.open { background:var(--light); }
+.acc-title { flex:1; }
+.acc-done-chip { font-family:var(--font-mono); font-size:10px; font-weight:700; background:var(--pass); color:#fff; padding:2px 8px; border-radius:10px; }
+.acc-arrow { font-size:14px; color:var(--slate); transition:transform 0.2s; flex-shrink:0; }
+.acc-trigger.open .acc-arrow { transform:rotate(180deg); }
+.acc-body { display:none; padding:20px 22px; background:var(--white); border-top:1px solid var(--border); font-size:14px; color:var(--slate); line-height:1.7; }
+.acc-body.open { display:block; }
+.acc-body p { margin-bottom:12px; }
+.acc-body p:last-child { margin-bottom:0; }
+.acc-sub { font-family:var(--font-head); font-size:14px; font-weight:700; color:var(--navy); margin:14px 0 5px; }
+.acc-checklist { display:flex; flex-direction:column; gap:5px; margin:10px 0; }
+.acc-check { font-size:13px; color:var(--pass); padding:6px 12px; background:var(--pass-light); border-radius:6px; font-weight:500; }
+.acc-highlight { padding:10px 14px; background:#EEF2FF; border-left:3px solid #6366F1; border-radius:0 6px 6px 0; font-size:13px; color:var(--navy); margin:10px 0; }
+.acc-highlight.important { background:var(--red-light); border-color:var(--red); color:var(--red); }
+
+/* ─── Integrity ──────────────────────────────────────── */
+.integrity-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:20px; }
+.integrity-card { border-radius:var(--radius); padding:24px; border:2px solid transparent; }
+.integrity-card.allowed { background:var(--pass-light); border-color:var(--pass-mid); }
+.integrity-card.forbidden { background:var(--red-light); border-color:#FCA5A5; }
+.integrity-icon { font-size:26px; margin-bottom:10px; }
+.integrity-card h3 { font-family:var(--font-head); font-size:15px; font-weight:700; margin-bottom:12px; color:var(--navy); }
+.integrity-card li { font-size:13px; color:var(--slate); padding:5px 0 5px 14px; border-bottom:1px solid rgba(0,0,0,0.05); position:relative; line-height:1.5; }
+.integrity-card li::before { content:'•'; position:absolute; left:3px; color:var(--slate); }
+.integrity-card li:last-child { border-bottom:none; }
+.integrity-data { display:flex; gap:18px; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin-bottom:18px; align-items:flex-start; }
+.integrity-data-icon { font-size:30px; flex-shrink:0; }
+.integrity-data h3 { font-family:var(--font-head); font-size:15px; font-weight:700; margin-bottom:8px; color:var(--navy); }
+.integrity-data p { font-size:14px; color:var(--slate); margin-bottom:6px; line-height:1.6; }
+.integrity-consequence { display:flex; gap:18px; background:var(--red-light); border:2px solid #FCA5A5; border-radius:var(--radius); padding:22px; align-items:flex-start; }
+.consequence-icon { font-size:30px; flex-shrink:0; }
+.integrity-consequence h3 { font-family:var(--font-head); font-size:15px; font-weight:700; color:var(--red); margin-bottom:8px; }
+.integrity-consequence p,.integrity-consequence li { font-size:14px; color:var(--red); padding:3px 0 3px 14px; line-height:1.5; position:relative; }
+.integrity-consequence li::before { content:'→'; position:absolute; left:0; }
+
+/* ─── Resources ──────────────────────────────────────── */
+.resources-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.res-group { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+.res-group-title { font-family:var(--font-head); font-size:14px; font-weight:700; padding:12px 16px; background:var(--light); border-bottom:1px solid var(--border); color:var(--navy); }
+.res-link { display:block; padding:10px 16px; border-bottom:1px solid var(--border); transition:background 0.15s; }
+.res-link:last-child { border-bottom:none; }
+.res-link:hover { background:var(--light); }
+.res-name { display:block; font-size:13px; font-weight:600; color:var(--navy); margin-bottom:2px; }
+.res-link:hover .res-name { color:#2563EB; text-decoration:underline; }
+.res-desc { display:block; font-size:11px; color:var(--slate); }
+
+/* ─── FAQ ────────────────────────────────────────────── */
+.faq-list { border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; background:var(--white); }
+.faq-item { border-bottom:1px solid var(--border); }
+.faq-item:last-child { border-bottom:none; }
+.faq-trigger { width:100%; display:flex; justify-content:space-between; align-items:center; padding:16px 20px; font-size:14px; font-weight:600; color:var(--navy); text-align:left; transition:background 0.15s; }
+.faq-trigger:hover,.faq-trigger.open { background:var(--light); }
+.faq-arrow { font-size:14px; color:var(--slate); transition:transform 0.2s; flex-shrink:0; margin-left:14px; }
+.faq-trigger.open .faq-arrow { transform:rotate(180deg); }
+.faq-body { display:none; padding:16px 20px; font-size:14px; color:var(--slate); line-height:1.7; border-top:1px solid var(--border); }
+.faq-body.open { display:block; }
+.faq-body p { margin-bottom:10px; }
+.faq-body p:last-child { margin-bottom:0; }
+
+/* ─── Tutor Dashboard ────────────────────────────────── */
+.tutor-nav .nav-unit.tutor-badge { background:var(--pass); }
+.tutor-logout { background:var(--red-light); color:var(--red); border:1px solid #FCA5A5; border-radius:8px; padding:6px 14px; font-size:13px; font-weight:600; margin-left:auto; }
+.tutor-stats { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; margin-bottom:28px; }
+.tutor-stat-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+.tutor-stat-val { font-family:var(--font-head); font-size:30px; font-weight:900; color:var(--navy); line-height:1; }
+.tutor-stat-label { font-size:12px; color:var(--slate); margin-top:4px; }
+.tutor-table-wrap { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+.tutor-table-header { display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid var(--border); background:var(--light); }
+.tutor-search { flex:1; padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-family:var(--font-body); font-size:13px; outline:none; }
+.tutor-search:focus { border-color:var(--navy); }
+.tutor-refresh { padding:8px 14px; background:var(--navy); color:#fff; border-radius:8px; font-size:13px; font-weight:600; transition:background 0.15s; }
+.tutor-refresh:hover { background:var(--navy-mid); }
+.tutor-table { width:100%; border-collapse:collapse; font-size:13px; }
+.tutor-table th { padding:10px 16px; text-align:left; font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:0.08em; color:var(--slate); text-transform:uppercase; border-bottom:1px solid var(--border); background:var(--light); }
+.tutor-table td { padding:12px 16px; border-bottom:1px solid var(--border); color:var(--navy); vertical-align:middle; }
+.tutor-table tr:last-child td { border-bottom:none; }
+.tutor-table tr:hover td { background:var(--light); }
+.tutor-progress-bar { height:6px; background:var(--light); border-radius:6px; overflow:hidden; min-width:80px; }
+.tutor-progress-fill { height:100%; border-radius:6px; background:linear-gradient(90deg,var(--pass),#34D399); }
+.grade-chip { display:inline-block; font-family:var(--font-mono); font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; }
+.grade-chip.P { background:var(--pass-light); color:var(--pass); }
+.grade-chip.M { background:var(--merit-light); color:var(--merit); }
+.grade-chip.D { background:var(--dist-light); color:var(--dist); }
+.grade-chip.none { background:var(--light); color:var(--slate); }
+.behind-chip { display:inline-block; font-family:var(--font-mono); font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; background:var(--red-light); color:var(--red); }
+.on-track-chip { background:var(--pass-light); color:var(--pass); display:inline-block; font-family:var(--font-mono); font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; }
+
+/* ─── Toast ──────────────────────────────────────────── */
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--navy); color:#fff; padding:14px 24px; border-radius:50px; font-size:14px; font-weight:600; box-shadow:var(--shadow-md); z-index:9999; white-space:nowrap; animation:toastIn 0.3s cubic-bezier(0.16,1,0.3,1); }
+@keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(16px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+
+/* ─── Footer ─────────────────────────────────────────── */
+.footer { border-top:1px solid var(--border); background:var(--white); padding:14px 24px; }
+.footer-inner { max-width:900px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--slate); font-family:var(--font-mono); flex-wrap:wrap; gap:6px; }
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media(max-width:700px){
+  .nav-links{display:none;flex-direction:column;position:absolute;top:58px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);padding:10px 14px;gap:3px;box-shadow:var(--shadow-md)}
+  .nav-links.open{display:flex}
+  .nav-inner{position:relative}
+  .hamburger{display:flex}
+  .hero{padding:32px 24px}
+  .hero-title{font-size:26px}
+  .integrity-grid,.resources-grid{grid-template-columns:1fr}
+  .tl-parallel-row{grid-template-columns:1fr}
+  .grade-strip{flex-direction:column}
+  .grade-arrow{display:none}
+  .xp-dashboard{flex-direction:column}
+  .page-title{font-size:26px}
+  .nav-student-chip{display:none}
+  .login-card{padding:32px 24px}
 }
-.tl-sub-dot {
-  color: var(--pass);
-  font-weight: 700;
-  flex-shrink: 0;
-  margin-top: 1px;
+@media(max-width:480px){
+  .main{padding:20px 14px 60px}
+  .hero{padding:24px 18px}
+  .nav-title{display:none}
+  .card-grid{grid-template-columns:1fr 1fr}
 }
-.tl-item.merit .tl-sub-dot  { color: var(--merit); }
-.tl-item.distinction .tl-sub-dot { color: var(--dist); }
-.tl-item.submit .tl-sub-dot { color: var(--red); }
-.tl-sub-item strong { color: var(--navy); }
 
 </style>
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════════════
+     LOGIN SCREEN
+══════════════════════════════════════════════════ -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-bg"></div>
+  <div class="login-card" id="loginCard">
+    <div class="login-logo">
+      <span class="login-unit-badge">Unit 8</span>
+    </div>
+    <h1 class="login-title">Social Media<br>in Business</h1>
+    <p class="login-sub">BTEC Level 3 · Assignment 02</p>
+
+    <div class="login-tabs">
+      <button class="login-tab active" data-tab="student">Student</button>
+      <button class="login-tab" data-tab="tutor">Tutor</button>
+    </div>
+
+    <!-- Student login -->
+    <div class="login-form" id="formStudent">
+      <div class="input-group">
+        <label class="input-label">Full Name</label>
+        <input type="text" id="inputName" placeholder="e.g. Alex Johnson" autocomplete="name"/>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Student ID</label>
+        <input type="text" id="inputStudentId" placeholder="e.g. UCB12345" autocomplete="off"/>
+      </div>
+      <button class="login-btn" id="btnStudentLogin">
+        <span id="loginBtnText">Let's Go →</span>
+      </button>
+      <div class="login-note">Your progress is saved automatically. Use the same Student ID each time.</div>
+    </div>
+
+    <!-- Tutor login -->
+    <div class="login-form hidden" id="formTutor">
+      <div class="input-group">
+        <label class="input-label">Tutor PIN</label>
+        <input type="password" id="inputTutorPin" placeholder="Enter PIN" autocomplete="off"/>
+      </div>
+      <button class="login-btn tutor-btn" id="btnTutorLogin">Access Dashboard →</button>
+    </div>
+
+    <div class="login-error hidden" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     MAIN APP (Student)
+══════════════════════════════════════════════════ -->
+<div id="app" class="hidden">
+
   <!-- NAV -->
-  <nav class="nav" id="nav">
+  <nav class="nav">
     <div class="nav-inner">
       <div class="nav-logo">
         <span class="nav-unit">Unit 8</span>
-        <span class="nav-sep">·</span>
         <span class="nav-title">Social Media in Business</span>
       </div>
       <ul class="nav-links" id="navLinks">
@@ -1027,36 +543,33 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <li><a href="#" class="nav-link" data-page="resources">Resources</a></li>
         <li><a href="#" class="nav-link" data-page="faq">FAQ</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-right">
+        <div class="nav-student-chip" id="navStudentChip">
+          <span class="nav-student-xp" id="navXP">0 XP</span>
+          <span class="nav-student-name" id="navName">—</span>
+        </div>
+        <button class="nav-logout" id="btnLogout" title="Log out">⏏</button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
     </div>
   </nav>
 
-  <!-- PAGES -->
   <main class="main">
 
-    <!-- ═══════════════════════════ HOME ═══════════════════════════ -->
+    <!-- ══════════ HOME ══════════ -->
     <section class="page active" id="page-home">
+
+      <!-- Hero -->
       <div class="hero">
         <div class="hero-eyebrow">BTEC Level 3 · Unit 8 · Assignment 02</div>
         <h1 class="hero-title">Planning &amp; Implementing<br>Social Media for a Business</h1>
         <p class="hero-sub">Everything you need to complete this assignment — broken down step by step, in plain English.</p>
-        <div class="hero-meta">
-          <span class="hero-tutor">👤 Set by <strong>Ravindu Abeyrathne</strong></span>
-        </div>
+        <div class="hero-meta"><span class="hero-tutor">👤 Set by <strong>Ravindu Abeyrathne</strong></span></div>
         <div class="hero-dates">
-          <div class="date-chip">
-            <span class="date-label">Issued</span>
-            <span class="date-val">04 March 2026</span>
-          </div>
+          <div class="date-chip"><span class="date-label">Issued</span><span class="date-val">04 March 2026</span></div>
           <div class="date-divider">→</div>
-          <div class="date-chip deadline">
-            <span class="date-label">Deadline</span>
-            <span class="date-val">15 April 2026</span>
-          </div>
+          <div class="date-chip deadline"><span class="date-label">Deadline</span><span class="date-val">15 April 2026</span></div>
         </div>
-        <!-- Live countdown timer -->
         <div class="countdown-bar" id="countdownBar">
           <div class="countdown-label">Time remaining until deadline</div>
           <div class="countdown-blocks">
@@ -1070,14 +583,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             <div class="countdown-sep">:</div>
             <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-unit-label">secs</span></div>
           </div>
-          <div class="countdown-progress-wrap">
-            <div class="countdown-progress-bar" id="cdProgressBar"></div>
-          </div>
+          <div class="countdown-progress-wrap"><div class="countdown-progress-bar" id="cdProgressBar"></div></div>
           <div class="countdown-progress-label" id="cdProgressLabel"></div>
         </div>
       </div>
 
-      <!-- Funny tutor message -->
+      <!-- Tutor message -->
       <div class="tutor-message">
         <div class="tutor-message-inner">
           <span class="tutor-avatar">👨‍💻</span>
@@ -1088,7 +599,38 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         </div>
       </div>
 
-      <!-- Where you should be now -->
+      <!-- XP Dashboard -->
+      <div class="xp-dashboard">
+        <div class="xp-left">
+          <div class="xp-greeting" id="xpGreeting">Welcome back!</div>
+          <div class="xp-bar-wrap">
+            <div class="xp-bar-track">
+              <div class="xp-bar-fill" id="xpBarFill"></div>
+            </div>
+            <div class="xp-bar-labels">
+              <span id="xpAmount">0 XP</span>
+              <span id="xpGradeTarget"></span>
+            </div>
+          </div>
+          <div class="xp-stats">
+            <div class="xp-stat"><span class="xp-stat-val" id="statSections">0</span><span class="xp-stat-label">sections done</span></div>
+            <div class="xp-stat"><span class="xp-stat-val" id="statStreak">0</span><span class="xp-stat-label">day streak 🔥</span></div>
+            <div class="xp-stat"><span class="xp-stat-val" id="statBadges">0</span><span class="xp-stat-label">badges earned</span></div>
+          </div>
+        </div>
+        <div class="xp-grade-ring-wrap">
+          <svg class="xp-ring" viewBox="0 0 100 100">
+            <circle class="xp-ring-bg" cx="50" cy="50" r="40"/>
+            <circle class="xp-ring-fill" id="xpRingFill" cx="50" cy="50" r="40"/>
+          </svg>
+          <div class="xp-ring-label">
+            <div class="xp-ring-grade" id="xpRingGrade">—</div>
+            <div class="xp-ring-sub">on track</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Where you are now -->
       <div class="where-now" id="whereNow">
         <div class="where-now-left">
           <div class="where-now-eyebrow">📍 WHERE YOU SHOULD BE RIGHT NOW</div>
@@ -1098,33 +640,25 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <button class="where-now-btn" data-goto="timeline">View Timeline →</button>
       </div>
 
-      <!-- Quick nav cards -->
+      <!-- Badges -->
+      <div class="section-block">
+        <h2 class="section-heading">🏅 Your Badges</h2>
+        <div class="badges-grid" id="badgesGrid"></div>
+      </div>
+
+      <!-- Boss message -->
+      <div class="boss-message hidden" id="bossMessage">
+        <div class="boss-avatar">👨‍💻</div>
+        <div class="boss-bubble" id="bossBubble"></div>
+      </div>
+
+      <!-- Nav cards -->
       <div class="card-grid">
-        <button class="nav-card" data-goto="timeline">
-          <div class="nav-card-icon">📅</div>
-          <div class="nav-card-label">Timeline</div>
-          <div class="nav-card-desc">See the 6-week plan week by week</div>
-        </button>
-        <button class="nav-card" data-goto="sections">
-          <div class="nav-card-icon">📋</div>
-          <div class="nav-card-label">Sections Guide</div>
-          <div class="nav-card-desc">Every section explained in plain English</div>
-        </button>
-        <button class="nav-card" data-goto="integrity">
-          <div class="nav-card-icon">⚠️</div>
-          <div class="nav-card-label">Integrity Rules</div>
-          <div class="nav-card-desc">What you can and cannot use AI for</div>
-        </button>
-        <button class="nav-card" data-goto="resources">
-          <div class="nav-card-icon">🔗</div>
-          <div class="nav-card-label">Resources</div>
-          <div class="nav-card-desc">Useful links and tools</div>
-        </button>
-        <button class="nav-card" data-goto="faq">
-          <div class="nav-card-icon">💬</div>
-          <div class="nav-card-label">FAQ</div>
-          <div class="nav-card-desc">Common questions answered</div>
-        </button>
+        <button class="nav-card" data-goto="timeline"><div class="nav-card-icon">📅</div><div class="nav-card-label">Timeline</div><div class="nav-card-desc">6-week plan week by week</div></button>
+        <button class="nav-card" data-goto="sections"><div class="nav-card-icon">📋</div><div class="nav-card-label">Sections Guide</div><div class="nav-card-desc">Every section in plain English</div></button>
+        <button class="nav-card" data-goto="integrity"><div class="nav-card-icon">⚠️</div><div class="nav-card-label">Integrity Rules</div><div class="nav-card-desc">What you can and cannot do</div></button>
+        <button class="nav-card" data-goto="resources"><div class="nav-card-icon">🔗</div><div class="nav-card-label">Resources</div><div class="nav-card-desc">Useful links and tools</div></button>
+        <button class="nav-card" data-goto="faq"><div class="nav-card-icon">💬</div><div class="nav-card-label">FAQ</div><div class="nav-card-desc">Common questions answered</div></button>
       </div>
 
       <!-- What is this assignment -->
@@ -1145,865 +679,638 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <div class="section-block">
         <h2 class="section-heading">How are grades awarded?</h2>
         <div class="grade-strip">
-          <div class="grade-box pass">
-            <div class="grade-letter">P</div>
-            <div class="grade-name">Pass</div>
-            <div class="grade-desc">Complete Sections 1–8. Do the work. Document everything. Use real data.</div>
-          </div>
+          <div class="grade-box pass"><div class="grade-letter">P</div><div class="grade-name">Pass</div><div class="grade-desc">Complete Sections 1–8. Do the work. Document everything. Use real data.</div><div class="grade-xp">800 XP total</div></div>
           <div class="grade-arrow">+</div>
-          <div class="grade-box merit">
-            <div class="grade-letter">M</div>
-            <div class="grade-name">Merit</div>
-            <div class="grade-desc">Sections 9–10. Don't just describe — justify and optimise your decisions.</div>
-          </div>
+          <div class="grade-box merit"><div class="grade-letter">M</div><div class="grade-name">Merit</div><div class="grade-desc">Sections 9–10. Don't just describe — justify and optimise your decisions.</div><div class="grade-xp">+400 XP</div></div>
           <div class="grade-arrow">+</div>
-          <div class="grade-box distinction">
-            <div class="grade-letter">D</div>
-            <div class="grade-name">Distinction</div>
-            <div class="grade-desc">Sections 11–12. Evaluate honestly and deeply reflect on your own behaviour.</div>
-          </div>
+          <div class="grade-box distinction"><div class="grade-letter">D</div><div class="grade-name">Distinction</div><div class="grade-desc">Sections 11–12. Evaluate honestly and deeply reflect on your own behaviour.</div><div class="grade-xp">+600 XP</div></div>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════ TIMELINE ═══════════════════════════ -->
+    <!-- ══════════ TIMELINE ══════════ -->
     <section class="page" id="page-timeline">
       <div class="page-header">
         <div class="page-eyebrow">Assignment 02</div>
         <h1 class="page-title">6-Week Timeline</h1>
-        <p class="page-sub">Follow this week by week. Don't skip ahead — each stage depends on the one before it.</p>
+        <p class="page-sub">Follow this week by week. Mark sections complete as you go to earn XP.</p>
       </div>
-
-      <div class="timeline">
-
-        <div class="tl-week" data-color="pass" data-week-start="2026-03-04" data-week-end="2026-03-10">
-          <div class="tl-week-label">
-            <div class="tl-week-name">Week 1</div>
-            <div class="tl-week-dates">04 – 10 Mar</div>
-          </div>
-          <div class="tl-items">
-            <div class="tl-item pass">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 1</span>
-                <span class="tl-criteria pass-tag">P3</span>
-              </div>
-              <div class="tl-item-title">Business Research &amp; Introduction</div>
-              <div class="tl-item-desc">You already have your business. Now document it — what it does, who runs it, why you chose it, and why it needs social media. This is the foundation for everything else.</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 1</strong> — Introduction to the Business</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Business name, type, owner contact</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>How you found/chose this business</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>What the business currently does online</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Business aims and how social media will help</span></div></div>
-              <div class="tl-note">📌 You should have agreed your business before this week</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-week" data-color="pass" data-week-start="2026-03-11" data-week-end="2026-03-17">
-          <div class="tl-week-label">
-            <div class="tl-week-name">Week 2</div>
-            <div class="tl-week-dates">11 – 17 Mar</div>
-          </div>
-          <div class="tl-items">
-            <div class="tl-item pass">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 2</span>
-                <span class="tl-criteria pass-tag">P3</span>
-              </div>
-              <div class="tl-item-title">Build Your Social Media Plan</div>
-              <div class="tl-item-desc">Choose 3 platforms and explain why. Identify your target audience. Research 5 keywords. Decide best posting times. Create your Posting Schedule V1. Write up legal/ethical considerations and a social media policy.</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 2</strong> — Social Media Plan</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2a — Platform selection (3 platforms with justification)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2b — Target audience (age, gender, interests, location)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2c — Keyword strategy (5 researched keywords)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2d — Best times to post (research-backed)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2e — Posting Schedule V1 (at least 6 posts)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2f — Legal &amp; ethical considerations</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2g — Social media policy</span></div></div>
-              <div class="tl-note">📌 Everything planned here — nothing posted yet</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-week" data-color="pass" data-week-start="2026-03-18" data-week-end="2026-03-24">
-          <div class="tl-week-label">
-            <div class="tl-week-name">Week 3</div>
-            <div class="tl-week-dates">18 – 24 Mar</div>
-          </div>
-          <div class="tl-items">
-            <div class="tl-item pass">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 3</span>
-                <span class="tl-criteria pass-tag">P4</span>
-              </div>
-              <div class="tl-item-title">Review Plan with Business Owner</div>
-              <div class="tl-item-desc">Share your plan with the business owner. Collect feedback via meeting notes, email, or Google Form. Produce Posting Schedule V2 showing what changed and why.</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 3</strong> — Plan Review &amp; Improvements</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>3a — Evidence of review (meeting notes, email, Google Form)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>3b — Feedback received and documented</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>3c — Posting Schedule V2 (improved with "what changed" column)</span></div></div>
-              <div class="tl-note warn">⚠️ This must happen BEFORE you start posting anything</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-week" data-color="pass" data-week-start="2026-03-25" data-week-end="2026-03-31">
-          <div class="tl-week-label">
-            <div class="tl-week-name">Week 4</div>
-            <div class="tl-week-dates">25 – 31 Mar</div>
-          </div>
-          <div class="tl-items">
-            <div class="tl-item pass">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 4</span>
-                <span class="tl-criteria pass-tag">P5</span>
-              </div>
-              <div class="tl-item-title">Set Up Profiles &amp; Start Posting</div>
-              <div class="tl-item-desc">Create accounts on all 3 platforms. Screenshot each profile and annotate your choices. Begin publishing posts — at least 3 different content formats across 3 platforms. Annotate every post.</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 4</strong> — Social Media Profiles</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Screenshots of profiles on all 3 platforms</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Annotation of bio, username, profile image choices</span></div></div>
-            </div>
-            <div class="tl-parallel-label">These two run at the same time ↓</div>
-            <div class="tl-parallel-row">
-              <div class="tl-item pass parallel">
-                <div class="tl-item-top">
-                  <span class="tl-stage">Stage 5</span>
-                  <span class="tl-criteria pass-tag">P5</span>
-                </div>
-                <div class="tl-item-title">Publish Content</div>
-                <div class="tl-item-desc">Keep publishing posts following your schedule. Screenshot everything as evidence.</div>
-                <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 5</strong> — Content Creation &amp; Publishing</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>5a — Content matrix (your spread across platforms &amp; formats)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>5b — Content format checklist</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>5c — Individual posts (5 posts minimum, each with screenshot &amp; annotation)</span></div></div>
-              </div>
-              <div class="tl-item pass parallel">
-                <div class="tl-item-top">
-                  <span class="tl-stage">Stage 6</span>
-                  <span class="tl-criteria pass-tag">P5</span>
-                </div>
-                <div class="tl-item-title">Build Community</div>
-                <div class="tl-item-desc">Reply to comments. Run polls. Use hashtags. Set up auto-responses. Screenshot everything.</div>
-                <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 6</strong> — Online Community Building</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Replies to comments or messages</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Poll or survey</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Hashtag strategy in action</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Auto-response or CTA button setup</span></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-week" data-color="merit" data-week-start="2026-04-01" data-week-end="2026-04-07">
-          <div class="tl-week-label">
-            <div class="tl-week-name">Week 5</div>
-            <div class="tl-week-dates">01 – 07 Apr</div>
-          </div>
-          <div class="tl-items">
-            <div class="tl-item pass">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 7</span>
-                <span class="tl-criteria pass-tag">P6</span>
-              </div>
-              <div class="tl-item-title">Collect &amp; Analyse Data</div>
-              <div class="tl-item-desc">Pull real analytics from all platforms. Fill in the data table. Write your analysis — which posts worked, which didn't, does your actual audience match your target?</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 7</strong> — Data Review</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>7a — Analytics data table (reach, likes, comments, shares, engagement rate)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>7b — Data analysis (best post, worst post, audience match)</span></div></div>
-              <div class="tl-note warn">🚨 Real figures only — 1 like is fine. Do not make data up.</div>
-            </div>
-            <div class="tl-item pass">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 8</span>
-                <span class="tl-criteria pass-tag">P7</span>
-              </div>
-              <div class="tl-item-title">SEO Assessment</div>
-              <div class="tl-item-desc">Explain how your social media activity helps the business appear in search results. What did you do well? What would improve rankings further?</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 8</strong> — SEO Assessment</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>What SEO is and why it matters for this business</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>How keywords, profile URLs and regular posting support SEO</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Recommendations for improving search rankings</span></div></div>
-            </div>
-            <div class="tl-item merit">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 9</span>
-                <span class="tl-criteria merit-tag">M2</span>
-              </div>
-              <div class="tl-item-title">Justify Your Planning Decisions</div>
-              <div class="tl-item-desc">Go back over your plan and justify every major decision. Not "I chose Instagram because it's popular" — but why it's specifically right for this business and this audience.</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 9</strong> — Justification of Planning Decisions</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Justify platform choices</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Justify target audience identification</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Justify keyword strategy</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Justify posting schedule (timing, frequency, content mix)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Link all decisions back to specific business requirements</span></div></div>
-            </div>
-            <div class="tl-item merit">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 10</span>
-                <span class="tl-criteria merit-tag">M3</span>
-              </div>
-              <div class="tl-item-title">Optimise Content</div>
-              <div class="tl-item-desc">Pick 2+ posts. Improve them. Show before &amp; after screenshots with annotations. Also test your posts on different devices.</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 10</strong> — Optimised Content</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Before &amp; after screenshots for at least 2 posts</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Annotations explaining what changed and why</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Multi-device testing screenshots (mobile + desktop)</span></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-week" data-color="distinction" data-week-start="2026-04-08" data-week-end="2026-04-14">
-          <div class="tl-week-label">
-            <div class="tl-week-name">Week 6</div>
-            <div class="tl-week-dates">08 – 14 Apr</div>
-          </div>
-          <div class="tl-items">
-            <div class="tl-item distinction">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 11</span>
-                <span class="tl-criteria distinction-tag">D2</span>
-              </div>
-              <div class="tl-item-title">Evaluate the Whole Project</div>
-              <div class="tl-item-desc">Write a full, honest evaluation. Did the plan meet the business requirements? What worked? What didn't and why? What legal/ethical issues came up? What would you do differently?</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 11</strong> — Evaluation of Plan &amp; Implementation</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Did the plan meet business requirements?</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>What worked and what didn't — with reasons</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Legal &amp; ethical issues in your actual posts</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Data findings vs original intentions</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Specific, justified recommendations for improvement</span></div></div>
-            </div>
-            <div class="tl-item distinction">
-              <div class="tl-item-top">
-                <span class="tl-stage">Stage 12</span>
-                <span class="tl-criteria distinction-tag">D3</span>
-              </div>
-              <div class="tl-item-title">Reflect on Your Self-Management</div>
-              <div class="tl-item-desc">Evaluate your own behaviour — time management, responding to feedback, professionalism with the owner, communication, creativity, and problem solving. Use real evidence.</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 12</strong> — Individual Responsibility &amp; Self-Management</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12a — Time management table with honest reflection</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12b — Responding to feedback (with specific examples)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12c — Professionalism &amp; behaviour evidence</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12d — Communication reflection</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12e — Creativity and problem solving examples</span></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-week submit-week" data-week-start="2026-04-15" data-week-end="2026-04-15">
-          <div class="tl-week-label">
-            <div class="tl-week-name">Submit</div>
-            <div class="tl-week-dates">15 Apr 2026</div>
-          </div>
-          <div class="tl-items">
-            <div class="tl-item submit">
-              <div class="tl-item-title">Final Checks &amp; Submission</div>
-              <div class="tl-item-desc">Remove all red guidance text. Update Table of Contents. Check your evidence checklist. Submit by 15 April 2026.</div>
-              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Delete all red guidance text from the template</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Right-click Table of Contents → Update Field</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Run through the evidence checklist (Appendix)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Check filename includes your name and student ID</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Submit via the assignment portal before 23:59 on 15 April</span></div></div>
-              <div class="tl-note deadline-note">🗓️ Hard deadline — 15 April 2026</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <div class="timeline" id="timelineContainer"></div>
     </section>
 
-    <!-- ═══════════════════════════ SECTIONS ═══════════════════════════ -->
+    <!-- ══════════ SECTIONS ══════════ -->
     <section class="page" id="page-sections">
       <div class="page-header">
         <div class="page-eyebrow">Assignment 02</div>
         <h1 class="page-title">Section-by-Section Guide</h1>
-        <p class="page-sub">Click any section to expand it. Every section explained in plain English.</p>
+        <p class="page-sub">Click any section to expand. Mark sections complete as you finish them.</p>
       </div>
-
-      <div class="band-block">
-        <div class="band-header pass-band">✅ PASS — Sections 1–8</div>
-
-        <div class="accordion">
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria pass-tag">P3</span>
-              <span class="acc-title">Section 1 — Introduction to the Business</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Introducing the business you've chosen to work with.</p>
-              <p><strong>In plain English:</strong> Imagine you're explaining to a stranger what the business is, what it sells, who runs it, and why they need help with social media. Write it simply and clearly.</p>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Business name, type, and owner's contact</div>
-                <div class="acc-check">✓ How you found/chose this business</div>
-                <div class="acc-check">✓ What the business currently does online (probably nothing)</div>
-                <div class="acc-check">✓ What they want to achieve with social media</div>
-                <div class="acc-check">✓ How social media will help them meet those goals</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria pass-tag">P3</span>
-              <span class="acc-title">Section 2 — Social Media Plan</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Creating a detailed plan for the business's social media presence — before you touch anything live.</p>
-              <p><strong>In plain English:</strong> Think of it like planning a trip before you book anything. You decide where you're going (which platforms), who you're going with (target audience), what you'll do (content), and when (posting schedule).</p>
-              <div class="acc-sub">2a — Platform Selection</div>
-              <p>Choose 3 platforms. Explain why each one is right for this specific business. "It's popular" is not enough — link it to the target audience.</p>
-              <div class="acc-sub">2b — Target Audience</div>
-              <p>Who are the customers? Age, gender, interests, location. Be specific. "Everyone" is not a target audience.</p>
-              <div class="acc-sub">2c — Keyword Strategy</div>
-              <p>Think about what someone types into Google when looking for this business. Pick 5 keywords and explain why each one is relevant. Use Google Keyword Planner to back up your choices.</p>
-              <div class="acc-sub">2d — Best Times to Post</div>
-              <p>Research when your target audience is most active. A bakery audience is different from a gym audience. Find evidence for your timing choices.</p>
-              <div class="acc-sub">2e — Posting Schedule V1</div>
-              <p>Your original plan. At least 6 posts spread across your 3 platforms over 3 weeks.</p>
-              <div class="acc-sub">2f — Legal &amp; Ethical Considerations</div>
-              <p>Address copyright, GDPR, advertising standards, appropriate content, and confidentiality. Don't just define them — say what you will actually do about each one.</p>
-              <div class="acc-sub">2g — Social Media Policy</div>
-              <p>A short set of rules for the business: what they can post, what they must keep private, how to stay secure, and how to keep personal and business accounts separate.</p>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria pass-tag">P4</span>
-              <span class="acc-title">Section 3 — Plan Review &amp; Improvements</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Showing that your plan was reviewed by a real person and improved based on their feedback.</p>
-              <p><strong>In plain English:</strong> You made a plan. Now you take it back to the business owner and ask "does this work for you?" They'll probably have changes. You update the plan, and the key evidence is the before and after.</p>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Evidence of the meeting or contact (notes, email, Google Form)</div>
-                <div class="acc-check">✓ A table showing what feedback you received and what you changed</div>
-                <div class="acc-check">✓ Posting Schedule V2 — the improved version with a "what changed" column</div>
-              </div>
-              <div class="tl-note warn" style="margin-top:12px">⚠️ You must do this BEFORE you start creating posts. The point is to improve the plan, not approve what you've already done.</div>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria pass-tag">P5</span>
-              <span class="acc-title">Section 4 — Social Media Profiles</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Setting up the actual social media accounts for the business.</p>
-              <p><strong>In plain English:</strong> Create accounts on all 3 platforms. Think carefully about the username, bio, profile picture, and any links. Screenshot the finished profiles and explain every choice you made.</p>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Account created on all 3 platforms</div>
-                <div class="acc-check">✓ Screenshot of each profile/bio</div>
-                <div class="acc-check">✓ Annotation — why that username? Why that bio? Why that image?</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria pass-tag">P5</span>
-              <span class="acc-title">Section 5 — Content Creation &amp; Publishing</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Creating and publishing real posts for the business.</p>
-              <p><strong>In plain English:</strong> You're actually posting on the business's social media now. You must use at least 3 different types of content across your 3 platforms. Don't just post 5 photos — mix it up.</p>
-              <div class="acc-highlight">
-                <strong>Content formats you can use:</strong> photos, videos, reels, TikToks, stories, polls, web links, open questions, special offers, behind-the-scenes content.
-              </div>
-              <p><strong>Three non-negotiables:</strong></p>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Posts published on at least 3 different platforms</div>
-                <div class="acc-check">✓ At least 3 different content formats used</div>
-                <div class="acc-check">✓ Every post annotated — why this format? How does it follow the plan?</div>
-              </div>
-              <p>Complete the Content Matrix in the template first to plan your spread before you start posting.</p>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria pass-tag">P5</span>
-              <span class="acc-title">Section 6 — Online Community Building</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Showing that you actively engaged with people, not just broadcast posts at them.</p>
-              <p><strong>In plain English:</strong> Social media isn't a one-way street. You need to interact. Reply to comments, ask questions, run a poll, use relevant hashtags to get discovered, set up an auto-reply message.</p>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Replied to at least one comment or message</div>
-                <div class="acc-check">✓ Created a poll or survey</div>
-                <div class="acc-check">✓ Used hashtags strategically</div>
-                <div class="acc-check">✓ Set up an auto-response or CTA button</div>
-                <div class="acc-check">✓ Screenshot everything as evidence</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria pass-tag">P6</span>
-              <span class="acc-title">Section 7 — Data Review</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Collecting and analysing the actual statistics from your posts.</p>
-              <p><strong>In plain English:</strong> Every social media platform shows you data — how many people saw your post, liked it, shared it, and who your audience is. You collect that data and write about what it means.</p>
-              <div class="acc-highlight important">
-                🚨 <strong>Real data only.</strong> It does not matter if a post got 1 like. That is your real data and it is fine. Fabricating or estimating statistics will result in a resubmission and a grade cap at Pass — no exceptions.
-              </div>
-              <p>Where to find your data:</p>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Facebook/Instagram — Meta Business Suite → Insights</div>
-                <div class="acc-check">✓ TikTok — Creator Tools → Analytics</div>
-                <div class="acc-check">✓ YouTube — YouTube Studio → Analytics</div>
-                <div class="acc-check">✓ Twitter/X — Analytics tab on each tweet</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria pass-tag">P7</span>
-              <span class="acc-title">Section 8 — SEO Assessment</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Explaining how your social media activity could help the business appear higher in Google search results.</p>
-              <p><strong>In plain English:</strong> SEO means "Search Engine Optimisation" — basically getting Google to notice you. Social media helps with this because when you use the right keywords, post regularly, and get engagement, Google sees the business as more active and relevant.</p>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Explain what SEO is and why it matters for this business</div>
-                <div class="acc-check">✓ How your keyword strategy supports SEO</div>
-                <div class="acc-check">✓ How the profile username/URL helps with SEO</div>
-                <div class="acc-check">✓ Why regular posting matters for search rankings</div>
-                <div class="acc-check">✓ What you'd recommend to improve SEO further</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- MERIT -->
-      <div class="band-block">
-        <div class="band-header merit-band">🔶 MERIT — Sections 9–10</div>
-        <div class="accordion">
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria merit-tag">M2</span>
-              <span class="acc-title">Section 9 — Justify Your Planning Decisions</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Going back over every major decision in your plan and giving a proper reason why it was right for this specific business.</p>
-              <p><strong>In plain English:</strong> There's a big difference between describing what you did and justifying it. A description says "I chose Instagram." A justification says "I chose Instagram because 71% of its users are aged 18–34, which matches our target audience of young local customers, directly supporting the business's aim of increasing brand awareness among under-35s in Birmingham."</p>
-              <div class="acc-highlight">
-                <strong>For every decision ask yourself:</strong> "Why was this the RIGHT choice for THIS business?" If you can't answer that — you're describing, not justifying.
-              </div>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Justify your choice of platforms</div>
-                <div class="acc-check">✓ Justify your target audience identification</div>
-                <div class="acc-check">✓ Justify your keyword choices</div>
-                <div class="acc-check">✓ Justify your posting schedule (timing, frequency, content mix)</div>
-                <div class="acc-check">✓ Justify how your plan meets the specific business requirements</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria merit-tag">M3</span>
-              <span class="acc-title">Section 10 — Optimised Content</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Taking posts you've already made and improving them, showing the before and after.</p>
-              <p><strong>In plain English:</strong> "Optimised" just means "made better." Look at your posts and think — could the image be sharper? Could the caption be more engaging? Could you add a hashtag or a call to action? Change it, screenshot both versions, and explain what you improved and why.</p>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ At least 2 posts with before &amp; after screenshots</div>
-                <div class="acc-check">✓ Annotate what changed and why</div>
-                <div class="acc-check">✓ Explain how the optimised version better suits the target audience</div>
-                <div class="acc-check">✓ Show posts tested on at least 2 different devices</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- DISTINCTION -->
-      <div class="band-block">
-        <div class="band-header distinction-band">🏆 DISTINCTION — Sections 11–12</div>
-        <div class="accordion">
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria distinction-tag">D2</span>
-              <span class="acc-title">Section 11 — Evaluate the Project</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Writing a full, honest evaluation of your plan and how well it was put into practice.</p>
-              <p><strong>In plain English:</strong> This is your chance to be really honest. What went well? What went badly and why? Did the people who engaged with your posts match the audience you targeted? What would you do completely differently next time? Don't just say "it went well" — give evidence and reasons.</p>
-              <div class="acc-highlight">
-                <strong>A Distinction evaluation does all five of these:</strong>
-              </div>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Judges whether the business requirements were actually met</div>
-                <div class="acc-check">✓ Explains what worked and what didn't — and WHY</div>
-                <div class="acc-check">✓ Discusses legal/ethical issues that came up in your actual posts</div>
-                <div class="acc-check">✓ Links data findings back to your original intentions</div>
-                <div class="acc-check">✓ Makes specific, justified recommendations for the future</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="acc-item">
-            <button class="acc-trigger">
-              <span class="acc-criteria distinction-tag">D3</span>
-              <span class="acc-title">Section 12 — Self-Management Reflection</span>
-              <span class="acc-arrow">▾</span>
-            </button>
-            <div class="acc-body">
-              <p><strong>What you're doing:</strong> Evaluating your own behaviour and professionalism throughout the whole project.</p>
-              <p><strong>In plain English:</strong> This section is about YOU, not the business. Did you meet your deadlines? How did you react when you got feedback you didn't like? Were you professional when talking to the business owner? Give real examples — vague statements won't earn a Distinction.</p>
-              <div class="acc-highlight">
-                <strong>Don't say:</strong> "I managed my time well." <br>
-                <strong>Do say:</strong> "I had planned to complete the posting schedule by 18 March but fell two days behind because I underestimated how long the keyword research would take. I made up the time by working through lunch on 20 March and met the deadline for the business owner meeting."
-              </div>
-              <div class="acc-checklist">
-                <div class="acc-check">✓ Time management table with honest reflection</div>
-                <div class="acc-check">✓ Specific example of responding to feedback</div>
-                <div class="acc-check">✓ Evidence of professionalism with the business owner</div>
-                <div class="acc-check">✓ Communication reflection</div>
-                <div class="acc-check">✓ Creativity and problem-solving examples</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
+      <div id="sectionsContainer"></div>
     </section>
 
-    <!-- ═══════════════════════════ INTEGRITY ═══════════════════════════ -->
+    <!-- ══════════ INTEGRITY ══════════ -->
     <section class="page" id="page-integrity">
-      <div class="page-header">
-        <div class="page-eyebrow">Important</div>
-        <h1 class="page-title">Academic Integrity</h1>
-        <p class="page-sub">Read this carefully before you start. It could affect your grade.</p>
-      </div>
-
+      <div class="page-header"><div class="page-eyebrow">Important</div><h1 class="page-title">Academic Integrity</h1><p class="page-sub">Read this carefully before you start.</p></div>
       <div class="integrity-grid">
-        <div class="integrity-card allowed">
-          <div class="integrity-icon">✅</div>
-          <h3>You ARE allowed to use AI for:</h3>
-          <ul>
-            <li>Generating or editing images for your social media posts</li>
-            <li>Helping draft captions or post copy — as long as you review and adapt it yourself</li>
-            <li>Checking grammar or improving your writing</li>
-            <li>Research and brainstorming ideas</li>
-          </ul>
-        </div>
-        <div class="integrity-card forbidden">
-          <div class="integrity-icon">❌</div>
-          <h3>You are NOT allowed to:</h3>
-          <ul>
-            <li>Make up or fabricate analytics data, likes, comments, shares, or reach</li>
-            <li>Use AI to generate fake screenshots of posts or analytics dashboards</li>
-            <li>Invent feedback or meeting notes from the business owner</li>
-            <li>Copy and paste AI-written evaluations, justifications, or reflections as your own work</li>
-          </ul>
-        </div>
+        <div class="integrity-card allowed"><div class="integrity-icon">✅</div><h3>You ARE allowed to use AI for:</h3><ul><li>Generating or editing images for your social media posts</li><li>Helping draft captions — as long as you adapt it yourself</li><li>Checking grammar or improving your writing</li><li>Research and brainstorming ideas</li></ul></div>
+        <div class="integrity-card forbidden"><div class="integrity-icon">❌</div><h3>You are NOT allowed to:</h3><ul><li>Make up or fabricate analytics data, likes, comments or reach</li><li>Use AI to generate fake screenshots of posts or dashboards</li><li>Invent feedback or meeting notes from the business owner</li><li>Copy-paste AI-written evaluations as your own work</li></ul></div>
       </div>
-
-      <div class="integrity-data">
-        <div class="integrity-data-icon">📊</div>
-        <div>
-          <h3>About your data</h3>
-          <p>Your analytics do not need to be impressive. It does not matter if your post got 1 like or 2 comments — that is your real data and it is perfectly fine to use.</p>
-          <p>What matters is that your <strong>analysis is honest and thoughtful</strong>. A post with 1 like that has a strong written analysis is worth far more than fabricated data with a hollow write-up.</p>
-        </div>
-      </div>
-
-      <div class="integrity-consequence">
-        <div class="consequence-icon">⚠️</div>
-        <div>
-          <h3>Consequence of fabricating data</h3>
-          <p>If it is found that you have made up data, fabricated screenshots, or misrepresented your work in any way:</p>
-          <ul>
-            <li>Your assignment will be returned for <strong>resubmission</strong></li>
-            <li>Your grade will be <strong>capped at a Pass</strong> — regardless of how good the rest of your work is</li>
-          </ul>
-        </div>
-      </div>
+      <div class="integrity-data"><div class="integrity-data-icon">📊</div><div><h3>About your data</h3><p>Your analytics do not need to be impressive. Even 1 like is fine — use it. What matters is that your <strong>analysis is honest and thoughtful</strong>.</p></div></div>
+      <div class="integrity-consequence"><div class="consequence-icon">⚠️</div><div><h3>Consequence of fabricating data</h3><p>If you fabricate data, screenshots, or misrepresent your work:</p><ul><li>Your assignment will be returned for <strong>resubmission</strong></li><li>Your grade will be <strong>capped at a Pass</strong> — regardless of everything else</li></ul></div></div>
     </section>
 
-    <!-- ═══════════════════════════ RESOURCES ═══════════════════════════ -->
+    <!-- ══════════ RESOURCES ══════════ -->
     <section class="page" id="page-resources">
-      <div class="page-header">
-        <div class="page-eyebrow">Assignment 02</div>
-        <h1 class="page-title">Resources &amp; Useful Links</h1>
-        <p class="page-sub">Everything you need to support your research and content creation.</p>
-      </div>
-
+      <div class="page-header"><div class="page-eyebrow">Assignment 02</div><h1 class="page-title">Resources &amp; Useful Links</h1><p class="page-sub">Everything you need to support your research and content creation.</p></div>
       <div class="resources-grid">
-
-        <div class="res-group">
-          <div class="res-group-title">📰 Social Media &amp; Marketing</div>
-          <a class="res-link" href="https://www.socialmediaexaminer.com" target="_blank">
-            <span class="res-name">Social Media Examiner</span>
-            <span class="res-desc">Up-to-date articles on using social media for business</span>
-          </a>
-          <a class="res-link" href="https://www.socialmediatoday.com" target="_blank">
-            <span class="res-name">Social Media Today</span>
-            <span class="res-desc">Social media marketing news and strategies</span>
-          </a>
-          <a class="res-link" href="https://mashable.com/social-media" target="_blank">
-            <span class="res-name">Mashable — Social Media</span>
-            <span class="res-desc">News and trends in social media</span>
-          </a>
-          <a class="res-link" href="https://www.theguardian.com/media/social-media" target="_blank">
-            <span class="res-name">The Guardian — Social Media</span>
-            <span class="res-desc">Journalism and issues around social media</span>
-          </a>
-        </div>
-
-        <div class="res-group">
-          <div class="res-group-title">🔍 SEO &amp; Keywords</div>
-          <a class="res-link" href="https://ads.google.com/home/tools/keyword-planner/" target="_blank">
-            <span class="res-name">Google Keyword Planner</span>
-            <span class="res-desc">Research keywords people actually search for</span>
-          </a>
-          <a class="res-link" href="https://blog.hubspot.com/marketing/what-is-seo-faq-ht" target="_blank">
-            <span class="res-name">HubSpot — What is SEO?</span>
-            <span class="res-desc">Beginner-friendly SEO explainer</span>
-          </a>
-        </div>
-
-        <div class="res-group">
-          <div class="res-group-title">📅 Planning &amp; Scheduling</div>
-          <a class="res-link" href="https://buffer.com/library/schedule-social-media-content-plan/" target="_blank">
-            <span class="res-name">Buffer — Content Scheduling Guide</span>
-            <span class="res-desc">How to plan and schedule social media content</span>
-          </a>
-          <a class="res-link" href="https://blog.hootsuite.com/social-media-templates/" target="_blank">
-            <span class="res-name">Hootsuite — Social Media Templates</span>
-            <span class="res-desc">Free templates for content calendars</span>
-          </a>
-          <a class="res-link" href="https://blog.hootsuite.com/how-to-create-a-social-media-content-calendar/" target="_blank">
-            <span class="res-name">Hootsuite — Content Calendar Guide</span>
-            <span class="res-desc">Why a posting schedule matters</span>
-          </a>
-        </div>
-
-        <div class="res-group">
-          <div class="res-group-title">📊 Analytics</div>
-          <a class="res-link" href="https://www.facebook.com/business/learn" target="_blank">
-            <span class="res-name">Meta Business Learning Lab</span>
-            <span class="res-desc">Free Facebook & Instagram courses</span>
-          </a>
-          <a class="res-link" href="https://www.theguardian.com/technology/2013/jun/10/effective-social-media-analytics" target="_blank">
-            <span class="res-name">Guardian — Effective Social Media Analytics</span>
-            <span class="res-desc">How to understand your social media data</span>
-          </a>
-        </div>
-
-        <div class="res-group">
-          <div class="res-group-title">🎨 Content Creation</div>
-          <a class="res-link" href="https://www.canva.com" target="_blank">
-            <span class="res-name">Canva</span>
-            <span class="res-desc">Free graphic design tool for social media posts</span>
-          </a>
-          <a class="res-link" href="https://www.socialmediaexaminer.com/optimize-images-across-social-networks/" target="_blank">
-            <span class="res-name">Optimising Images for Social Media</span>
-            <span class="res-desc">Correct image sizes for each platform</span>
-          </a>
-        </div>
-
-        <div class="res-group">
-          <div class="res-group-title">📘 BTEC Textbook</div>
-          <a class="res-link" href="https://www.vlebooks.com/Vleweb/Bookshelf/Index/2999516" target="_blank">
-            <span class="res-name">BTEC National Computing Student Book</span>
-            <span class="res-desc">Jenny Phillips — available via VLE ebooks (Pages 22–23 for social media policy)</span>
-          </a>
-        </div>
-
+        <div class="res-group"><div class="res-group-title">📰 Social Media &amp; Marketing</div><a class="res-link" href="https://www.socialmediaexaminer.com" target="_blank"><span class="res-name">Social Media Examiner</span><span class="res-desc">Up-to-date articles on using social media for business</span></a><a class="res-link" href="https://www.socialmediatoday.com" target="_blank"><span class="res-name">Social Media Today</span><span class="res-desc">Social media marketing news and strategies</span></a><a class="res-link" href="https://www.theguardian.com/media/social-media" target="_blank"><span class="res-name">The Guardian — Social Media</span><span class="res-desc">Journalism and issues around social media</span></a></div>
+        <div class="res-group"><div class="res-group-title">🔍 SEO &amp; Keywords</div><a class="res-link" href="https://ads.google.com/home/tools/keyword-planner/" target="_blank"><span class="res-name">Google Keyword Planner</span><span class="res-desc">Research keywords people actually search for</span></a><a class="res-link" href="https://blog.hubspot.com/marketing/what-is-seo-faq-ht" target="_blank"><span class="res-name">HubSpot — What is SEO?</span><span class="res-desc">Beginner-friendly SEO explainer</span></a></div>
+        <div class="res-group"><div class="res-group-title">📅 Planning &amp; Scheduling</div><a class="res-link" href="https://buffer.com/library/schedule-social-media-content-plan/" target="_blank"><span class="res-name">Buffer — Content Scheduling Guide</span><span class="res-desc">How to plan and schedule social media content</span></a><a class="res-link" href="https://blog.hootsuite.com/how-to-create-a-social-media-content-calendar/" target="_blank"><span class="res-name">Hootsuite — Content Calendar Guide</span><span class="res-desc">Why a posting schedule matters</span></a></div>
+        <div class="res-group"><div class="res-group-title">📊 Analytics</div><a class="res-link" href="https://www.facebook.com/business/learn" target="_blank"><span class="res-name">Meta Business Learning Lab</span><span class="res-desc">Free Facebook &amp; Instagram courses</span></a></div>
+        <div class="res-group"><div class="res-group-title">🎨 Content Creation</div><a class="res-link" href="https://www.canva.com" target="_blank"><span class="res-name">Canva</span><span class="res-desc">Free graphic design tool for social media posts</span></a></div>
+        <div class="res-group"><div class="res-group-title">📘 BTEC Textbook</div><a class="res-link" href="https://www.vlebooks.com/Vleweb/Bookshelf/Index/2999516" target="_blank"><span class="res-name">BTEC National Computing Student Book</span><span class="res-desc">Jenny Phillips — Pages 22–23 for social media policy</span></a></div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════ FAQ ═══════════════════════════ -->
+    <!-- ══════════ FAQ ══════════ -->
     <section class="page" id="page-faq">
-      <div class="page-header">
-        <div class="page-eyebrow">Assignment 02</div>
-        <h1 class="page-title">Frequently Asked Questions</h1>
-        <p class="page-sub">The most common questions — answered honestly.</p>
-      </div>
-
-      <div class="faq-list">
-
-        <div class="faq-item">
-          <button class="faq-trigger">What kind of business can I use? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p>Any real small business — a corner shop, a family member's business, a friend's venture, or even your own business. The key requirements are: it must be a real business, and it must not already have a strong, active social media presence (otherwise there's nothing for you to do).</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-trigger">Can I use a made-up or fictional business? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p>No. The assignment requires you to actually create social media accounts and publish real posts with real data. A fictional business cannot have real analytics, real followers, or a real business owner to review your plan — all of which are required for this assignment.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-trigger">What if my posts only get 1 or 2 likes? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p>That's absolutely fine. Use your real data. Markers are not judging how popular your posts were — they're judging the quality of your analysis and reflection. A thoughtful analysis of a post with 1 like is worth far more than a lazy write-up of a post with 100 likes. Be honest and analytical.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-trigger">Can I use AI tools like ChatGPT or Claude? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p>Yes — but only for certain things. You can use AI to generate or edit images, help draft post captions (as long as you personalise them), check grammar, or brainstorm ideas. You cannot use AI to write your evaluations, justifications, or reflections — these must be your own thinking. And you absolutely cannot use AI to generate fake data or fake screenshots.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-trigger">What if the business owner is hard to contact for the plan review? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p>Try multiple methods — WhatsApp, email, in person. If you genuinely cannot reach the business owner, your tutor can act as a substitute for the plan review meeting only. However, you must show evidence that you attempted to contact the owner first. Don't just skip straight to the tutor — it will be obvious in your work.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-trigger">Do I need to create new social media accounts or can I use existing ones? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p>You need to create business accounts specifically for this business. Do not use your personal accounts. Most platforms allow you to create a separate business or creator account even on the same email address or phone number.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-trigger">What are the 3 different content formats I need? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p>You need to use at least 3 different types of content across your 3 platforms. Examples include: a static photo with a caption, a short video or reel, a poll, a story, a web link post, an open question post, a special offer graphic, or behind-the-scenes content. Don't post 5 photos and call it 5 pieces of content — vary the format.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-trigger">What's the difference between P5, M2, and D2? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p><strong>P5</strong> — You create the posts and document them with screenshots and basic annotations.<br><br>
-            <strong>M2</strong> — You go back and justify every planning decision you made — not describe what you did, but explain why it was the right choice for this specific business.<br><br>
-            <strong>D2</strong> — You evaluate the entire project honestly — what worked, what didn't, why, and what you'd do differently. You link your data findings to your original intentions and make specific recommendations.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-trigger">Do I need to delete the red guidance text before submitting? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p>Yes — all red guidance text must be removed before you submit. The guidance text is there to help you while you're writing, not to appear in your final submission. Leaving it in looks unprofessional and can confuse markers about what is your work and what is instruction text.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-trigger">What happens if I miss the 15 April deadline? <span class="faq-arrow">▾</span></button>
-          <div class="faq-body">
-            <p>Speak to your tutor as soon as possible if you think you might miss the deadline. Late submissions without an agreed extension may not be accepted or could be capped. Do not leave it to the last minute — the nature of this assignment means you need real data from real posts, which takes time to collect.</p>
-          </div>
-        </div>
-
-      </div>
+      <div class="page-header"><div class="page-eyebrow">Assignment 02</div><h1 class="page-title">Frequently Asked Questions</h1><p class="page-sub">The most common questions — answered honestly.</p></div>
+      <div class="faq-list" id="faqList"></div>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <span>Unit 8 · Business Applications of Social Media · BTEC Level 3</span>
-      <span>Deadline: 15 April 2026</span>
+  <footer class="footer"><div class="footer-inner"><span>Unit 8 · Business Applications of Social Media · BTEC Level 3</span><span>Deadline: 15 April 2026</span></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     TUTOR DASHBOARD
+══════════════════════════════════════════════════ -->
+<div id="tutorDashboard" class="hidden">
+  <nav class="nav tutor-nav">
+    <div class="nav-inner">
+      <div class="nav-logo"><span class="nav-unit tutor-badge">TUTOR</span><span class="nav-title">Unit 8 — Progress Dashboard</span></div>
+      <button class="nav-logout tutor-logout" id="btnTutorLogout">Log Out</button>
     </div>
-  </footer>
+  </nav>
+  <main class="main">
+    <div class="page-header">
+      <div class="page-eyebrow">Ravindu Abeyrathne</div>
+      <h1 class="page-title">Student Progress</h1>
+      <p class="page-sub">Live overview of all student progress synced from Google Sheets.</p>
+    </div>
 
-  <script>
-// ── Constants ─────────────────────────────────────────────────────
-const DEADLINE   = new Date('2026-04-15T23:59:59');
-const START_DATE = new Date('2026-03-04T00:00:00');
+    <!-- Summary stats -->
+    <div class="tutor-stats" id="tutorStats"></div>
 
-const WEEKS = [
-  { start: '2026-03-04', end: '2026-03-10', label: 'Week 1', stage: 'Stage 1 — Business Research & Introduction', desc: 'Document the business, their aims, and why they need social media.', criteria: 'P3' },
-  { start: '2026-03-11', end: '2026-03-17', label: 'Week 2', stage: 'Stage 2 — Build Your Social Media Plan', desc: 'Choose platforms, identify target audience, keyword strategy, posting schedule V1, legal & policy.', criteria: 'P3' },
-  { start: '2026-03-18', end: '2026-03-24', label: 'Week 3', stage: 'Stage 3 — Review Plan with Business Owner', desc: 'Get feedback on your plan, improve it, and produce Posting Schedule V2.', criteria: 'P4' },
-  { start: '2026-03-25', end: '2026-03-31', label: 'Week 4', stage: 'Stages 4–6 — Set Up Profiles, Post Content & Build Community', desc: 'Create accounts, publish posts across 3 platforms with 3+ content formats, engage with audience.', criteria: 'P5' },
-  { start: '2026-04-01', end: '2026-04-07', label: 'Week 5', stage: 'Stages 7–10 — Data, SEO, Justify & Optimise', desc: 'Collect real analytics, write SEO assessment, justify your decisions (M2), optimise content (M3).', criteria: 'P6 / P7 / M2 / M3' },
-  { start: '2026-04-08', end: '2026-04-14', label: 'Week 6', stage: 'Stages 11–12 — Evaluate & Reflect', desc: 'Write full evaluation (D2) and self-management reflection (D3). Final checks before submission.', criteria: 'D2 / D3' },
-  { start: '2026-04-15', end: '2026-04-15', label: 'Deadline', stage: 'Submission Day — 15 April 2026', desc: 'Remove red guidance text, update Table of Contents, check evidence checklist, submit!', criteria: 'Submit' },
+    <!-- Student table -->
+    <div class="tutor-table-wrap">
+      <div class="tutor-table-header">
+        <input type="text" class="tutor-search" id="tutorSearch" placeholder="Search by name or ID..."/>
+        <button class="tutor-refresh" id="btnRefresh">↻ Refresh</button>
+      </div>
+      <div id="tutorTableContainer"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Level up toast -->
+<div class="toast hidden" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CONFIGURATION — update SHEET_URL after deploying Apps Script
+// ═══════════════════════════════════════════════════════════════
+const CONFIG = {
+  SHEET_URL: 'https://script.google.com/macros/s/AKfycbxz23JcweklZHesLJ_Kclk_9uc-HaxD1jfA2eVtW6zkBivOyEt2WlEeIMuqUu_uitX8qA/exec', // ← paste your deployed URL
+  DEADLINE:   new Date('2026-04-15T23:59:59'),
+  START_DATE: new Date('2026-03-04T00:00:00'),
+  SYNC_INTERVAL: 30000, // sync every 30 seconds
+};
+
+// ═══════════════════════════════════════════════════════════════
+// DATA DEFINITIONS
+// ═══════════════════════════════════════════════════════════════
+const SECTIONS = [
+  { id:'s1',  band:'pass',        xp:100, criteria:'P3', title:'Section 1 — Introduction to the Business',            short:'Intro to Business' },
+  { id:'s2a', band:'pass',        xp:50,  criteria:'P3', title:'2a — Platform Selection',                             short:'Platform Selection' },
+  { id:'s2b', band:'pass',        xp:50,  criteria:'P3', title:'2b — Target Audience',                                short:'Target Audience' },
+  { id:'s2c', band:'pass',        xp:50,  criteria:'P3', title:'2c — Keyword Strategy',                               short:'Keywords' },
+  { id:'s2d', band:'pass',        xp:50,  criteria:'P3', title:'2d — Best Times to Post',                             short:'Posting Times' },
+  { id:'s2e', band:'pass',        xp:50,  criteria:'P3', title:'2e — Posting Schedule V1',                            short:'Schedule V1' },
+  { id:'s2f', band:'pass',        xp:50,  criteria:'P3', title:'2f — Legal & Ethical Considerations',                 short:'Legal & Ethical' },
+  { id:'s2g', band:'pass',        xp:50,  criteria:'P3', title:'2g — Social Media Policy',                            short:'SM Policy' },
+  { id:'s3a', band:'pass',        xp:60,  criteria:'P4', title:'3a — Evidence of Plan Review',                        short:'Review Evidence' },
+  { id:'s3b', band:'pass',        xp:60,  criteria:'P4', title:'3b — Feedback Received',                              short:'Feedback' },
+  { id:'s3c', band:'pass',        xp:80,  criteria:'P4', title:'3c — Posting Schedule V2 (Improved)',                 short:'Schedule V2' },
+  { id:'s4',  band:'pass',        xp:100, criteria:'P5', title:'Section 4 — Social Media Profiles',                   short:'Profiles Setup' },
+  { id:'s5a', band:'pass',        xp:50,  criteria:'P5', title:'5a — Content Matrix',                                 short:'Content Matrix' },
+  { id:'s5b', band:'pass',        xp:30,  criteria:'P5', title:'5b — Content Format Checklist',                       short:'Format Checklist' },
+  { id:'s5c', band:'pass',        xp:120, criteria:'P5', title:'5c — Individual Posts (5 posts)',                     short:'Posts' },
+  { id:'s6',  band:'pass',        xp:100, criteria:'P5', title:'Section 6 — Online Community Building',               short:'Community' },
+  { id:'s7a', band:'pass',        xp:80,  criteria:'P6', title:'7a — Analytics Data Table',                           short:'Analytics Table' },
+  { id:'s7b', band:'pass',        xp:120, criteria:'P6', title:'7b — Data Analysis',                                  short:'Data Analysis' },
+  { id:'s8',  band:'pass',        xp:150, criteria:'P7', title:'Section 8 — SEO Assessment',                          short:'SEO' },
+  { id:'s9',  band:'merit',       xp:200, criteria:'M2', title:'Section 9 — Justify Planning Decisions',              short:'Justification' },
+  { id:'s10', band:'merit',       xp:200, criteria:'M3', title:'Section 10 — Optimised Content',                      short:'Optimisation' },
+  { id:'s11', band:'distinction', xp:300, criteria:'D2', title:'Section 11 — Evaluate Plan & Implementation',         short:'Evaluation' },
+  { id:'s12', band:'distinction', xp:300, criteria:'D3', title:'Section 12 — Self-Management Reflection',             short:'Self-Reflection' },
 ];
 
-// ── Page Navigation ───────────────────────────────────────────────
-const navLinks = document.querySelectorAll('.nav-link');
-const pages    = document.querySelectorAll('.page');
+const TOTAL_XP      = SECTIONS.reduce((a,s) => a+s.xp, 0);
+const PASS_XP       = SECTIONS.filter(s=>s.band==='pass').reduce((a,s)=>a+s.xp,0);
+const PASS_MERIT_XP = SECTIONS.filter(s=>s.band!=='distinction').reduce((a,s)=>a+s.xp,0);
+
+const BADGES = [
+  { id:'first_section', icon:'🚀', name:'Lift Off',       desc:'Complete your first section',            condition: c => c.length >= 1 },
+  { id:'plan_approved', icon:'📋', name:'Plan Approved',  desc:'Complete the full plan (Sections 1–2)',   condition: c => ['s1','s2a','s2b','s2c','s2d','s2e','s2f','s2g'].every(s=>c.includes(s)) },
+  { id:'reviewed',      icon:'🤝', name:'Business Deal',  desc:'Complete plan review (Section 3)',        condition: c => ['s3a','s3b','s3c'].every(s=>c.includes(s)) },
+  { id:'published',     icon:'📱', name:'Content Creator',desc:'Complete posts & community (Sections 4–6)',condition:c=>['s4','s5a','s5b','s5c','s6'].every(s=>c.includes(s))},
+  { id:'analyst',       icon:'📊', name:'Data Analyst',   desc:'Complete data review (Section 7)',        condition: c => ['s7a','s7b'].every(s=>c.includes(s)) },
+  { id:'pass_complete', icon:'✅', name:'Pass Secured',   desc:'Complete all Pass sections',              condition: c => SECTIONS.filter(s=>s.band==='pass').every(s=>c.includes(s.id)) },
+  { id:'merit_hunter',  icon:'🔶', name:'Merit Hunter',   desc:'Start working on Merit sections',         condition: c => c.includes('s9') },
+  { id:'merit_done',    icon:'🏆', name:'Merit Achieved', desc:'Complete all Merit sections',             condition: c => SECTIONS.filter(s=>s.band!=='distinction').every(s=>c.includes(s.id)) },
+  { id:'distinction',   icon:'👑', name:'Distinction!',   desc:'Complete all sections',                   condition: c => SECTIONS.every(s=>c.includes(s.id)) },
+  { id:'streak_3',      icon:'🔥', name:'On Fire',        desc:'3-day login streak',                      condition: (c,xp,streak) => streak >= 3 },
+  { id:'streak_7',      icon:'⚡', name:'Unstoppable',    desc:'7-day login streak',                      condition: (c,xp,streak) => streak >= 7 },
+];
+
+const BOSS_MESSAGES = {
+  first_section: "Oh, you actually opened it. Bold start. 3 stars for effort, let's see the rest. 👀",
+  plan_approved:  "Your plan is done! Now go actually talk to the business owner. Yes, a real conversation. With words. 🗣️",
+  reviewed:       "Business owner approved your plan? Look at you — a proper professional. Don't let it go to your head. 😄",
+  published:      "You're posting content! If a friend of yours likes the post, that still counts as engagement. Every like helps. 📱",
+  analyst:        "You've done the data section. And yes, 1 like is fine. Honestly. Write about it like a true data analyst. 📊",
+  pass_complete:  "ALL PASS SECTIONS DONE. That's a Pass in the bag. Now — are you stopping here, or are we going for more? 🎯",
+  merit_done:     "Merit complete! You're THIS close to a Distinction. Don't quit now — it would be a waste of all the work you've done. 💪",
+  distinction:    "You absolute legend. Every section done. That's a Distinction. I won't pretend I didn't think you could do it. 👑",
+  streak_3:       "3 days in a row! This is more commitment than you show to most things. Keep it up. 🔥",
+  streak_7:       "A full week streak?! Who ARE you? Whatever you're doing, keep doing it. ⚡",
+  default_start:  "Welcome back! Section 1 is literally just writing about the business. You've got this. It's a sentence and a half. 😎",
+};
+
+const WEEKS_DATA = [
+  { label:'Week 1', dates:'04–10 Mar', start:'2026-03-04', end:'2026-03-10', color:'pass',
+    items:[{ band:'pass', stage:'Stage 1', criteria:'P3', title:'Business Research & Introduction',
+      desc:'You already have your business. Now document it — what it does, who runs it, why you chose it.',
+      note:'📌 You should have agreed your business before this week',
+      subs:['<strong>Section 1</strong> — Introduction to the Business','Business name, type, owner contact','How you chose this business','Current online presence','Business aims and how social media will help'] }] },
+  { label:'Week 2', dates:'11–17 Mar', start:'2026-03-11', end:'2026-03-17', color:'pass',
+    items:[{ band:'pass', stage:'Stage 2', criteria:'P3', title:'Build Your Social Media Plan',
+      desc:'Choose 3 platforms, target audience, keywords, posting times, Schedule V1, legal considerations, social media policy.',
+      note:'📌 Everything planned here — nothing posted yet',
+      subs:['<strong>Section 2</strong> — Social Media Plan','2a — Platform selection (3 platforms with justification)','2b — Target audience (age, gender, interests, location)','2c — Keyword strategy (5 researched keywords)','2d — Best times to post','2e — Posting Schedule V1 (at least 6 posts)','2f — Legal &amp; ethical considerations','2g — Social media policy'] }] },
+  { label:'Week 3', dates:'18–24 Mar', start:'2026-03-18', end:'2026-03-24', color:'pass',
+    items:[{ band:'pass', stage:'Stage 3', criteria:'P4', title:'Review Plan with Business Owner',
+      desc:'Share your plan, collect feedback, produce Schedule V2 with improvements.',
+      note:'⚠️ MUST happen before you start posting', noteClass:'warn',
+      subs:['<strong>Section 3</strong> — Plan Review &amp; Improvements','3a — Evidence of review (meeting notes, email, Google Form)','3b — Feedback received and documented','3c — Posting Schedule V2 (improved with "what changed" column)'] }] },
+  { label:'Week 4', dates:'25–31 Mar', start:'2026-03-25', end:'2026-03-31', color:'pass',
+    items:[
+      { band:'pass', stage:'Stage 4', criteria:'P5', title:'Set Up Profiles & Start Posting',
+        desc:'Create accounts on all 3 platforms, screenshot profiles, annotate your choices.',
+        subs:['<strong>Section 4</strong> — Social Media Profiles','Screenshots of profiles on all 3 platforms','Annotation of bio, username, profile image choices'] },
+      { band:'pass', stage:'', criteria:'', title:'', desc:'', parallel:true,
+        parallelItems:[
+          { band:'pass', stage:'Stage 5', criteria:'P5', title:'Publish Content',
+            desc:'Post content following your schedule.',
+            subs:['<strong>Section 5</strong> — Content Creation &amp; Publishing','5a — Content matrix','5b — Content format checklist','5c — Individual posts (5 minimum, each with screenshot &amp; annotation)'] },
+          { band:'pass', stage:'Stage 6', criteria:'P5', title:'Build Community',
+            desc:'Reply to comments, run polls, use hashtags, set up auto-responses.',
+            subs:['<strong>Section 6</strong> — Online Community Building','Replies to comments or messages','Poll or survey','Hashtag strategy in action','Auto-response or CTA button'] },
+        ]} ] },
+  { label:'Week 5', dates:'01–07 Apr', start:'2026-04-01', end:'2026-04-07', color:'merit',
+    items:[
+      { band:'pass',  stage:'Stage 7', criteria:'P6', title:'Collect & Analyse Data',
+        desc:'Pull real analytics from all platforms. Fill in data table. Write analysis.',
+        note:'🚨 Real figures only — 1 like is fine. Do not make data up.', noteClass:'warn',
+        subs:['<strong>Section 7</strong> — Data Review','7a — Analytics data table (reach, likes, comments, shares)','7b — Data analysis (best post, worst post, audience match)'] },
+      { band:'pass',  stage:'Stage 8', criteria:'P7', title:'SEO Assessment',
+        desc:'How does your activity help search rankings? What would improve them?',
+        subs:['<strong>Section 8</strong> — SEO Assessment','What SEO is and why it matters','How keywords and regular posting support SEO','Recommendations for improving rankings'] },
+      { band:'merit', stage:'Stage 9', criteria:'M2', title:'Justify Your Planning Decisions',
+        desc:'Not just what you did — why it was the right choice for this specific business.',
+        subs:['<strong>Section 9</strong> — Justification','Justify platform choices','Justify target audience','Justify keyword strategy','Justify posting schedule','Link all decisions to business requirements'] },
+      { band:'merit', stage:'Stage 10', criteria:'M3', title:'Optimise Content',
+        desc:'Pick 2+ posts, improve them, show before & after. Test on different devices.',
+        subs:['<strong>Section 10</strong> — Optimised Content','Before &amp; after screenshots for 2+ posts','Annotations explaining changes','Multi-device testing screenshots'] },
+    ] },
+  { label:'Week 6', dates:'08–14 Apr', start:'2026-04-08', end:'2026-04-14', color:'distinction',
+    items:[
+      { band:'distinction', stage:'Stage 11', criteria:'D2', title:'Evaluate the Whole Project',
+        desc:'Full honest evaluation — what worked, what didn\'t, data vs intentions, recommendations.',
+        subs:['<strong>Section 11</strong> — Evaluation','Did the plan meet business requirements?','What worked and what didn\'t — with reasons','Legal &amp; ethical issues in your posts','Data vs original intentions','Specific, justified recommendations'] },
+      { band:'distinction', stage:'Stage 12', criteria:'D3', title:'Reflect on Self-Management',
+        desc:'Evaluate your own behaviour — time management, feedback, professionalism, communication.',
+        subs:['<strong>Section 12</strong> — Self-Management','12a — Time management table with reflection','12b — Responding to feedback (specific examples)','12c — Professionalism &amp; behaviour evidence','12d — Communication reflection','12e — Creativity and problem solving'] },
+    ] },
+  { label:'Submit', dates:'15 Apr 2026', start:'2026-04-15', end:'2026-04-15', color:'submit',
+    items:[{ band:'submit', stage:'Final', criteria:'', title:'Final Checks & Submission',
+      desc:'Remove red guidance text. Update Table of Contents. Check evidence checklist. Submit.',
+      note:'🗓️ Hard deadline: 15 April 2026 by midnight',
+      subs:['Delete all red guidance text from the template','Right-click Table of Contents → Update Field','Run through the evidence checklist (Appendix)','Check filename includes your name and student ID','Submit via the assignment portal before 23:59'] }] },
+];
+
+const FAQ_DATA = [
+  { q:'What kind of business can I use?', a:'Any real small business — a corner shop, a family member\'s business, a friend\'s venture, or even your own. It must be real and must not already have a strong, active social media presence.' },
+  { q:'Can I use a made-up or fictional business?', a:'No. The assignment requires you to publish real posts with real data. A fictional business cannot have real analytics, real followers, or a real business owner — all of which are required.' },
+  { q:'What if my posts only get 1 or 2 likes?', a:'Absolutely fine. Use your real data. Markers are judging the quality of your analysis, not how popular your posts were. A thoughtful analysis of 1 like is worth far more than a lazy write-up of 100 likes.' },
+  { q:'Can I use AI tools like ChatGPT or Claude?', a:'Yes — but only for images, drafting captions (personalised by you), grammar checking, and brainstorming. You cannot use AI to write evaluations, justifications, or reflections. And never for fake data or screenshots.' },
+  { q:'What if the business owner is hard to contact?', a:'Try multiple methods — WhatsApp, email, in person. If you genuinely cannot reach them, your tutor can substitute for the plan review only — but you must show evidence you tried first.' },
+  { q:'Do I need to create new accounts or can I use existing ones?', a:'Create business accounts specifically for this business. Do not use your personal accounts. Most platforms allow a separate business or creator account on the same phone number.' },
+  { q:'What are the 3 different content formats?', a:'Use at least 3 different types across your 3 platforms: static photo, short video/reel, poll, story, web link post, open question, special offer, behind-the-scenes. Don\'t post 5 photos and call it varied.' },
+  { q:'What\'s the difference between P5, M2, and D2?', a:'P5 — create posts and annotate them. M2 — go back and justify every planning decision (not describe — justify). D2 — write a full evaluation of what worked, what didn\'t, why, and what you\'d do differently with evidence.' },
+  { q:'Do I delete the red guidance text before submitting?', a:'Yes — all red guidance text must be removed. Leaving it in looks unprofessional and confuses markers about what is your work and what is instruction.' },
+  { q:'What happens if I miss the 15 April deadline?', a:'Speak to your tutor immediately. Late submissions without an agreed extension may not be accepted or could be capped. Don\'t leave it — real data takes time to collect, so don\'t rush everything into the last week.' },
+];
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+let STATE = {
+  student: null,      // { studentId, name, completedSections:[], xp:0, badges:[], streak:0 }
+  isTutor: false,
+  syncing: false,
+  lastSync: null,
+};
+
+// ═══════════════════════════════════════════════════════════════
+// API CALLS
+// ═══════════════════════════════════════════════════════════════
+async function apiPost(data) {
+  if (!CONFIG.SHEET_URL || CONFIG.SHEET_URL.includes('YOUR_')) {
+    console.warn('Google Sheets URL not configured — running in offline mode');
+    return { ok: true, offline: true };
+  }
+  const res = await fetch(CONFIG.SHEET_URL, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+async function apiGet(params) {
+  if (!CONFIG.SHEET_URL || CONFIG.SHEET_URL.includes('YOUR_')) {
+    return { ok: true, offline: true, students: [] };
+  }
+  const url = CONFIG.SHEET_URL + '?' + new URLSearchParams(params);
+  const res = await fetch(url);
+  return res.json();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════════════════════════════
+function initLogin() {
+  document.querySelectorAll('.login-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('formStudent').classList.toggle('hidden', tab.dataset.tab !== 'student');
+      document.getElementById('formTutor').classList.toggle('hidden', tab.dataset.tab !== 'tutor');
+      hideError();
+    });
+  });
+
+  document.getElementById('btnStudentLogin').addEventListener('click', handleStudentLogin);
+  document.getElementById('btnTutorLogin').addEventListener('click', handleTutorLogin);
+
+  ['inputName','inputStudentId','inputTutorPin'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        if (id === 'inputTutorPin') handleTutorLogin();
+        else handleStudentLogin();
+      }
+    });
+  });
+}
+
+async function handleStudentLogin() {
+  const name      = document.getElementById('inputName').value.trim();
+  const studentId = document.getElementById('inputStudentId').value.trim();
+  if (!name || !studentId) { showError('Please enter your full name and Student ID.'); return; }
+
+  setBtnLoading(true);
+  try {
+    const result = await apiPost({ action: 'login', name, studentId });
+    if (result.error) { showError(result.error); setBtnLoading(false); return; }
+
+    // Use returned student data or create local if offline
+    const student = result.offline ? {
+      studentId, name,
+      completedSections: JSON.parse(localStorage.getItem(`cs_${studentId}`) || '[]'),
+      xp: parseInt(localStorage.getItem(`xp_${studentId}`) || '0'),
+      badges: JSON.parse(localStorage.getItem(`bd_${studentId}`) || '[]'),
+      streak: 1,
+    } : result.student;
+
+    STATE.student = student;
+    localStorage.setItem('lastStudentId', studentId);
+    localStorage.setItem('lastStudentName', name);
+
+    launchApp();
+  } catch(e) {
+    // Offline fallback
+    STATE.student = {
+      studentId, name,
+      completedSections: JSON.parse(localStorage.getItem(`cs_${studentId}`) || '[]'),
+      xp: parseInt(localStorage.getItem(`xp_${studentId}`) || '0'),
+      badges: JSON.parse(localStorage.getItem(`bd_${studentId}`) || '[]'),
+      streak: 1,
+    };
+    localStorage.setItem('lastStudentId', studentId);
+    localStorage.setItem('lastStudentName', name);
+    launchApp();
+    showToast('⚠️ Running offline — progress saved locally');
+  }
+  setBtnLoading(false);
+}
+
+async function handleTutorLogin() {
+  const pin = document.getElementById('inputTutorPin').value.trim();
+  if (!pin) { showError('Please enter your PIN.'); return; }
+
+  try {
+    const result = await apiPost({ action: 'tutorLogin', pin });
+    if (result.error && !result.offline) { showError('Incorrect PIN. Try again.'); return; }
+  } catch(e) {}
+
+  STATE.isTutor = true;
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('tutorDashboard').classList.remove('hidden');
+  loadTutorDashboard(pin);
+}
+
+function showError(msg) { const el = document.getElementById('loginError'); el.textContent = msg; el.classList.remove('hidden'); }
+function hideError() { document.getElementById('loginError').classList.add('hidden'); }
+function setBtnLoading(on) {
+  const btn = document.getElementById('btnStudentLogin');
+  const txt = document.getElementById('loginBtnText');
+  btn.classList.toggle('loading', on);
+  txt.textContent = on ? 'Loading...' : "Let's Go →";
+}
+
+// Auto-fill from last session
+window.addEventListener('DOMContentLoaded', () => {
+  const id   = localStorage.getItem('lastStudentId');
+  const name = localStorage.getItem('lastStudentName');
+  if (id)   document.getElementById('inputStudentId').value = id;
+  if (name) document.getElementById('inputName').value = name;
+  initLogin();
+});
+
+// ═══════════════════════════════════════════════════════════════
+// LAUNCH APP
+// ═══════════════════════════════════════════════════════════════
+function launchApp() {
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+
+  document.getElementById('navName').textContent = STATE.student.name.split(' ')[0];
+
+  buildTimeline();
+  buildSections();
+  buildFAQ();
+  refreshUI();
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  setInterval(syncProgress, CONFIG.SYNC_INTERVAL);
+  initNav();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+function initNav() {
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.addEventListener('click', e => { e.preventDefault(); showPage(l.dataset.page); });
+  });
+  document.querySelectorAll('[data-goto]').forEach(c => {
+    c.addEventListener('click', () => showPage(c.dataset.goto));
+  });
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.getElementById('btnLogout').addEventListener('click', () => {
+    STATE.student = null;
+    document.getElementById('app').classList.add('hidden');
+    document.getElementById('loginScreen').classList.remove('hidden');
+  });
+}
 
 function showPage(name) {
-  pages.forEach(p => p.classList.remove('active'));
-  navLinks.forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
   const target = document.getElementById('page-' + name);
   if (target) target.classList.add('active');
-  navLinks.forEach(l => { if (l.dataset.page === name) l.classList.add('active'); });
+  document.querySelectorAll(`.nav-link[data-page="${name}"]`).forEach(l => l.classList.add('active'));
   window.scrollTo({ top: 0, behavior: 'smooth' });
   document.getElementById('navLinks').classList.remove('open');
   document.getElementById('hamburger').classList.remove('open');
 }
 
-navLinks.forEach(l => l.addEventListener('click', e => { e.preventDefault(); showPage(l.dataset.page); }));
-document.querySelectorAll('[data-goto]').forEach(c => c.addEventListener('click', () => showPage(c.dataset.goto)));
+// ═══════════════════════════════════════════════════════════════
+// PROGRESS / GAMIFICATION
+// ═══════════════════════════════════════════════════════════════
+function toggleSection(sectionId) {
+  const completed = STATE.student.completedSections;
+  const idx = completed.indexOf(sectionId);
+  const wasNew = idx === -1;
 
-// ── Hamburger ─────────────────────────────────────────────────────
-const hamburger  = document.getElementById('hamburger');
-const navLinksEl = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  navLinksEl.classList.toggle('open');
-});
+  if (wasNew) completed.push(sectionId);
+  else completed.splice(idx, 1);
 
-// ── Accordion ─────────────────────────────────────────────────────
-document.querySelectorAll('.acc-trigger').forEach(trigger => {
-  trigger.addEventListener('click', () => {
-    const body   = trigger.nextElementSibling;
-    const isOpen = trigger.classList.contains('open');
-    trigger.closest('.accordion').querySelectorAll('.acc-trigger').forEach(t => {
-      t.classList.remove('open');
-      t.nextElementSibling.classList.remove('open');
+  // Recalculate XP
+  STATE.student.xp = SECTIONS
+    .filter(s => completed.includes(s.id))
+    .reduce((a, s) => a + s.xp, 0);
+
+  // Check new badges
+  const prevBadges = [...STATE.student.badges];
+  const newBadges = BADGES
+    .filter(b => !prevBadges.includes(b.id) && b.condition(completed, STATE.student.xp, STATE.student.streak))
+    .map(b => b.id);
+
+  STATE.student.badges = [
+    ...prevBadges,
+    ...newBadges.filter(b => !prevBadges.includes(b)),
+  ];
+
+  // Save locally
+  localStorage.setItem(`cs_${STATE.student.studentId}`, JSON.stringify(completed));
+  localStorage.setItem(`xp_${STATE.student.studentId}`, STATE.student.xp);
+  localStorage.setItem(`bd_${STATE.student.studentId}`, JSON.stringify(STATE.student.badges));
+
+  refreshUI();
+
+  if (wasNew) {
+    const sec = SECTIONS.find(s => s.id === sectionId);
+    showToast(`+${sec.xp} XP — ${sec.short} ✓`);
+  }
+
+  if (newBadges.length > 0) {
+    setTimeout(() => {
+      newBadges.forEach(bid => {
+        const badge = BADGES.find(b => b.id === bid);
+        if (badge) {
+          showToast(`🏅 Badge unlocked: ${badge.name}!`);
+          showBossMessage(bid);
+        }
+      });
+    }, 600);
+  }
+
+  syncProgress();
+}
+
+async function syncProgress() {
+  if (STATE.syncing || !STATE.student) return;
+  STATE.syncing = true;
+  try {
+    await apiPost({
+      action: 'updateProgress',
+      studentId: STATE.student.studentId,
+      completedSections: STATE.student.completedSections,
+      xp: STATE.student.xp,
+      badges: STATE.student.badges,
     });
-    if (!isOpen) { trigger.classList.add('open'); body.classList.add('open'); }
-  });
-});
+    STATE.lastSync = new Date();
+  } catch(e) {}
+  STATE.syncing = false;
+}
 
-// ── FAQ ───────────────────────────────────────────────────────────
-document.querySelectorAll('.faq-trigger').forEach(trigger => {
-  trigger.addEventListener('click', () => {
-    const body   = trigger.nextElementSibling;
-    const isOpen = trigger.classList.contains('open');
-    document.querySelectorAll('.faq-trigger').forEach(t => {
-      t.classList.remove('open');
-      t.nextElementSibling.classList.remove('open');
-    });
-    if (!isOpen) { trigger.classList.add('open'); body.classList.add('open'); }
-  });
-});
+// ═══════════════════════════════════════════════════════════════
+// UI REFRESH
+// ═══════════════════════════════════════════════════════════════
+function refreshUI() {
+  if (!STATE.student) return;
+  const { completedSections, xp, badges, streak, name } = STATE.student;
+  const pct = Math.min(100, Math.round((xp / TOTAL_XP) * 100));
 
-// ── Current Week Detection ────────────────────────────────────────
+  // Nav XP
+  document.getElementById('navXP').textContent = xp + ' XP';
+  document.getElementById('navName').textContent = name.split(' ')[0];
+
+  // XP bar
+  document.getElementById('xpBarFill').style.width = pct + '%';
+  document.getElementById('xpAmount').textContent  = xp + ' XP';
+
+  // Grade ring
+  const ring     = document.getElementById('xpRingFill');
+  const gradeEl  = document.getElementById('xpRingGrade');
+  const targetEl = document.getElementById('xpGradeTarget');
+  const circum   = 2 * Math.PI * 40; // 251.2
+
+  let grade = '—', ringColor = '#CBD5E0', ringPct = 0;
+  if (xp >= PASS_MERIT_XP + 300) { grade = 'D*'; ringColor = '#8B5C00'; ringPct = 100; }
+  else if (xp >= PASS_MERIT_XP)  { grade = 'D';  ringColor = '#8B5C00'; ringPct = Math.min(100,(xp/TOTAL_XP)*100); }
+  else if (xp >= PASS_XP + 200)  { grade = 'M';  ringColor = '#8B6200'; ringPct = Math.min(100,(xp/PASS_MERIT_XP)*100); }
+  else if (xp >= PASS_XP)        { grade = 'P';  ringColor = '#1F6B3A'; ringPct = 100; }
+  else                            { grade = '…';  ringColor = '#1F6B3A'; ringPct = Math.min(100,(xp/PASS_XP)*100); }
+
+  ring.style.strokeDashoffset = circum * (1 - ringPct / 100);
+  ring.style.stroke = ringColor;
+  gradeEl.textContent = grade;
+  if (xp < PASS_XP) targetEl.textContent = `${PASS_XP - xp} XP to Pass`;
+  else if (xp < PASS_MERIT_XP) targetEl.textContent = `${PASS_MERIT_XP - xp} XP to Merit`;
+  else if (xp < TOTAL_XP) targetEl.textContent = `${TOTAL_XP - xp} XP to Distinction`;
+  else targetEl.textContent = 'All done! 🎉';
+
+  // Greeting
+  const hour = new Date().getHours();
+  const timeGreet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('xpGreeting').textContent = `${timeGreet}, ${name.split(' ')[0]}!`;
+
+  // Stats
+  document.getElementById('statSections').textContent = completedSections.length;
+  document.getElementById('statStreak').textContent   = streak || 1;
+  document.getElementById('statBadges').textContent   = badges.length;
+
+  // Badges grid
+  renderBadges(completedSections, badges, streak);
+
+  // Where now
+  updateWhereNow();
+  updateTimelineIndicators();
+  updateSectionButtons();
+
+  // Boss message on first load if nothing done
+  if (completedSections.length === 0) {
+    setTimeout(() => showBossMessage('default_start'), 800);
+  }
+}
+
+function renderBadges(completed, earnedIds, streak) {
+  const grid = document.getElementById('badgesGrid');
+  grid.innerHTML = '';
+  BADGES.forEach(badge => {
+    const earned = badge.condition(completed, STATE.student.xp, streak || 1);
+    const div = document.createElement('div');
+    div.className = 'badge-item ' + (earned ? 'earned' : 'locked');
+    div.innerHTML = `<div class="badge-icon">${badge.icon}</div><div class="badge-name">${badge.name}</div><div class="badge-desc">${badge.desc}</div>`;
+    div.title = earned ? '✓ Earned!' : 'Not yet earned';
+    grid.appendChild(div);
+  });
+}
+
+function showBossMessage(key) {
+  const msg = BOSS_MESSAGES[key] || BOSS_MESSAGES.default_start;
+  const el  = document.getElementById('bossMessage');
+  const bubble = document.getElementById('bossBubble');
+  bubble.textContent = msg;
+  el.classList.remove('hidden');
+  setTimeout(() => el.classList.add('hidden'), 8000);
+}
+
+function updateSectionButtons() {
+  if (!STATE.student) return;
+  const completed = STATE.student.completedSections;
+  document.querySelectorAll('.section-complete-btn').forEach(btn => {
+    const sid  = btn.dataset.section;
+    const done = completed.includes(sid);
+    btn.classList.toggle('done', done);
+    btn.innerHTML = done ? '✓ Completed' : '○ Mark as Done';
+  });
+  document.querySelectorAll('.acc-done-chip').forEach(chip => {
+    const sid = chip.dataset.section;
+    chip.classList.toggle('hidden', !completed.includes(sid));
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// WHERE YOU ARE
+// ═══════════════════════════════════════════════════════════════
 function getCurrentWeekIdx() {
   const now = new Date();
-  for (let i = 0; i < WEEKS.length; i++) {
-    const s = new Date(WEEKS[i].start + 'T00:00:00');
-    const e = new Date(WEEKS[i].end   + 'T23:59:59');
+  for (let i = 0; i < WEEKS_DATA.length; i++) {
+    const s = new Date(WEEKS_DATA[i].start + 'T00:00:00');
+    const e = new Date(WEEKS_DATA[i].end   + 'T23:59:59');
     if (now >= s && now <= e) return i;
   }
-  if (now < new Date(WEEKS[0].start + 'T00:00:00')) return 0;
-  if (now > DEADLINE) return WEEKS.length - 1;
-  return null;
+  if (now < new Date(WEEKS_DATA[0].start + 'T00:00:00')) return 0;
+  return WEEKS_DATA.length - 1;
 }
 
-// ── Where You Should Be (Home) ────────────────────────────────────
 function updateWhereNow() {
   const idx     = getCurrentWeekIdx();
+  const w       = WEEKS_DATA[idx];
+  const item    = w.items[0];
   const titleEl = document.getElementById('whereTitle');
   const descEl  = document.getElementById('whereDesc');
-  const box     = document.getElementById('whereNow');
-  if (!titleEl || !descEl) return;
-
-  const now = new Date();
-
-  if (now > DEADLINE) {
-    titleEl.textContent   = 'Deadline has passed';
-    descEl.textContent    = 'The submission deadline was 15 April 2026. Speak to your tutor if you have not submitted.';
-    box.style.borderColor = '#EF4444';
-    box.style.background  = '#FFF0EF';
-    return;
-  }
-
-  if (idx !== null) {
-    const w = WEEKS[idx];
-    titleEl.innerHTML = `${w.label} &nbsp;·&nbsp; ${w.stage}`;
-    descEl.innerHTML  = `${w.desc}&nbsp;&nbsp;<span style="font-family:var(--font-mono);font-size:11px;background:var(--navy);color:#fff;padding:2px 8px;border-radius:4px">${w.criteria}</span>`;
-  } else {
-    titleEl.textContent = 'Assignment not yet started';
-    descEl.textContent  = 'The assignment opens on 04 March 2026.';
-  }
+  if (!titleEl) return;
+  titleEl.textContent = `${w.label} · ${item.title}`;
+  descEl.innerHTML = item.desc + `&nbsp;&nbsp;<span style="font-family:var(--font-mono);font-size:11px;background:var(--navy);color:#fff;padding:2px 8px;border-radius:4px">${item.criteria || ''}</span>`;
 }
 
-// ── Timeline Indicators ───────────────────────────────────────────
 function updateTimelineIndicators() {
   const now = new Date();
-
   document.querySelectorAll('.tl-week[data-week-start]').forEach(weekEl => {
     const start = new Date(weekEl.dataset.weekStart + 'T00:00:00');
     const end   = new Date(weekEl.dataset.weekEnd   + 'T23:59:59');
-
-    weekEl.classList.remove('current-week', 'past-week');
+    weekEl.classList.remove('current-week','past-week');
     const existing = weekEl.querySelector('.you-are-here-badge');
     if (existing) existing.remove();
-
     if (now > end) {
       weekEl.classList.add('past-week');
     } else if (now >= start && now <= end) {
@@ -2012,31 +1319,174 @@ function updateTimelineIndicators() {
       if (items) {
         const badge = document.createElement('div');
         badge.className = 'you-are-here-badge';
-        badge.innerHTML = '&#128205; YOU ARE HERE THIS WEEK';
+        badge.innerHTML = '📍 YOU ARE HERE THIS WEEK';
         items.insertBefore(badge, items.firstChild);
       }
     }
   });
 }
 
-// ── Countdown Timer ───────────────────────────────────────────────
-function pad(n) { return String(n).padStart(2, '0'); }
+// ═══════════════════════════════════════════════════════════════
+// BUILD TIMELINE
+// ═══════════════════════════════════════════════════════════════
+function buildTimeline() {
+  const container = document.getElementById('timelineContainer');
+  container.innerHTML = '';
 
-function updateCountdown() {
-  const now  = new Date();
-  const diff = DEADLINE - now;
-  const bar  = document.getElementById('countdownBar');
+  WEEKS_DATA.forEach((week, wi) => {
+    const weekEl = document.createElement('div');
+    weekEl.className = 'tl-week' + (week.color === 'submit' ? ' submit-week' : '');
+    weekEl.dataset.weekStart = week.start;
+    weekEl.dataset.weekEnd   = week.end;
 
-  if (diff <= 0) {
-    ['cd-weeks','cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = '00';
+    const labelHTML = `<div class="tl-week-label"><div class="tl-week-name">${week.label}</div><div class="tl-week-dates">${week.dates}</div></div>`;
+    let itemsHTML = '<div class="tl-items">';
+
+    week.items.forEach(item => {
+      if (item.parallel) {
+        itemsHTML += `<div class="tl-parallel-label">These two run at the same time ↓</div><div class="tl-parallel-row">`;
+        item.parallelItems.forEach(pi => {
+          itemsHTML += buildTlItem(pi);
+        });
+        itemsHTML += '</div>';
+      } else {
+        itemsHTML += buildTlItem(item);
+      }
     });
-    const lbl = document.getElementById('cdProgressLabel');
-    if (lbl) lbl.textContent = 'Deadline has passed.';
-    return;
-  }
 
+    itemsHTML += '</div>';
+    weekEl.innerHTML = labelHTML + itemsHTML;
+    container.appendChild(weekEl);
+    if (wi < WEEKS_DATA.length - 1) container.appendChild(document.createElement('div'));
+  });
+
+  updateTimelineIndicators();
+}
+
+function buildTlItem(item) {
+  const bandClass = item.band === 'submit' ? 'submit-item' : item.band;
+  const criteriaTag = item.criteria ? `<span class="tl-criteria ${item.band === 'merit' ? 'merit-tag' : item.band === 'distinction' ? 'distinction-tag' : item.band === 'submit' ? '' : 'pass-tag'}">${item.criteria}</span>` : '';
+  const noteHTML = item.note ? `<div class="tl-note ${item.noteClass||''}">${item.note}</div>` : '';
+  const subsHTML = item.subs ? `<div class="tl-subsections">${item.subs.map(s=>`<div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>${s}</span></div>`).join('')}</div>` : '';
+  return `<div class="tl-item ${bandClass}"><div class="tl-item-top"><span class="tl-stage">${item.stage}</span>${criteriaTag}</div><div class="tl-item-title">${item.title}</div><div class="tl-item-desc">${item.desc}</div>${noteHTML}${subsHTML}</div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BUILD SECTIONS
+// ═══════════════════════════════════════════════════════════════
+const SECTION_CONTENT = {
+  s1:  { body: `<p><strong>What you're doing:</strong> Introducing the business you've chosen to work with.</p><p><strong>In plain English:</strong> Explain to a stranger what the business is, what it sells, who runs it, and why they need help with social media.</p><div class="acc-checklist"><div class="acc-check">✓ Business name, type, and owner's contact</div><div class="acc-check">✓ How you found/chose this business</div><div class="acc-check">✓ What the business currently does online</div><div class="acc-check">✓ Business aims and how social media will help</div></div>` },
+  s2a: { body: `<p><strong>What you're doing:</strong> Choosing which 3 social media platforms to use and explaining why.</p><p><strong>In plain English:</strong> "It's popular" is not a reason. Explain why each platform suits THIS specific business and THIS target audience. Think about who uses each platform and whether that matches the customer base.</p>` },
+  s2b: { body: `<p><strong>What you're doing:</strong> Identifying exactly who the business's customers are.</p><p><strong>In plain English:</strong> Be specific — age range, gender split, location, interests, spending habits. "Everyone" is not a target audience. The more specific you are, the better your platform and content choices will be justified.</p>` },
+  s2c: { body: `<p><strong>What you're doing:</strong> Researching 5 keywords that people would search to find this business.</p><p><strong>In plain English:</strong> Use Google Keyword Planner to find real search data. For each keyword: what is it, how many people search it, and why is it relevant to this business? Evidence from the tool makes this much stronger.</p>` },
+  s2d: { body: `<p><strong>What you're doing:</strong> Deciding the best days and times to post on each platform.</p><p><strong>In plain English:</strong> A bakery's customers are different from a gym's. Research when your specific target audience is most active online and back it up with evidence — don't just guess.</p>` },
+  s2e: { body: `<p><strong>What you're doing:</strong> Creating your original posting plan in a schedule table.</p><p><strong>In plain English:</strong> At least 6 posts spread across your 3 platforms and 3 weeks. For each post: which platform, what type of content, what day and time, and what the purpose is (brand awareness, engagement, etc.).</p>` },
+  s2f: { body: `<p><strong>What you're doing:</strong> Identifying legal and ethical issues that affect social media use for this business.</p><p><strong>In plain English:</strong> Don't just define GDPR — say what you will actually do about it. Address copyright (images you use), GDPR (collecting customer data), advertising standards (no misleading claims), and appropriate content.</p>` },
+  s2g: { body: `<p><strong>What you're doing:</strong> Writing a social media policy for the business.</p><p><strong>In plain English:</strong> This is a set of rules for how the business should use social media. What can they post? What should they never share? How do they keep accounts secure? How do they keep personal and business accounts separate?</p>` },
+  s3a: { body: `<p><strong>What you're doing:</strong> Providing evidence that you actually shared your plan with the business owner.</p><p><strong>In plain English:</strong> This means meeting notes, an email thread, a Google Form response, or a screenshot of a WhatsApp conversation. The plan review must happen BEFORE you start creating posts.</p><div class="acc-highlight important">⚠️ Without this evidence, you cannot achieve P4.</div>` },
+  s3b: { body: `<p><strong>What you're doing:</strong> Documenting the feedback you received from the business owner.</p><p><strong>In plain English:</strong> Complete the feedback table — what they said, what you changed, and why. Even if their feedback was minor, document it. If they were happy with everything, note that too.</p>` },
+  s3c: { body: `<p><strong>What you're doing:</strong> Producing an improved posting schedule based on the feedback you received.</p><p><strong>In plain English:</strong> This is Posting Schedule V2 — the improved version. Add a "what changed and why" column so it's clear what the business owner's feedback changed. If nothing changed, explain why each decision stayed the same.</p>` },
+  s4:  { body: `<p><strong>What you're doing:</strong> Setting up the actual social media accounts for the business.</p><p><strong>In plain English:</strong> Create accounts on all 3 platforms. Think carefully about the username, bio, and profile picture. Screenshot each finished profile and annotate — why that username? Why that bio? Why that image? Link every choice back to the brand and target audience.</p>` },
+  s5a: { body: `<p><strong>What you're doing:</strong> Planning your spread of posts across platforms and formats BEFORE you start creating.</p><p><strong>In plain English:</strong> Fill in the content matrix table first. It shows your examiner that you've deliberately spread content across platforms and used different formats — not just posted 5 photos to Instagram.</p>` },
+  s5b: { body: `<p><strong>What you're doing:</strong> Ticking off which content formats you used across your posts.</p><p><strong>In plain English:</strong> Go through the checklist and mark which formats you used: photo, video, reel, story, poll, web link, etc. You need at least 3 different formats. This also doubles as a quick marking aid.</p>` },
+  s5c: { body: `<p><strong>What you're doing:</strong> Creating and documenting at least 5 published posts.</p><p><strong>In plain English:</strong> For each post — screenshot it, fill in the platform, content format, date/time posted, and write an annotation. The annotation must explain: why this format? How does it follow the plan? How does it suit the target audience?</p><div class="acc-checklist"><div class="acc-check">✓ At least 5 posts published</div><div class="acc-check">✓ Across all 3 platforms</div><div class="acc-check">✓ Using at least 3 different formats</div><div class="acc-check">✓ Screenshot + annotation for every post</div></div>` },
+  s6:  { body: `<p><strong>What you're doing:</strong> Showing that you actively engaged with people, not just broadcast at them.</p><p><strong>In plain English:</strong> Reply to comments, ask questions, run a poll, use hashtags strategically, set up an auto-reply message. Screenshot everything as evidence.</p><div class="acc-checklist"><div class="acc-check">✓ Replied to at least one comment or message</div><div class="acc-check">✓ Created a poll or survey</div><div class="acc-check">✓ Used hashtags strategically</div><div class="acc-check">✓ Set up auto-response or CTA button</div></div>` },
+  s7a: { body: `<p><strong>What you're doing:</strong> Collecting real analytics from all your platforms and filling in the data table.</p><div class="acc-highlight important">🚨 Real data only. Even 1 like counts. Do not fabricate. Ever.</div><p>Where to find data: Facebook/Instagram → Meta Business Suite → Insights. TikTok → Creator Tools → Analytics. Twitter/X → Analytics tab on each tweet.</p>` },
+  s7b: { body: `<p><strong>What you're doing:</strong> Analysing what the data means.</p><p><strong>In plain English:</strong> Which post performed best and why? Which performed worst and why? Does your actual audience match the target audience you identified? What does this tell you about your strategy?</p><div class="acc-highlight">Don't just describe the numbers — analyse them. "Post 3 got the most reach because it was a video, which the algorithm favours on Instagram" is analysis. "Post 3 got 47 likes" is description.</div>` },
+  s8:  { body: `<p><strong>What you're doing:</strong> Explaining how your social media activity helps the business appear in Google search results.</p><p><strong>In plain English:</strong> SEO (Search Engine Optimisation) = getting Google to notice you. Regular posting, using the right keywords, having a consistent username/URL, and getting engagement all contribute. Explain what you did and what you'd recommend doing more of.</p>` },
+  s9:  { body: `<p><strong>What you're doing:</strong> Justifying — not describing — every major planning decision you made.</p><div class="acc-highlight"><strong>Describing:</strong> "I chose Instagram."<br><strong>Justifying:</strong> "I chose Instagram because 71% of its users are aged 18–34, which directly matches our target audience of young local customers. This supports the business's aim of increasing brand awareness among under-35s."</div><p>Apply this level of reasoning to every platform choice, your target audience identification, your keyword selections, and your posting schedule.</p>` },
+  s10: { body: `<p><strong>What you're doing:</strong> Taking existing posts and making them better, showing the before and after.</p><p><strong>In plain English:</strong> Look at your posts critically. Could the image be sharper? Could the caption be more engaging? Could you add a hashtag or a call to action? Make the improvements, screenshot both versions, and explain what changed and why it's better.</p><div class="acc-checklist"><div class="acc-check">✓ At least 2 posts with before & after screenshots</div><div class="acc-check">✓ Annotations explaining what changed and why</div><div class="acc-check">✓ Posts tested on at least 2 different devices</div></div>` },
+  s11: { body: `<p><strong>What you're doing:</strong> Writing a full, honest evaluation of your plan and how well it worked in practice.</p><p><strong>In plain English:</strong> This is where you're honest. What went well? What went badly and why? Did your actual audience match your target? What would you do completely differently? Don't just say "it went well" — give evidence and reasons for everything.</p><div class="acc-highlight"><strong>A Distinction evaluation does ALL five:</strong><br>✓ Judges whether business requirements were actually met<br>✓ Explains what worked and didn't — and WHY<br>✓ Discusses legal/ethical issues in your actual posts<br>✓ Links data findings to original intentions<br>✓ Makes specific, justified recommendations</div>` },
+  s12: { body: `<p><strong>What you're doing:</strong> Evaluating your own behaviour and professionalism throughout the project.</p><p><strong>In plain English:</strong> This section is about YOU, not the business. Did you meet your deadlines? How did you react to feedback you didn't like? Were you professional with the business owner? Use real, specific examples.</p><div class="acc-highlight"><strong>Don't say:</strong> "I managed my time well."<br><strong>Do say:</strong> "I planned to finish the posting schedule by 18 March but fell two days behind. I made up the time by working through lunch on 20 March and met the business owner deadline."</div>` },
+};
+
+function buildSections() {
+  const container = document.getElementById('sectionsContainer');
+  container.innerHTML = '';
+
+  const bands = [
+    { label: '✅  PASS — Sections 1–8', cls: 'pass-band', sections: SECTIONS.filter(s => s.band === 'pass') },
+    { label: '🔶  MERIT — Sections 9–10', cls: 'merit-band', sections: SECTIONS.filter(s => s.band === 'merit') },
+    { label: '🏆  DISTINCTION — Sections 11–12', cls: 'distinction-band', sections: SECTIONS.filter(s => s.band === 'distinction') },
+  ];
+
+  bands.forEach(band => {
+    const bandEl = document.createElement('div');
+    bandEl.className = 'band-block';
+    let html = `<div class="band-header ${band.cls}">${band.label}</div><div class="accordion">`;
+
+    band.sections.forEach(sec => {
+      const tagCls = sec.band === 'merit' ? 'merit-tag' : sec.band === 'distinction' ? 'distinction-tag' : 'pass-tag';
+      const content = SECTION_CONTENT[sec.id] || { body: '<p>Content coming soon.</p>' };
+      html += `
+        <div class="acc-item">
+          <button class="acc-trigger">
+            <span class="acc-criteria ${tagCls}">${sec.criteria}</span>
+            <span class="acc-title">${sec.title}</span>
+            <span class="acc-done-chip hidden" data-section="${sec.id}">✓ Done</span>
+            <span class="acc-arrow">▾</span>
+          </button>
+          <div class="acc-body">
+            ${content.body}
+            <button class="section-complete-btn" data-section="${sec.id}">○ Mark as Done</button>
+          </div>
+        </div>`;
+    });
+
+    html += '</div>';
+    bandEl.innerHTML = html;
+    container.appendChild(bandEl);
+  });
+
+  // Accordion events
+  container.querySelectorAll('.acc-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const body   = trigger.nextElementSibling;
+      const isOpen = trigger.classList.contains('open');
+      trigger.closest('.accordion').querySelectorAll('.acc-trigger').forEach(t => {
+        t.classList.remove('open');
+        t.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) { trigger.classList.add('open'); body.classList.add('open'); }
+    });
+  });
+
+  // Complete buttons
+  container.querySelectorAll('.section-complete-btn').forEach(btn => {
+    btn.addEventListener('click', () => toggleSection(btn.dataset.section));
+  });
+
+  updateSectionButtons();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BUILD FAQ
+// ═══════════════════════════════════════════════════════════════
+function buildFAQ() {
+  const list = document.getElementById('faqList');
+  list.innerHTML = FAQ_DATA.map(f => `
+    <div class="faq-item">
+      <button class="faq-trigger">${f.q} <span class="faq-arrow">▾</span></button>
+      <div class="faq-body"><p>${f.a}</p></div>
+    </div>`).join('');
+
+  list.querySelectorAll('.faq-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const body   = trigger.nextElementSibling;
+      const isOpen = trigger.classList.contains('open');
+      list.querySelectorAll('.faq-trigger').forEach(t => { t.classList.remove('open'); t.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { trigger.classList.add('open'); body.classList.add('open'); }
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// COUNTDOWN
+// ═══════════════════════════════════════════════════════════════
+function pad(n) { return String(n).padStart(2, '0'); }
+function updateCountdown() {
+  const diff = CONFIG.DEADLINE - new Date();
+  if (diff <= 0) return;
   const totalSecs  = Math.floor(diff / 1000);
   const secs       = totalSecs % 60;
   const totalMins  = Math.floor(totalSecs / 60);
@@ -2046,43 +1496,121 @@ function updateCountdown() {
   const totalDays  = Math.floor(totalHours / 24);
   const weeks      = Math.floor(totalDays / 7);
   const days       = totalDays % 7;
+  const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=pad(v); };
+  set('cd-weeks',weeks); set('cd-days',days); set('cd-hours',hours); set('cd-mins',mins); set('cd-secs',secs);
+  const pct  = Math.min(100,Math.max(0,((new Date()-CONFIG.START_DATE)/(CONFIG.DEADLINE-CONFIG.START_DATE))*100));
+  const pb   = document.getElementById('cdProgressBar');
+  const lbl  = document.getElementById('cdProgressLabel');
+  if(pb)  pb.style.width  = pct.toFixed(1)+'%';
+  if(lbl) lbl.textContent = pct.toFixed(0)+'% elapsed · '+totalDays+' days remaining';
+  const bar = document.getElementById('countdownBar');
+  if(bar) bar.classList.toggle('urgent', totalDays < 7);
+}
 
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = pad(val); };
-  set('cd-weeks', weeks);
-  set('cd-days',  days);
-  set('cd-hours', hours);
-  set('cd-mins',  mins);
-  set('cd-secs',  secs);
+// ═══════════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════════
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.add('hidden'), 3000);
+}
 
-  // Progress bar
-  const totalDuration = DEADLINE - START_DATE;
-  const elapsed       = now - START_DATE;
-  const pct           = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
-  const pbEl          = document.getElementById('cdProgressBar');
-  const lblEl         = document.getElementById('cdProgressLabel');
-  if (pbEl)  pbEl.style.width = pct.toFixed(1) + '%';
-  if (lblEl) lblEl.textContent = pct.toFixed(0) + '% of assignment time elapsed  ·  ' + totalDays + ' days remaining';
+// ═══════════════════════════════════════════════════════════════
+// TUTOR DASHBOARD
+// ═══════════════════════════════════════════════════════════════
+async function loadTutorDashboard(pin) {
+  const container = document.getElementById('tutorTableContainer');
+  container.innerHTML = '<p style="padding:20px;color:var(--slate)">Loading student data...</p>';
 
-  // Urgent styling under 7 days
-  if (bar) {
-    if (totalDays < 7) bar.classList.add('urgent');
-    else bar.classList.remove('urgent');
+  try {
+    const result = await apiGet({ action: 'getAllStudents', pin });
+    if (result.error) { container.innerHTML = `<p style="padding:20px;color:var(--red)">${result.error}</p>`; return; }
+
+    const students = result.students || [];
+    renderTutorDashboard(students);
+
+    document.getElementById('btnRefresh').addEventListener('click', () => loadTutorDashboard(pin));
+    document.getElementById('tutorSearch').addEventListener('input', e => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll('.tutor-row').forEach(row => {
+        row.style.display = row.dataset.search.includes(q) ? '' : 'none';
+      });
+    });
+    document.getElementById('btnTutorLogout').addEventListener('click', () => {
+      STATE.isTutor = false;
+      document.getElementById('tutorDashboard').classList.add('hidden');
+      document.getElementById('loginScreen').classList.remove('hidden');
+    });
+  } catch(e) {
+    container.innerHTML = '<p style="padding:20px;color:var(--slate)">Could not load data. Check your Google Sheets URL in config.</p>';
   }
 }
 
-// ── Init ──────────────────────────────────────────────────────────
-updateWhereNow();
-updateTimelineIndicators();
-updateCountdown();
-setInterval(updateCountdown, 1000);
+function renderTutorDashboard(students) {
+  const now = new Date();
+  const currentWeekIdx = getCurrentWeekIdx();
+  const expectedSections = getExpectedSectionsByWeek(currentWeekIdx);
 
-// ── Keyboard ──────────────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    navLinksEl.classList.remove('open');
-    hamburger.classList.remove('open');
-  }
-});
+  // Summary stats
+  const statsEl = document.getElementById('tutorStats');
+  const totalStudents   = students.length;
+  const onTrack         = students.filter(s => (s.completedSections||[]).length >= expectedSections).length;
+  const behind          = totalStudents - onTrack;
+  const avgXP           = totalStudents ? Math.round(students.reduce((a,s)=>a+(s.xp||0),0)/totalStudents) : 0;
+  const distinctions    = students.filter(s => (s.xp||0) >= TOTAL_XP).length;
+
+  statsEl.innerHTML = [
+    { val: totalStudents, label: 'Total Students' },
+    { val: onTrack, label: 'On Track ✓', color: 'var(--pass)' },
+    { val: behind,  label: 'May Be Behind', color: behind > 0 ? 'var(--red)' : undefined },
+    { val: avgXP + ' XP', label: 'Average XP' },
+    { val: distinctions, label: 'On Distinction Track', color: 'var(--dist)' },
+  ].map(s => `<div class="tutor-stat-card"><div class="tutor-stat-val" style="${s.color?'color:'+s.color:''}">${s.val}</div><div class="tutor-stat-label">${s.label}</div></div>`).join('');
+
+  // Table
+  const tableHTML = `
+    <table class="tutor-table">
+      <thead><tr>
+        <th>Student</th><th>ID</th><th>XP</th><th>Progress</th><th>Grade Track</th><th>Sections</th><th>Badges</th><th>Streak</th><th>Last Active</th><th>Status</th>
+      </tr></thead>
+      <tbody>
+        ${students.sort((a,b)=>(b.xp||0)-(a.xp||0)).map(s => {
+          const completed = s.completedSections || [];
+          const xp        = s.xp || 0;
+          const pct       = Math.round((xp / TOTAL_XP) * 100);
+          const grade     = xp >= TOTAL_XP ? 'D' : xp >= PASS_MERIT_XP ? 'M' : xp >= PASS_XP ? 'P' : 'none';
+          const isOnTrack = completed.length >= expectedSections;
+          const lastSeen  = s.lastSeen ? new Date(s.lastSeen) : null;
+          const daysAgo   = lastSeen ? Math.floor((now-lastSeen)/(1000*60*60*24)) : '?';
+          const lastSeenStr = daysAgo === 0 ? 'Today' : daysAgo === 1 ? 'Yesterday' : `${daysAgo}d ago`;
+          return `<tr class="tutor-row" data-search="${(s.name||'').toLowerCase()} ${(s.studentId||'').toLowerCase()}">
+            <td><strong>${s.name||'—'}</strong></td>
+            <td><code style="font-size:11px">${s.studentId||'—'}</code></td>
+            <td><strong>${xp}</strong></td>
+            <td><div class="tutor-progress-bar"><div class="tutor-progress-fill" style="width:${pct}%"></div></div><div style="font-size:10px;color:var(--slate);margin-top:2px">${pct}%</div></td>
+            <td><span class="grade-chip ${grade}">${grade === 'none' ? 'In Progress' : grade}</span></td>
+            <td>${completed.length} / ${SECTIONS.length}</td>
+            <td>${(s.badges||[]).length}</td>
+            <td>${s.streak||0} 🔥</td>
+            <td style="font-size:12px;color:var(--slate)">${lastSeenStr}</td>
+            <td>${isOnTrack ? '<span class="on-track-chip">On Track</span>' : '<span class="behind-chip">Check In</span>'}</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+
+  document.getElementById('tutorTableContainer').innerHTML = tableHTML;
+}
+
+function getExpectedSectionsByWeek(weekIdx) {
+  // Expected minimum sections completed by each week
+  const expected = [1, 8, 11, 12, 16, 18, 23];
+  return expected[Math.min(weekIdx, expected.length - 1)] || 0;
+}
 
 </script>
 </body>
