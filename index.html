@@ -934,6 +934,79 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .tl-week.past-week { opacity: 0.55; }
 .tl-week.past-week .tl-week-label::after { background: #9CA3AF; }
 
+/* ─── Funny tutor message ────────────────────────────────────── */
+.tutor-message {
+  background: #FFFBEB;
+  border: 2px dashed #F59E0B;
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 16px;
+}
+.tutor-message-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.tutor-avatar {
+  font-size: 30px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.tutor-message-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tutor-message-name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #92400E;
+  text-transform: uppercase;
+}
+.tutor-message-body {
+  font-size: 14px;
+  color: #78350F;
+  line-height: 1.65;
+}
+.tutor-message-body strong {
+  color: #92400E;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-underline-offset: 3px;
+}
+
+/* ─── Timeline subsections ───────────────────────────────────── */
+.tl-subsections {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 7px;
+  border: 1px solid rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.tl-sub-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--slate);
+  line-height: 1.5;
+}
+.tl-sub-dot {
+  color: var(--pass);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.tl-item.merit .tl-sub-dot  { color: var(--merit); }
+.tl-item.distinction .tl-sub-dot { color: var(--dist); }
+.tl-item.submit .tl-sub-dot { color: var(--red); }
+.tl-sub-item strong { color: var(--navy); }
+
 </style>
 </head>
 <body>
@@ -1001,6 +1074,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             <div class="countdown-progress-bar" id="cdProgressBar"></div>
           </div>
           <div class="countdown-progress-label" id="cdProgressLabel"></div>
+        </div>
+      </div>
+
+      <!-- Funny tutor message -->
+      <div class="tutor-message">
+        <div class="tutor-message-inner">
+          <span class="tutor-avatar">👨‍💻</span>
+          <div class="tutor-message-text">
+            <span class="tutor-message-name">Mr Abeyrathne</span>
+            <span class="tutor-message-body">I literally built you a <strong>whole website</strong> so you have zero excuses. Zero. You cannot say "I didn't know what to do" — it's all right here, in front of you, for free. So no winging it, no making up your analytics, no submitting at 11:58pm on the 15th. 😅 We both know you can do this. Now close TikTok and get on with it. 🙂</span>
+          </div>
         </div>
       </div>
 
@@ -1105,6 +1189,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">Business Research &amp; Introduction</div>
               <div class="tl-item-desc">You already have your business. Now document it — what it does, who runs it, why you chose it, and why it needs social media. This is the foundation for everything else.</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 1</strong> — Introduction to the Business</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Business name, type, owner contact</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>How you found/chose this business</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>What the business currently does online</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Business aims and how social media will help</span></div></div>
               <div class="tl-note">📌 You should have agreed your business before this week</div>
             </div>
           </div>
@@ -1123,6 +1208,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">Build Your Social Media Plan</div>
               <div class="tl-item-desc">Choose 3 platforms and explain why. Identify your target audience. Research 5 keywords. Decide best posting times. Create your Posting Schedule V1. Write up legal/ethical considerations and a social media policy.</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 2</strong> — Social Media Plan</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2a — Platform selection (3 platforms with justification)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2b — Target audience (age, gender, interests, location)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2c — Keyword strategy (5 researched keywords)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2d — Best times to post (research-backed)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2e — Posting Schedule V1 (at least 6 posts)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2f — Legal &amp; ethical considerations</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>2g — Social media policy</span></div></div>
               <div class="tl-note">📌 Everything planned here — nothing posted yet</div>
             </div>
           </div>
@@ -1141,6 +1227,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">Review Plan with Business Owner</div>
               <div class="tl-item-desc">Share your plan with the business owner. Collect feedback via meeting notes, email, or Google Form. Produce Posting Schedule V2 showing what changed and why.</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 3</strong> — Plan Review &amp; Improvements</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>3a — Evidence of review (meeting notes, email, Google Form)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>3b — Feedback received and documented</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>3c — Posting Schedule V2 (improved with "what changed" column)</span></div></div>
               <div class="tl-note warn">⚠️ This must happen BEFORE you start posting anything</div>
             </div>
           </div>
@@ -1159,6 +1246,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">Set Up Profiles &amp; Start Posting</div>
               <div class="tl-item-desc">Create accounts on all 3 platforms. Screenshot each profile and annotate your choices. Begin publishing posts — at least 3 different content formats across 3 platforms. Annotate every post.</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 4</strong> — Social Media Profiles</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Screenshots of profiles on all 3 platforms</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Annotation of bio, username, profile image choices</span></div></div>
             </div>
             <div class="tl-parallel-label">These two run at the same time ↓</div>
             <div class="tl-parallel-row">
@@ -1169,6 +1257,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
                 </div>
                 <div class="tl-item-title">Publish Content</div>
                 <div class="tl-item-desc">Keep publishing posts following your schedule. Screenshot everything as evidence.</div>
+                <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 5</strong> — Content Creation &amp; Publishing</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>5a — Content matrix (your spread across platforms &amp; formats)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>5b — Content format checklist</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>5c — Individual posts (5 posts minimum, each with screenshot &amp; annotation)</span></div></div>
               </div>
               <div class="tl-item pass parallel">
                 <div class="tl-item-top">
@@ -1177,6 +1266,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
                 </div>
                 <div class="tl-item-title">Build Community</div>
                 <div class="tl-item-desc">Reply to comments. Run polls. Use hashtags. Set up auto-responses. Screenshot everything.</div>
+                <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 6</strong> — Online Community Building</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Replies to comments or messages</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Poll or survey</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Hashtag strategy in action</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Auto-response or CTA button setup</span></div></div>
               </div>
             </div>
           </div>
@@ -1195,6 +1285,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">Collect &amp; Analyse Data</div>
               <div class="tl-item-desc">Pull real analytics from all platforms. Fill in the data table. Write your analysis — which posts worked, which didn't, does your actual audience match your target?</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 7</strong> — Data Review</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>7a — Analytics data table (reach, likes, comments, shares, engagement rate)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>7b — Data analysis (best post, worst post, audience match)</span></div></div>
               <div class="tl-note warn">🚨 Real figures only — 1 like is fine. Do not make data up.</div>
             </div>
             <div class="tl-item pass">
@@ -1204,6 +1295,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">SEO Assessment</div>
               <div class="tl-item-desc">Explain how your social media activity helps the business appear in search results. What did you do well? What would improve rankings further?</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 8</strong> — SEO Assessment</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>What SEO is and why it matters for this business</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>How keywords, profile URLs and regular posting support SEO</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Recommendations for improving search rankings</span></div></div>
             </div>
             <div class="tl-item merit">
               <div class="tl-item-top">
@@ -1212,6 +1304,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">Justify Your Planning Decisions</div>
               <div class="tl-item-desc">Go back over your plan and justify every major decision. Not "I chose Instagram because it's popular" — but why it's specifically right for this business and this audience.</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 9</strong> — Justification of Planning Decisions</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Justify platform choices</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Justify target audience identification</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Justify keyword strategy</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Justify posting schedule (timing, frequency, content mix)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Link all decisions back to specific business requirements</span></div></div>
             </div>
             <div class="tl-item merit">
               <div class="tl-item-top">
@@ -1220,6 +1313,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">Optimise Content</div>
               <div class="tl-item-desc">Pick 2+ posts. Improve them. Show before &amp; after screenshots with annotations. Also test your posts on different devices.</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 10</strong> — Optimised Content</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Before &amp; after screenshots for at least 2 posts</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Annotations explaining what changed and why</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Multi-device testing screenshots (mobile + desktop)</span></div></div>
             </div>
           </div>
         </div>
@@ -1237,6 +1331,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">Evaluate the Whole Project</div>
               <div class="tl-item-desc">Write a full, honest evaluation. Did the plan meet the business requirements? What worked? What didn't and why? What legal/ethical issues came up? What would you do differently?</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 11</strong> — Evaluation of Plan &amp; Implementation</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Did the plan meet business requirements?</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>What worked and what didn't — with reasons</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Legal &amp; ethical issues in your actual posts</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Data findings vs original intentions</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Specific, justified recommendations for improvement</span></div></div>
             </div>
             <div class="tl-item distinction">
               <div class="tl-item-top">
@@ -1245,6 +1340,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               </div>
               <div class="tl-item-title">Reflect on Your Self-Management</div>
               <div class="tl-item-desc">Evaluate your own behaviour — time management, responding to feedback, professionalism with the owner, communication, creativity, and problem solving. Use real evidence.</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span><strong>Section 12</strong> — Individual Responsibility &amp; Self-Management</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12a — Time management table with honest reflection</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12b — Responding to feedback (with specific examples)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12c — Professionalism &amp; behaviour evidence</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12d — Communication reflection</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>12e — Creativity and problem solving examples</span></div></div>
             </div>
           </div>
         </div>
@@ -1258,6 +1354,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             <div class="tl-item submit">
               <div class="tl-item-title">Final Checks &amp; Submission</div>
               <div class="tl-item-desc">Remove all red guidance text. Update Table of Contents. Check your evidence checklist. Submit by 15 April 2026.</div>
+              <div class="tl-subsections"><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Delete all red guidance text from the template</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Right-click Table of Contents → Update Field</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Run through the evidence checklist (Appendix)</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Check filename includes your name and student ID</span></div><div class="tl-sub-item"><span class="tl-sub-dot">→</span><span>Submit via the assignment portal before 23:59 on 15 April</span></div></div>
               <div class="tl-note deadline-note">🗓️ Hard deadline — 15 April 2026</div>
             </div>
           </div>
