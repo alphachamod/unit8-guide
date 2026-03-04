@@ -489,6 +489,362 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .login-name-icon { font-size: 18px; }
 
+/* ─── Leaderboard ────────────────────────────────────── */
+.leaderboard-home-block { padding-bottom: 20px; }
+.leaderboard-home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lb-view-all {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+.lb-view-all:hover { color: var(--pass); }
+
+/* Controls row */
+.lb-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lb-last-updated {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--slate);
+}
+.lb-refresh-btn {
+  padding: 7px 14px;
+  background: var(--navy);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+.lb-refresh-btn:hover { background: var(--navy-mid); }
+
+/* Loading */
+.lb-loading {
+  padding: 24px;
+  text-align: center;
+  color: var(--slate);
+  font-size: 14px;
+  font-family: var(--font-mono);
+}
+
+/* Mini list (home page — top 5) */
+.lb-mini-list { display: flex; flex-direction: column; gap: 6px; }
+
+/* Full list */
+.lb-full-list { display: flex; flex-direction: column; gap: 6px; }
+
+/* Row */
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  transition: box-shadow 0.15s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.lb-row:hover { box-shadow: var(--shadow); transform: translateX(2px); }
+
+/* Highlight current student */
+.lb-row.lb-me {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, #FFFBEB, #FFF8E7);
+  box-shadow: 0 2px 12px rgba(245,158,11,0.18);
+}
+.lb-row.lb-me::before {
+  content: 'YOU';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  background: rgba(245,158,11,0.12);
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+/* Top 3 special styling */
+.lb-row.lb-gold   { border-color: #F59E0B; background: linear-gradient(135deg,#FFFBEB,#FFF3CD); }
+.lb-row.lb-silver { border-color: #9CA3AF; background: linear-gradient(135deg,#F9FAFB,#F3F4F6); }
+.lb-row.lb-bronze { border-color: #D97706; background: linear-gradient(135deg,#FFF7ED,#FEF3C7); }
+
+/* Rank number */
+.lb-rank {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--slate);
+  width: 32px;
+  text-align: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.lb-row.lb-gold   .lb-rank { color: #D97706; }
+.lb-row.lb-silver .lb-rank { color: #6B7280; }
+.lb-row.lb-bronze .lb-rank { color: #92400E; }
+
+/* Medal emoji for top 3 */
+.lb-medal { font-size: 20px; flex-shrink: 0; }
+
+/* Name + grade chip */
+.lb-info { flex: 1; min-width: 0; }
+.lb-name {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lb-row.lb-me .lb-name { color: #92400E; }
+.lb-grade {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 8px;
+  margin-top: 3px;
+}
+.lb-grade.P { background: var(--pass-light); color: var(--pass); }
+.lb-grade.M { background: var(--merit-light); color: var(--merit); }
+.lb-grade.D { background: var(--dist-light); color: var(--dist); }
+.lb-grade.none { background: var(--light); color: var(--slate); }
+
+/* XP bar in row */
+.lb-xp-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; min-width: 110px; }
+.lb-xp-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.lb-xp-bar { width: 100px; height: 5px; background: var(--light); border-radius: 5px; overflow: hidden; }
+.lb-xp-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--pass), #34D399); transition: width 0.6s ease; }
+.lb-row.lb-gold   .lb-xp-fill { background: linear-gradient(90deg, #D97706, #F59E0B); }
+.lb-row.lb-silver .lb-xp-fill { background: linear-gradient(90deg, #6B7280, #9CA3AF); }
+.lb-row.lb-bronze .lb-xp-fill { background: linear-gradient(90deg, #92400E, #D97706); }
+
+/* Divider after top 3 in full view */
+.lb-divider {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--slate);
+  letter-spacing: 0.1em;
+  padding: 6px 0;
+  text-transform: uppercase;
+}
+
+/* Empty state */
+.lb-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--slate);
+  font-size: 14px;
+}
+.lb-empty-icon { font-size: 36px; margin-bottom: 10px; }
+
+/* ─── Tutor Modal ────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+.modal-card {
+  background: var(--white);
+  border-radius: 16px;
+  width: 100%; max-width: 680px;
+  max-height: 88vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+  animation: slideUp 0.25s cubic-bezier(0.16,1,0.3,1);
+  overflow: hidden;
+}
+.modal-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 28px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.modal-eyebrow {
+  font-family: var(--font-mono); font-size: 10px;
+  font-weight: 700; letter-spacing: 0.12em;
+  color: var(--pass); text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.modal-title {
+  font-family: var(--font-head); font-size: 22px;
+  font-weight: 900; color: var(--navy); line-height: 1.2;
+}
+.modal-meta {
+  font-size: 12px; color: var(--slate);
+  font-family: var(--font-mono); margin-top: 4px;
+}
+.modal-close {
+  font-size: 18px; color: var(--slate);
+  padding: 4px 8px; border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0; margin-left: 12px;
+}
+.modal-close:hover { background: var(--red-light); color: var(--red); }
+.modal-body {
+  flex: 1; overflow-y: auto;
+  padding: 20px 28px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+
+/* Section bands inside modal */
+.modal-band { }
+.modal-band-header {
+  font-family: var(--font-head); font-size: 12px;
+  font-weight: 700; color: #fff;
+  padding: 6px 14px; border-radius: 6px 6px 0 0;
+  letter-spacing: 0.03em;
+}
+.modal-band-header.pass-band { background: var(--pass); }
+.modal-band-header.merit-band { background: var(--merit); }
+.modal-band-header.distinction-band { background: var(--dist); }
+.modal-section-list {
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 8px 8px; overflow: hidden;
+}
+.modal-section-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+  cursor: pointer;
+}
+.modal-section-row:last-child { border-bottom: none; }
+.modal-section-row:hover { background: var(--light); }
+.modal-section-row.tutor-verified { background: var(--pass-light); }
+.modal-section-row.tutor-rejected { background: var(--red-light); }
+.modal-section-row.student-claimed { background: #FFFBEB; }
+
+/* Checkbox */
+.modal-checkbox {
+  width: 20px; height: 20px; flex-shrink: 0;
+  border: 2px solid var(--border); border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; transition: all 0.15s;
+  background: var(--white);
+}
+.modal-section-row.tutor-verified   .modal-checkbox { background: var(--pass); border-color: var(--pass); color: #fff; }
+.modal-section-row.tutor-rejected   .modal-checkbox { background: var(--red); border-color: var(--red); color: #fff; }
+.modal-section-row.student-claimed  .modal-checkbox { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+.modal-section-info { flex: 1; min-width: 0; }
+.modal-section-title {
+  font-size: 13px; font-weight: 600; color: var(--navy);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.modal-section-status {
+  font-family: var(--font-mono); font-size: 10px;
+  margin-top: 2px;
+}
+.modal-section-row.tutor-verified .modal-section-status { color: var(--pass); }
+.modal-section-row.tutor-rejected .modal-section-status { color: var(--red); }
+.modal-section-row.student-claimed .modal-section-status { color: #92400E; }
+.modal-section-row:not(.tutor-verified):not(.tutor-rejected):not(.student-claimed) .modal-section-status { color: var(--slate); }
+
+.modal-xp-tag {
+  font-family: var(--font-mono); font-size: 10px;
+  font-weight: 700; color: var(--slate);
+  flex-shrink: 0;
+}
+
+/* Note */
+.modal-note-wrap { display: flex; flex-direction: column; gap: 6px; }
+.modal-note-label {
+  font-size: 12px; font-weight: 700;
+  color: var(--navy); letter-spacing: 0.03em;
+}
+.modal-note-input {
+  width: 100%; min-height: 72px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-family: var(--font-body); font-size: 13px;
+  color: var(--navy); resize: vertical;
+  transition: border-color 0.15s; outline: none;
+}
+.modal-note-input:focus { border-color: var(--navy); }
+
+/* Footer */
+.modal-footer {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0; background: var(--light);
+  flex-wrap: wrap; gap: 10px;
+}
+.modal-save-status {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--slate); flex: 1;
+}
+.modal-save-status.saved { color: var(--pass); }
+.modal-save-status.error { color: var(--red); }
+.modal-save-btn {
+  background: var(--navy); color: #fff;
+  padding: 10px 22px; border-radius: 8px;
+  font-size: 14px; font-weight: 700;
+  transition: background 0.15s, transform 0.1s;
+}
+.modal-save-btn:hover { background: var(--navy-mid); transform: translateY(-1px); }
+.modal-save-btn.saving { opacity: 0.6; pointer-events: none; }
+
+/* Tutor table — clickable rows */
+.tutor-table tbody tr { cursor: pointer; }
+.tutor-table tbody tr:hover td { background: #EEF2FF; }
+
+/* Legend */
+.modal-legend {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  padding: 10px 14px;
+  background: var(--light); border-radius: 8px;
+  margin-bottom: 4px;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--slate);
+}
+.legend-dot {
+  width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0;
+}
+.legend-dot.verified  { background: var(--pass); }
+.legend-dot.claimed   { background: var(--gold); }
+.legend-dot.rejected  { background: var(--red); }
+.legend-dot.none      { background: var(--border); border: 1px solid var(--border); }
+
 </style>
 </head>
 <body>
@@ -558,6 +914,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <li><a href="#" class="nav-link" data-page="integrity">Integrity</a></li>
         <li><a href="#" class="nav-link" data-page="resources">Resources</a></li>
         <li><a href="#" class="nav-link" data-page="faq">FAQ</a></li>
+        <li><a href="#" class="nav-link" data-page="leaderboard">🏆 Board</a></li>
       </ul>
       <div class="nav-right">
         <div class="nav-student-chip" id="navStudentChip">
@@ -662,6 +1019,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <div class="badges-grid" id="badgesGrid"></div>
       </div>
 
+      <!-- Leaderboard mini -->
+      <div class="section-block leaderboard-home-block">
+        <div class="leaderboard-home-header">
+          <h2 class="section-heading" style="margin-bottom:0">🏆 Leaderboard</h2>
+          <button class="lb-view-all" data-goto="leaderboard">View full leaderboard →</button>
+        </div>
+        <div id="lbMini" class="lb-mini-list">
+          <div class="lb-loading">Loading...</div>
+        </div>
+      </div>
+
       <!-- Boss message -->
       <div class="boss-message hidden" id="bossMessage">
         <div class="boss-avatar">👨‍💻</div>
@@ -748,6 +1116,22 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       </div>
     </section>
 
+    <!-- ══════════ LEADERBOARD ══════════ -->
+    <section class="page" id="page-leaderboard">
+      <div class="page-header">
+        <div class="page-eyebrow">Unit 8 · Assignment 02</div>
+        <h1 class="page-title">🏆 Leaderboard</h1>
+        <p class="page-sub">Ranked by XP. Updated every 30 seconds. Your position is highlighted.</p>
+      </div>
+      <div class="lb-controls">
+        <div class="lb-last-updated" id="lbLastUpdated">Loading...</div>
+        <button class="lb-refresh-btn" id="lbRefreshBtn">↻ Refresh</button>
+      </div>
+      <div id="lbFull" class="lb-full-list">
+        <div class="lb-loading">Loading leaderboard...</div>
+      </div>
+    </section>
+
     <!-- ══════════ FAQ ══════════ -->
     <section class="page" id="page-faq">
       <div class="page-header"><div class="page-eyebrow">Assignment 02</div><h1 class="page-title">Frequently Asked Questions</h1><p class="page-sub">The most common questions — answered honestly.</p></div>
@@ -788,6 +1172,31 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <div id="tutorTableContainer"></div>
     </div>
   </main>
+</div>
+
+<!-- Tutor Student Modal -->
+<div class="modal-overlay hidden" id="tutorModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <div class="modal-eyebrow">Tutor Review</div>
+        <div class="modal-title" id="modalStudentName">—</div>
+        <div class="modal-meta" id="modalStudentMeta">—</div>
+      </div>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-sections" id="modalSections"></div>
+      <div class="modal-note-wrap">
+        <label class="modal-note-label">Tutor Note (optional)</label>
+        <textarea class="modal-note-input" id="modalNote" placeholder="e.g. Section 3a incomplete — no meeting evidence submitted on Canvas"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="modal-save-status" id="modalSaveStatus"></div>
+      <button class="modal-save-btn" id="modalSaveBtn">Save Changes</button>
+    </div>
+  </div>
 </div>
 
 <!-- Level up toast -->
@@ -896,7 +1305,6 @@ const STUDENT_ROSTER = {
   "RAH23213741": "Mohinur Rahman",
   "SAR23210762": "Amin Sarhan",
   "SUF25252926": "Mohammed Sufiyan",
-  "ABETEST": "Ravindu Test",
   "SYL23216419": "Ben Sylla",
   "WEE24247011": "Devmith Weerakkody"
 };
@@ -1222,6 +1630,7 @@ function launchApp() {
   setInterval(updateCountdown, 1000);
   setInterval(syncProgress, CONFIG.SYNC_INTERVAL);
   initNav();
+  initLeaderboard();
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1718,6 +2127,7 @@ function renderTutorDashboard(students) {
   ].map(s => `<div class="tutor-stat-card"><div class="tutor-stat-val" style="${s.color?'color:'+s.color:''}">${s.val}</div><div class="tutor-stat-label">${s.label}</div></div>`).join('');
 
   // Table
+  window._tutorStudents = students;
   const tableHTML = `
     <table class="tutor-table">
       <thead><tr>
@@ -1733,7 +2143,7 @@ function renderTutorDashboard(students) {
           const lastSeen  = s.lastSeen ? new Date(s.lastSeen) : null;
           const daysAgo   = lastSeen ? Math.floor((now-lastSeen)/(1000*60*60*24)) : '?';
           const lastSeenStr = daysAgo === 0 ? 'Today' : daysAgo === 1 ? 'Yesterday' : `${daysAgo}d ago`;
-          return `<tr class="tutor-row" data-search="${(s.name||'').toLowerCase()} ${(s.studentId||'').toLowerCase()}">
+          return `<tr class="tutor-row" data-search="${(s.name||'').toLowerCase()} ${(s.studentId||'').toLowerCase()}" onclick="openStudentModal(window._tutorStudents.find(x=>x.studentId==='${s.studentId}'))" title="Click to review ${s.name}">
             <td><strong>${s.name||'—'}</strong></td>
             <td><code style="font-size:11px">${s.studentId||'—'}</code></td>
             <td><strong>${xp}</strong></td>
@@ -1757,6 +2167,379 @@ function getExpectedSectionsByWeek(weekIdx) {
   const expected = [1, 8, 11, 12, 16, 18, 23];
   return expected[Math.min(weekIdx, expected.length - 1)] || 0;
 }
+
+// ═══════════════════════════════════════════════════════════════
+// LEADERBOARD
+// ═══════════════════════════════════════════════════════════════
+
+let lbCache = [];
+let lbLastFetch = null;
+
+async function fetchLeaderboard(forceRefresh = false) {
+  // Use cache if fresh (< 30s)
+  if (!forceRefresh && lbCache.length > 0 && lbLastFetch && (Date.now() - lbLastFetch) < 30000) {
+    return lbCache;
+  }
+
+  try {
+    // Use tutor PIN 'leaderboard' as a read-only action — we add a public read endpoint
+    const result = await apiGet({ action: 'getLeaderboard' });
+    if (result.ok && result.students) {
+      lbCache = result.students
+        .map(s => ({
+          studentId: s.studentId,
+          name:      s.name,
+          xp:        s.xp || 0,
+          badges:    (s.badges || []).length,
+          completedSections: s.completedSections || [],
+        }))
+        .sort((a, b) => b.xp - a.xp);
+      lbLastFetch = Date.now();
+      return lbCache;
+    }
+  } catch(e) {}
+
+  // Offline fallback — build from STUDENT_ROSTER with local storage data
+  return Object.entries(STUDENT_ROSTER).map(([id, name]) => ({
+    studentId: id,
+    name,
+    xp:    id === STATE.student?.studentId ? (STATE.student?.xp || 0) : 0,
+    badges: 0,
+    completedSections: [],
+  })).sort((a, b) => b.xp - a.xp);
+}
+
+function getGradeFromXP(xp) {
+  if (xp >= TOTAL_XP)        return 'D';
+  if (xp >= PASS_MERIT_XP)   return 'M';
+  if (xp >= PASS_XP)         return 'P';
+  return 'none';
+}
+
+function buildLbRow(student, rank, isMe, compact = false) {
+  const medals = ['🥇','🥈','🥉'];
+  const rankClasses = ['lb-gold','lb-silver','lb-bronze'];
+  const pct   = Math.min(100, Math.round((student.xp / TOTAL_XP) * 100));
+  const grade = getGradeFromXP(student.xp);
+  const gradeLabel = grade === 'none' ? 'Starting' : grade;
+
+  let rowClass = 'lb-row';
+  if (rank <= 3) rowClass += ` ${rankClasses[rank-1]}`;
+  if (isMe)      rowClass += ' lb-me';
+
+  const medalHTML = rank <= 3
+    ? `<span class="lb-medal">${medals[rank-1]}</span>`
+    : '';
+
+  const firstName = compact
+    ? student.name.split(' ')[0]
+    : student.name;
+
+  return `
+    <div class="${rowClass}">
+      <div class="lb-rank">${rank <= 3 ? '' : rank}</div>
+      ${medalHTML}
+      <div class="lb-info">
+        <div class="lb-name">${firstName}</div>
+        <span class="lb-grade ${grade}">${gradeLabel}</span>
+      </div>
+      <div class="lb-xp-wrap">
+        <div class="lb-xp-val">${student.xp} XP</div>
+        <div class="lb-xp-bar"><div class="lb-xp-fill" style="width:${pct}%"></div></div>
+      </div>
+    </div>`;
+}
+
+async function renderLbMini() {
+  const container = document.getElementById('lbMini');
+  if (!container) return;
+
+  const students = await fetchLeaderboard();
+  if (!students.length) {
+    container.innerHTML = '<div class="lb-empty"><div class="lb-empty-icon">📊</div>No data yet — be the first!</div>';
+    return;
+  }
+
+  const myId = STATE.student?.studentId;
+
+  // Show top 5 + current student if outside top 5
+  const top5 = students.slice(0, 5);
+  const myRank = students.findIndex(s => s.studentId === myId) + 1;
+  const meInTop5 = myRank > 0 && myRank <= 5;
+
+  let html = top5.map((s, i) =>
+    buildLbRow(s, i + 1, s.studentId === myId, true)
+  ).join('');
+
+  // If student is outside top 5, show separator + their row
+  if (myRank > 5) {
+    const me = students[myRank - 1];
+    html += `<div class="lb-divider">· · ·</div>`;
+    html += buildLbRow(me, myRank, true, true);
+  }
+
+  container.innerHTML = html;
+}
+
+async function renderLbFull(forceRefresh = false) {
+  const container = document.getElementById('lbFull');
+  const lastUpdEl = document.getElementById('lbLastUpdated');
+  if (!container) return;
+
+  container.innerHTML = '<div class="lb-loading">Loading...</div>';
+
+  const students = await fetchLeaderboard(forceRefresh);
+
+  if (!students.length) {
+    container.innerHTML = '<div class="lb-empty"><div class="lb-empty-icon">📊</div><p>No data yet. Start completing sections to appear here!</p></div>';
+    return;
+  }
+
+  const myId = STATE.student?.studentId;
+  let html = '';
+
+  students.forEach((s, i) => {
+    const rank = i + 1;
+    if (rank === 4) html += `<div class="lb-divider">── Rest of the class ──</div>`;
+    html += buildLbRow(s, rank, s.studentId === myId, false);
+  });
+
+  container.innerHTML = html;
+
+  if (lastUpdEl) {
+    const now = new Date();
+    lastUpdEl.textContent = `Last updated: ${now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit', second:'2-digit'})} · ${students.length} students`;
+  }
+}
+
+// Init leaderboard when page shown
+function initLeaderboard() {
+  // Render mini on home page load
+  renderLbMini();
+
+  // Refresh btn on full page
+  const refreshBtn = document.getElementById('lbRefreshBtn');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => {
+      refreshBtn.textContent = '↻ Refreshing...';
+      renderLbFull(true).then(() => {
+        refreshBtn.textContent = '↻ Refresh';
+      });
+    });
+  }
+
+  // Auto-refresh leaderboard every 30s
+  setInterval(() => {
+    renderLbMini();
+    // Only refresh full lb if that page is active
+    if (document.getElementById('page-leaderboard')?.classList.contains('active')) {
+      renderLbFull();
+    }
+  }, 30000);
+}
+
+// Hook into showPage to load lb when navigating to it
+const _origShowPage = showPage;
+// Override showPage to trigger lb render
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-page],[data-goto]').forEach(el => {
+    el.addEventListener('click', () => {
+      const target = el.dataset.page || el.dataset.goto;
+      if (target === 'leaderboard') renderLbFull();
+    });
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════
+// TUTOR STUDENT REVIEW MODAL
+// ═══════════════════════════════════════════════════════════════
+
+let modalStudent   = null;   // full student object being reviewed
+let modalOverrides = {};     // { sectionId: true|false|null }
+// true  = tutor verified ✓
+// false = tutor rejected ✗
+// null  = not yet reviewed (defer to student self-report)
+
+function openStudentModal(student) {
+  modalStudent   = { ...student };
+  modalOverrides = { ...(student.tutorOverrides || {}) };
+
+  // Header
+  document.getElementById('modalStudentName').textContent = student.name;
+  const grade = getGradeFromXP(student.xp || 0);
+  document.getElementById('modalStudentMeta').textContent =
+    `${student.studentId}  ·  ${student.xp || 0} XP  ·  ${(student.completedSections||[]).length} / ${SECTIONS.length} sections  ·  Grade track: ${grade === 'none' ? 'Not yet' : grade}`;
+
+  // Note
+  document.getElementById('modalNote').value = student.tutorNote || '';
+
+  // Build section list
+  buildModalSections(student.completedSections || []);
+
+  // Status
+  document.getElementById('modalSaveStatus').textContent = '';
+  document.getElementById('modalSaveStatus').className = 'modal-save-status';
+
+  // Show modal
+  document.getElementById('tutorModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function buildModalSections(studentCompleted) {
+  const container = document.getElementById('modalSections');
+
+  const bands = [
+    { label: 'PASS — Sections 1–8',        cls: 'pass-band',        sections: SECTIONS.filter(s => s.band === 'pass') },
+    { label: 'MERIT — Sections 9–10',       cls: 'merit-band',       sections: SECTIONS.filter(s => s.band === 'merit') },
+    { label: 'DISTINCTION — Sections 11–12',cls: 'distinction-band', sections: SECTIONS.filter(s => s.band === 'distinction') },
+  ];
+
+  // Legend
+  let html = `
+    <div class="modal-legend">
+      <div class="legend-item"><div class="legend-dot verified"></div> Tutor verified</div>
+      <div class="legend-item"><div class="legend-dot claimed"></div> Student self-reported</div>
+      <div class="legend-item"><div class="legend-dot rejected"></div> Tutor rejected</div>
+      <div class="legend-item"><div class="legend-dot none"></div> Not done</div>
+    </div>`;
+
+  bands.forEach(band => {
+    html += `<div class="modal-band">
+      <div class="modal-band-header ${band.cls}">${band.label}</div>
+      <div class="modal-section-list">`;
+
+    band.sections.forEach(sec => {
+      const tutorState    = modalOverrides[sec.id]; // true | false | undefined
+      const studentSaid   = studentCompleted.includes(sec.id);
+
+      // Determine display state
+      let rowClass = 'modal-section-row';
+      let checkMark = '';
+      let statusText = 'Not completed';
+
+      if (tutorState === true) {
+        rowClass  += ' tutor-verified';
+        checkMark  = '✓';
+        statusText = 'Verified by tutor ✓';
+      } else if (tutorState === false) {
+        rowClass  += ' tutor-rejected';
+        checkMark  = '✗';
+        statusText = 'Rejected by tutor — needs resubmission';
+      } else if (studentSaid) {
+        rowClass  += ' student-claimed';
+        checkMark  = '✓';
+        statusText = 'Self-reported by student (not yet verified)';
+      }
+
+      html += `
+        <div class="${rowClass}" data-section="${sec.id}" onclick="cycleSection('${sec.id}', ${JSON.stringify(studentSaid)})">
+          <div class="modal-checkbox">${checkMark}</div>
+          <div class="modal-section-info">
+            <div class="modal-section-title">${sec.title}</div>
+            <div class="modal-section-status">${statusText}</div>
+          </div>
+          <div class="modal-xp-tag">+${sec.xp} XP</div>
+        </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function cycleSection(sectionId, studentSaid) {
+  // Cycle: unreviewed/student → verified → rejected → back to unreviewed
+  const current = modalOverrides[sectionId];
+  if (current === true)       modalOverrides[sectionId] = false;   // verified → rejected
+  else if (current === false) delete modalOverrides[sectionId];     // rejected → unreviewed
+  else                        modalOverrides[sectionId] = true;     // unreviewed → verified
+
+  // Rebuild the section list with updated overrides
+  buildModalSections(modalStudent.completedSections || []);
+  document.getElementById('modalSaveStatus').textContent = 'Unsaved changes';
+  document.getElementById('modalSaveStatus').className = 'modal-save-status';
+}
+
+async function saveTutorOverrides() {
+  const btn    = document.getElementById('modalSaveBtn');
+  const status = document.getElementById('modalSaveStatus');
+  btn.classList.add('saving');
+  btn.textContent = 'Saving...';
+  status.textContent = '';
+
+  // Recalculate sections: tutor-verified take priority, tutor-rejected remove, else student self-report
+  const finalSections = SECTIONS
+    .filter(sec => {
+      const tutorState  = modalOverrides[sec.id];
+      const studentSaid = (modalStudent.completedSections || []).includes(sec.id);
+      if (tutorState === true)  return true;
+      if (tutorState === false) return false;
+      return studentSaid;
+    })
+    .map(sec => sec.id);
+
+  const finalXP = SECTIONS
+    .filter(s => finalSections.includes(s.id))
+    .reduce((a, s) => a + s.xp, 0);
+
+  try {
+    const result = await apiPost({
+      action:            'updateProgressTutor',
+      studentId:         modalStudent.studentId,
+      completedSections: finalSections,
+      xp:                finalXP,
+      badges:            modalStudent.badges || [],
+      tutorOverrides:    modalOverrides,
+      tutorNote:         document.getElementById('modalNote').value.trim(),
+    });
+
+    if (result.error && !result.offline) {
+      status.textContent = '✗ Save failed — ' + result.error;
+      status.className = 'modal-save-status error';
+    } else {
+      status.textContent = '✓ Saved successfully';
+      status.className = 'modal-save-status saved';
+      // Update cached student data
+      modalStudent.completedSections = finalSections;
+      modalStudent.xp                = finalXP;
+      modalStudent.tutorOverrides    = { ...modalOverrides };
+      // Refresh the tutor table row
+      if (window._tutorStudents) {
+        const idx = window._tutorStudents.findIndex(s => s.studentId === modalStudent.studentId);
+        if (idx > -1) {
+          window._tutorStudents[idx] = { ...window._tutorStudents[idx], ...modalStudent };
+          renderTutorDashboard(window._tutorStudents);
+        }
+      }
+    }
+  } catch(e) {
+    status.textContent = '⚠️ Saved locally (offline)';
+    status.className = 'modal-save-status';
+  }
+
+  btn.classList.remove('saving');
+  btn.textContent = 'Save Changes';
+}
+
+function closeModal() {
+  document.getElementById('tutorModal').classList.add('hidden');
+  document.body.style.overflow = '';
+  modalStudent   = null;
+  modalOverrides = {};
+}
+
+// Wire up modal buttons
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('modalClose')?.addEventListener('click', closeModal);
+  document.getElementById('modalSaveBtn')?.addEventListener('click', saveTutorOverrides);
+  document.getElementById('tutorModal')?.addEventListener('click', e => {
+    if (e.target.id === 'tutorModal') closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+});
 
 </script>
 </body>
