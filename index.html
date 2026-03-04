@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unit 8 — Social Media in Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+/* ─── Variables ─────────────────────────────────────────────── */
+:root {
+  --pass:        #1F6B3A;
+  --pass-light:  #E8F5EC;
+  --pass-mid:    #C3E6CD;
+  --merit:       #8B6200;
+  --merit-light: #FFF8E7;
+  --merit-mid:   #F5D97A;
+  --dist:        #6B4400;
+  --dist-light:  #FFF4DC;
+  --dist-mid:    #F0C060;
+  --navy:        #1a2035;
+  --navy-mid:    #2E4057;
+  --slate:       #4A5568;
+  --light:       #F7F8FC;
+  --white:       #FFFFFF;
+  --border:      #E2E8F0;
+  --red:         #C0392B;
+  --red-light:   #FFF0EF;
+  --font-head:   'Fraunces', Georgia, serif;
+  --font-body:   'DM Sans', system-ui, sans-serif;
+  --font-mono:   'DM Mono', monospace;
+  --radius:      10px;
+  --shadow:      0 2px 12px rgba(0,0,0,0.07);
+  --shadow-md:   0 6px 24px rgba(0,0,0,0.10);
+}
+
+/* ─── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--light);
+  color: var(--navy);
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ─── Nav ────────────────────────────────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.nav-unit {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--white);
+  background: var(--navy);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+.nav-sep { color: var(--border); }
+.nav-title {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.nav-links {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+  align-items: center;
+}
+.nav-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--slate);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+  display: block;
+}
+.nav-link:hover { background: var(--light); color: var(--navy); }
+.nav-link.active { background: var(--navy); color: var(--white); }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+  margin-left: auto;
+}
+.hamburger span {
+  width: 22px; height: 2px;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: all 0.2s;
+  display: block;
+}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ─── Pages ──────────────────────────────────────────────────── */
+.main { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+.page { display: none; animation: fadeIn 0.25s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ─── Hero ───────────────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  border-radius: 16px;
+  padding: 52px 48px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero-title {
+  font-family: var(--font-head);
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.hero-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.72);
+  max-width: 520px;
+  margin-bottom: 28px;
+}
+.hero-dates {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.date-chip {
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+.date-chip.deadline { border-color: #F87171; background: rgba(248,113,113,0.15); }
+.date-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+.date-val {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  margin-top: 2px;
+}
+.date-chip.deadline .date-val { color: #FCA5A5; }
+.date-divider { color: rgba(255,255,255,0.3); font-size: 18px; }
+
+/* ─── Nav Cards ──────────────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.nav-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: left;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.nav-card:hover {
+  border-color: var(--navy);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.nav-card-icon { font-size: 22px; margin-bottom: 10px; }
+.nav-card-label {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.nav-card-desc { font-size: 12px; color: var(--slate); line-height: 1.4; }
+
+/* ─── Section Blocks ─────────────────────────────────────────── */
+.section-block {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 24px;
+}
+.section-heading {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+.body-text { color: var(--slate); margin-bottom: 16px; }
+
+/* ─── Step List ──────────────────────────────────────────────── */
+.step-list { display: flex; flex-direction: column; gap: 10px; }
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--light);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--navy);
+}
+.step-num {
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ─── Grade Strip ────────────────────────────────────────────── */
+.grade-strip {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.grade-box {
+  flex: 1;
+  min-width: 160px;
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 2px solid transparent;
+}
+.grade-box.pass { background: var(--pass-light); border-color: var(--pass-mid); }
+.grade-box.merit { background: var(--merit-light); border-color: var(--merit-mid); }
+.grade-box.distinction { background: var(--dist-light); border-color: var(--dist-mid); }
+.grade-letter {
+  font-family: var(--font-head);
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.grade-box.pass .grade-letter { color: var(--pass); }
+.grade-box.merit .grade-letter { color: var(--merit); }
+.grade-box.distinction .grade-letter { color: var(--dist); }
+.grade-name { font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+.grade-desc { font-size: 13px; color: var(--slate); line-height: 1.5; }
+.grade-arrow {
+  font-size: 22px;
+  color: var(--border);
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* ─── Page Header ────────────────────────────────────────────── */
+.page-header { margin-bottom: 36px; }
+.page-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--slate);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.page-title {
+  font-family: var(--font-head);
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.page-sub { font-size: 15px; color: var(--slate); }
+
+/* ─── Timeline ───────────────────────────────────────────────── */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.tl-week {
+  display: flex;
+  gap: 0;
+  position: relative;
+}
+.tl-week:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 76px;
+  top: 72px;
+  bottom: -8px;
+  width: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+.tl-week-label {
+  width: 96px;
+  flex-shrink: 0;
+  padding-top: 6px;
+  padding-right: 20px;
+  text-align: right;
+  position: relative;
+  z-index: 1;
+}
+.tl-week-label::after {
+  content: '';
+  position: absolute;
+  right: -7px;
+  top: 14px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 2px var(--border);
+}
+.submit-week .tl-week-label::after { background: var(--red); }
+.tl-week-name {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.tl-week-dates {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--slate);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.tl-items {
+  flex: 1;
+  padding-left: 24px;
+  padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tl-item {
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  transition: box-shadow 0.15s;
+}
+.tl-item:hover { box-shadow: var(--shadow-md); }
+.tl-item.pass { border-color: var(--pass-mid); background: var(--pass-light); }
+.tl-item.merit { border-color: var(--merit-mid); background: var(--merit-light); }
+.tl-item.distinction { border-color: var(--dist-mid); background: var(--dist-light); }
+.tl-item.submit { border-color: #FCA5A5; background: #FFF0EF; }
+.tl-item-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.tl-stage {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--slate);
+  letter-spacing: 0.05em;
+}
+.tl-item-title {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.tl-item-desc { font-size: 13px; color: var(--slate); line-height: 1.6; }
+.tl-note {
+  margin-top: 10px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.6);
+  border-left: 3px solid var(--pass);
+  color: var(--pass);
+}
+.tl-note.warn { border-color: var(--red); color: var(--red); }
+.deadline-note { border-color: var(--red); color: var(--red); }
+.tl-parallel-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--slate);
+  text-align: center;
+  letter-spacing: 0.08em;
+  padding: 4px 0;
+}
+.tl-parallel-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tl-item.parallel { margin: 0; }
+
+/* ─── Criteria Tags ──────────────────────────────────────────── */
+.tl-criteria, .acc-criteria {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.pass-tag { background: var(--pass); color: var(--white); }
+.merit-tag { background: var(--merit); color: var(--white); }
+.distinction-tag { background: var(--dist); color: var(--white); }
+
+/* ─── Band Blocks ────────────────────────────────────────────── */
+.band-block { margin-bottom: 32px; }
+.band-header {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  padding: 12px 20px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  letter-spacing: 0.02em;
+}
+.pass-band { background: var(--pass); }
+.merit-band { background: var(--merit); }
+.distinction-band { background: var(--dist); }
+
+/* ─── Accordion ──────────────────────────────────────────────── */
+.accordion {
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  overflow: hidden;
+}
+.acc-item { border-bottom: 1px solid var(--border); }
+.acc-item:last-child { border-bottom: none; }
+.acc-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  transition: background 0.15s;
+  text-align: left;
+}
+.acc-trigger:hover { background: var(--light); }
+.acc-trigger.open { background: var(--light); }
+.acc-title { flex: 1; }
+.acc-arrow {
+  font-size: 14px;
+  color: var(--slate);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.acc-trigger.open .acc-arrow { transform: rotate(180deg); }
+.acc-body {
+  display: none;
+  padding: 20px 24px;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.7;
+}
+.acc-body.open { display: block; }
+.acc-body p { margin-bottom: 12px; }
+.acc-body p:last-child { margin-bottom: 0; }
+.acc-sub {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 16px 0 6px;
+}
+.acc-checklist { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
+.acc-check {
+  font-size: 13px;
+  color: var(--pass);
+  padding: 7px 12px;
+  background: var(--pass-light);
+  border-radius: 6px;
+  font-weight: 500;
+}
+.acc-highlight {
+  padding: 12px 16px;
+  background: #EEF2FF;
+  border-left: 3px solid #6366F1;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  color: var(--navy);
+  margin: 12px 0;
+}
+.acc-highlight.important {
+  background: var(--red-light);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ─── Integrity Page ─────────────────────────────────────────── */
+.integrity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.integrity-card {
+  border-radius: var(--radius);
+  padding: 28px;
+  border: 2px solid transparent;
+}
+.integrity-card.allowed {
+  background: var(--pass-light);
+  border-color: var(--pass-mid);
+}
+.integrity-card.forbidden {
+  background: var(--red-light);
+  border-color: #FCA5A5;
+}
+.integrity-icon { font-size: 28px; margin-bottom: 12px; }
+.integrity-card h3 {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--navy);
+}
+.integrity-card li {
+  font-size: 13px;
+  color: var(--slate);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.integrity-card li::before {
+  content: '•';
+  position: absolute;
+  left: 4px;
+  color: var(--slate);
+}
+.integrity-card li:last-child { border-bottom: none; }
+.integrity-data {
+  display: flex;
+  gap: 20px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+.integrity-data-icon { font-size: 32px; flex-shrink: 0; }
+.integrity-data h3 {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--navy);
+}
+.integrity-data p { font-size: 14px; color: var(--slate); margin-bottom: 8px; line-height: 1.6; }
+.integrity-consequence {
+  display: flex;
+  gap: 20px;
+  background: var(--red-light);
+  border: 2px solid #FCA5A5;
+  border-radius: var(--radius);
+  padding: 24px;
+  align-items: flex-start;
+}
+.consequence-icon { font-size: 32px; flex-shrink: 0; }
+.integrity-consequence h3 {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+.integrity-consequence p { font-size: 14px; color: var(--red); margin-bottom: 8px; line-height: 1.6; }
+.integrity-consequence ul { margin-top: 8px; }
+.integrity-consequence li {
+  font-size: 14px;
+  color: var(--red);
+  padding: 4px 0 4px 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.integrity-consequence li::before { content: '→'; position: absolute; left: 0; }
+
+/* ─── Resources Page ─────────────────────────────────────────── */
+.resources-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.res-group {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.res-group-title {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px 18px;
+  background: var(--light);
+  border-bottom: 1px solid var(--border);
+  color: var(--navy);
+}
+.res-link {
+  display: block;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.res-link:last-child { border-bottom: none; }
+.res-link:hover { background: var(--light); }
+.res-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+.res-link:hover .res-name { color: #2563EB; text-decoration: underline; }
+.res-desc { display: block; font-size: 11px; color: var(--slate); }
+
+/* ─── FAQ Page ───────────────────────────────────────────────── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--white);
+}
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: none; }
+.faq-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  text-align: left;
+  transition: background 0.15s;
+}
+.faq-trigger:hover { background: var(--light); }
+.faq-trigger.open { background: var(--light); }
+.faq-arrow {
+  font-size: 14px;
+  color: var(--slate);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+.faq-trigger.open .faq-arrow { transform: rotate(180deg); }
+.faq-body {
+  display: none;
+  padding: 18px 22px;
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+}
+.faq-body.open { display: block; }
+.faq-body p { margin-bottom: 10px; }
+.faq-body p:last-child { margin-bottom: 0; }
+
+/* ─── Footer ─────────────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--white);
+  padding: 16px 24px;
+}
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--slate);
+  font-family: var(--font-mono);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 58px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); padding: 12px 16px; gap: 4px; box-shadow: var(--shadow-md); }
+  .nav-links.open { display: flex; }
+  .nav-inner { position: relative; }
+  .hamburger { display: flex; }
+  .hero { padding: 36px 28px; }
+  .hero-title { font-size: 26px; }
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+  .integrity-grid { grid-template-columns: 1fr; }
+  .resources-grid { grid-template-columns: 1fr; }
+  .tl-parallel-row { grid-template-columns: 1fr; }
+  .grade-strip { flex-direction: column; }
+  .grade-arrow { display: none; }
+  .tl-week-label { width: 72px; }
+  .tl-week:not(:last-child)::after { left: 62px; }
+  .page-title { font-size: 26px; }
+}
+@media (max-width: 480px) {
+  .main { padding: 24px 16px 60px; }
+  .hero { padding: 28px 22px; }
+  .nav-title { display: none; }
+  .card-grid { grid-template-columns: 1fr 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="nav-unit">Unit 8</span>
+        <span class="nav-sep">·</span>
+        <span class="nav-title">Social Media in Business</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+        <li><a href="#" class="nav-link" data-page="timeline">Timeline</a></li>
+        <li><a href="#" class="nav-link" data-page="sections">Sections</a></li>
+        <li><a href="#" class="nav-link" data-page="integrity">Integrity</a></li>
+        <li><a href="#" class="nav-link" data-page="resources">Resources</a></li>
+        <li><a href="#" class="nav-link" data-page="faq">FAQ</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGES -->
+  <main class="main">
+
+    <!-- ═══════════════════════════ HOME ═══════════════════════════ -->
+    <section class="page active" id="page-home">
+      <div class="hero">
+        <div class="hero-eyebrow">BTEC Level 3 · Unit 8 · Assignment 02</div>
+        <h1 class="hero-title">Planning &amp; Implementing<br>Social Media for a Business</h1>
+        <p class="hero-sub">Everything you need to complete this assignment — broken down step by step, in plain English.</p>
+        <div class="hero-dates">
+          <div class="date-chip">
+            <span class="date-label">Issued</span>
+            <span class="date-val">04 March 2026</span>
+          </div>
+          <div class="date-divider">→</div>
+          <div class="date-chip deadline">
+            <span class="date-label">Deadline</span>
+            <span class="date-val">15 April 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick nav cards -->
+      <div class="card-grid">
+        <button class="nav-card" data-goto="timeline">
+          <div class="nav-card-icon">📅</div>
+          <div class="nav-card-label">Timeline</div>
+          <div class="nav-card-desc">See the 6-week plan week by week</div>
+        </button>
+        <button class="nav-card" data-goto="sections">
+          <div class="nav-card-icon">📋</div>
+          <div class="nav-card-label">Sections Guide</div>
+          <div class="nav-card-desc">Every section explained in plain English</div>
+        </button>
+        <button class="nav-card" data-goto="integrity">
+          <div class="nav-card-icon">⚠️</div>
+          <div class="nav-card-label">Integrity Rules</div>
+          <div class="nav-card-desc">What you can and cannot use AI for</div>
+        </button>
+        <button class="nav-card" data-goto="resources">
+          <div class="nav-card-icon">🔗</div>
+          <div class="nav-card-label">Resources</div>
+          <div class="nav-card-desc">Useful links and tools</div>
+        </button>
+        <button class="nav-card" data-goto="faq">
+          <div class="nav-card-icon">💬</div>
+          <div class="nav-card-label">FAQ</div>
+          <div class="nav-card-desc">Common questions answered</div>
+        </button>
+      </div>
+
+      <!-- What is this assignment -->
+      <div class="section-block">
+        <h2 class="section-heading">What is this assignment actually asking you to do?</h2>
+        <p class="body-text">You work for a local chamber of commerce. A small business owner has come to you and asked you to help them get started on social media. Your job is to:</p>
+        <div class="step-list">
+          <div class="step-item"><span class="step-num">1</span><span>Find a real small business and understand what they want to achieve</span></div>
+          <div class="step-item"><span class="step-num">2</span><span>Make a plan for how they should use social media</span></div>
+          <div class="step-item"><span class="step-num">3</span><span>Get feedback on your plan from the business owner, then improve it</span></div>
+          <div class="step-item"><span class="step-num">4</span><span>Actually create the social media accounts and post content</span></div>
+          <div class="step-item"><span class="step-num">5</span><span>Collect data and analyse how well your posts performed</span></div>
+          <div class="step-item"><span class="step-num">6</span><span>Evaluate everything — what worked, what didn't, and what you'd do differently</span></div>
+        </div>
+      </div>
+
+      <!-- Grade overview -->
+      <div class="section-block">
+        <h2 class="section-heading">How are grades awarded?</h2>
+        <div class="grade-strip">
+          <div class="grade-box pass">
+            <div class="grade-letter">P</div>
+            <div class="grade-name">Pass</div>
+            <div class="grade-desc">Complete Sections 1–8. Do the work. Document everything. Use real data.</div>
+          </div>
+          <div class="grade-arrow">+</div>
+          <div class="grade-box merit">
+            <div class="grade-letter">M</div>
+            <div class="grade-name">Merit</div>
+            <div class="grade-desc">Sections 9–10. Don't just describe — justify and optimise your decisions.</div>
+          </div>
+          <div class="grade-arrow">+</div>
+          <div class="grade-box distinction">
+            <div class="grade-letter">D</div>
+            <div class="grade-name">Distinction</div>
+            <div class="grade-desc">Sections 11–12. Evaluate honestly and deeply reflect on your own behaviour.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ TIMELINE ═══════════════════════════ -->
+    <section class="page" id="page-timeline">
+      <div class="page-header">
+        <div class="page-eyebrow">Assignment 02</div>
+        <h1 class="page-title">6-Week Timeline</h1>
+        <p class="page-sub">Follow this week by week. Don't skip ahead — each stage depends on the one before it.</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="tl-week" data-color="pass">
+          <div class="tl-week-label">
+            <div class="tl-week-name">Week 1</div>
+            <div class="tl-week-dates">04 – 10 Mar</div>
+          </div>
+          <div class="tl-items">
+            <div class="tl-item pass">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 1</span>
+                <span class="tl-criteria pass-tag">P3</span>
+              </div>
+              <div class="tl-item-title">Business Research &amp; Introduction</div>
+              <div class="tl-item-desc">You already have your business. Now document it — what it does, who runs it, why you chose it, and why it needs social media. This is the foundation for everything else.</div>
+              <div class="tl-note">📌 You should have agreed your business before this week</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-week" data-color="pass">
+          <div class="tl-week-label">
+            <div class="tl-week-name">Week 2</div>
+            <div class="tl-week-dates">11 – 17 Mar</div>
+          </div>
+          <div class="tl-items">
+            <div class="tl-item pass">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 2</span>
+                <span class="tl-criteria pass-tag">P3</span>
+              </div>
+              <div class="tl-item-title">Build Your Social Media Plan</div>
+              <div class="tl-item-desc">Choose 3 platforms and explain why. Identify your target audience. Research 5 keywords. Decide best posting times. Create your Posting Schedule V1. Write up legal/ethical considerations and a social media policy.</div>
+              <div class="tl-note">📌 Everything planned here — nothing posted yet</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-week" data-color="pass">
+          <div class="tl-week-label">
+            <div class="tl-week-name">Week 3</div>
+            <div class="tl-week-dates">18 – 24 Mar</div>
+          </div>
+          <div class="tl-items">
+            <div class="tl-item pass">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 3</span>
+                <span class="tl-criteria pass-tag">P4</span>
+              </div>
+              <div class="tl-item-title">Review Plan with Business Owner</div>
+              <div class="tl-item-desc">Share your plan with the business owner. Collect feedback via meeting notes, email, or Google Form. Produce Posting Schedule V2 showing what changed and why.</div>
+              <div class="tl-note warn">⚠️ This must happen BEFORE you start posting anything</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-week" data-color="pass">
+          <div class="tl-week-label">
+            <div class="tl-week-name">Week 4</div>
+            <div class="tl-week-dates">25 – 31 Mar</div>
+          </div>
+          <div class="tl-items">
+            <div class="tl-item pass">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 4</span>
+                <span class="tl-criteria pass-tag">P5</span>
+              </div>
+              <div class="tl-item-title">Set Up Profiles &amp; Start Posting</div>
+              <div class="tl-item-desc">Create accounts on all 3 platforms. Screenshot each profile and annotate your choices. Begin publishing posts — at least 3 different content formats across 3 platforms. Annotate every post.</div>
+            </div>
+            <div class="tl-parallel-label">These two run at the same time ↓</div>
+            <div class="tl-parallel-row">
+              <div class="tl-item pass parallel">
+                <div class="tl-item-top">
+                  <span class="tl-stage">Stage 5</span>
+                  <span class="tl-criteria pass-tag">P5</span>
+                </div>
+                <div class="tl-item-title">Publish Content</div>
+                <div class="tl-item-desc">Keep publishing posts following your schedule. Screenshot everything as evidence.</div>
+              </div>
+              <div class="tl-item pass parallel">
+                <div class="tl-item-top">
+                  <span class="tl-stage">Stage 6</span>
+                  <span class="tl-criteria pass-tag">P5</span>
+                </div>
+                <div class="tl-item-title">Build Community</div>
+                <div class="tl-item-desc">Reply to comments. Run polls. Use hashtags. Set up auto-responses. Screenshot everything.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-week" data-color="merit">
+          <div class="tl-week-label">
+            <div class="tl-week-name">Week 5</div>
+            <div class="tl-week-dates">01 – 07 Apr</div>
+          </div>
+          <div class="tl-items">
+            <div class="tl-item pass">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 7</span>
+                <span class="tl-criteria pass-tag">P6</span>
+              </div>
+              <div class="tl-item-title">Collect &amp; Analyse Data</div>
+              <div class="tl-item-desc">Pull real analytics from all platforms. Fill in the data table. Write your analysis — which posts worked, which didn't, does your actual audience match your target?</div>
+              <div class="tl-note warn">🚨 Real figures only — 1 like is fine. Do not make data up.</div>
+            </div>
+            <div class="tl-item pass">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 8</span>
+                <span class="tl-criteria pass-tag">P7</span>
+              </div>
+              <div class="tl-item-title">SEO Assessment</div>
+              <div class="tl-item-desc">Explain how your social media activity helps the business appear in search results. What did you do well? What would improve rankings further?</div>
+            </div>
+            <div class="tl-item merit">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 9</span>
+                <span class="tl-criteria merit-tag">M2</span>
+              </div>
+              <div class="tl-item-title">Justify Your Planning Decisions</div>
+              <div class="tl-item-desc">Go back over your plan and justify every major decision. Not "I chose Instagram because it's popular" — but why it's specifically right for this business and this audience.</div>
+            </div>
+            <div class="tl-item merit">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 10</span>
+                <span class="tl-criteria merit-tag">M3</span>
+              </div>
+              <div class="tl-item-title">Optimise Content</div>
+              <div class="tl-item-desc">Pick 2+ posts. Improve them. Show before &amp; after screenshots with annotations. Also test your posts on different devices.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-week" data-color="distinction">
+          <div class="tl-week-label">
+            <div class="tl-week-name">Week 6</div>
+            <div class="tl-week-dates">08 – 14 Apr</div>
+          </div>
+          <div class="tl-items">
+            <div class="tl-item distinction">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 11</span>
+                <span class="tl-criteria distinction-tag">D2</span>
+              </div>
+              <div class="tl-item-title">Evaluate the Whole Project</div>
+              <div class="tl-item-desc">Write a full, honest evaluation. Did the plan meet the business requirements? What worked? What didn't and why? What legal/ethical issues came up? What would you do differently?</div>
+            </div>
+            <div class="tl-item distinction">
+              <div class="tl-item-top">
+                <span class="tl-stage">Stage 12</span>
+                <span class="tl-criteria distinction-tag">D3</span>
+              </div>
+              <div class="tl-item-title">Reflect on Your Self-Management</div>
+              <div class="tl-item-desc">Evaluate your own behaviour — time management, responding to feedback, professionalism with the owner, communication, creativity, and problem solving. Use real evidence.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-week submit-week">
+          <div class="tl-week-label">
+            <div class="tl-week-name">Submit</div>
+            <div class="tl-week-dates">15 Apr 2026</div>
+          </div>
+          <div class="tl-items">
+            <div class="tl-item submit">
+              <div class="tl-item-title">Final Checks &amp; Submission</div>
+              <div class="tl-item-desc">Remove all red guidance text. Update Table of Contents. Check your evidence checklist. Submit by 15 April 2026.</div>
+              <div class="tl-note deadline-note">🗓️ Hard deadline — 15 April 2026</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ SECTIONS ═══════════════════════════ -->
+    <section class="page" id="page-sections">
+      <div class="page-header">
+        <div class="page-eyebrow">Assignment 02</div>
+        <h1 class="page-title">Section-by-Section Guide</h1>
+        <p class="page-sub">Click any section to expand it. Every section explained in plain English.</p>
+      </div>
+
+      <div class="band-block">
+        <div class="band-header pass-band">✅ PASS — Sections 1–8</div>
+
+        <div class="accordion">
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria pass-tag">P3</span>
+              <span class="acc-title">Section 1 — Introduction to the Business</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Introducing the business you've chosen to work with.</p>
+              <p><strong>In plain English:</strong> Imagine you're explaining to a stranger what the business is, what it sells, who runs it, and why they need help with social media. Write it simply and clearly.</p>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Business name, type, and owner's contact</div>
+                <div class="acc-check">✓ How you found/chose this business</div>
+                <div class="acc-check">✓ What the business currently does online (probably nothing)</div>
+                <div class="acc-check">✓ What they want to achieve with social media</div>
+                <div class="acc-check">✓ How social media will help them meet those goals</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria pass-tag">P3</span>
+              <span class="acc-title">Section 2 — Social Media Plan</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Creating a detailed plan for the business's social media presence — before you touch anything live.</p>
+              <p><strong>In plain English:</strong> Think of it like planning a trip before you book anything. You decide where you're going (which platforms), who you're going with (target audience), what you'll do (content), and when (posting schedule).</p>
+              <div class="acc-sub">2a — Platform Selection</div>
+              <p>Choose 3 platforms. Explain why each one is right for this specific business. "It's popular" is not enough — link it to the target audience.</p>
+              <div class="acc-sub">2b — Target Audience</div>
+              <p>Who are the customers? Age, gender, interests, location. Be specific. "Everyone" is not a target audience.</p>
+              <div class="acc-sub">2c — Keyword Strategy</div>
+              <p>Think about what someone types into Google when looking for this business. Pick 5 keywords and explain why each one is relevant. Use Google Keyword Planner to back up your choices.</p>
+              <div class="acc-sub">2d — Best Times to Post</div>
+              <p>Research when your target audience is most active. A bakery audience is different from a gym audience. Find evidence for your timing choices.</p>
+              <div class="acc-sub">2e — Posting Schedule V1</div>
+              <p>Your original plan. At least 6 posts spread across your 3 platforms over 3 weeks.</p>
+              <div class="acc-sub">2f — Legal &amp; Ethical Considerations</div>
+              <p>Address copyright, GDPR, advertising standards, appropriate content, and confidentiality. Don't just define them — say what you will actually do about each one.</p>
+              <div class="acc-sub">2g — Social Media Policy</div>
+              <p>A short set of rules for the business: what they can post, what they must keep private, how to stay secure, and how to keep personal and business accounts separate.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria pass-tag">P4</span>
+              <span class="acc-title">Section 3 — Plan Review &amp; Improvements</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Showing that your plan was reviewed by a real person and improved based on their feedback.</p>
+              <p><strong>In plain English:</strong> You made a plan. Now you take it back to the business owner and ask "does this work for you?" They'll probably have changes. You update the plan, and the key evidence is the before and after.</p>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Evidence of the meeting or contact (notes, email, Google Form)</div>
+                <div class="acc-check">✓ A table showing what feedback you received and what you changed</div>
+                <div class="acc-check">✓ Posting Schedule V2 — the improved version with a "what changed" column</div>
+              </div>
+              <div class="tl-note warn" style="margin-top:12px">⚠️ You must do this BEFORE you start creating posts. The point is to improve the plan, not approve what you've already done.</div>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria pass-tag">P5</span>
+              <span class="acc-title">Section 4 — Social Media Profiles</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Setting up the actual social media accounts for the business.</p>
+              <p><strong>In plain English:</strong> Create accounts on all 3 platforms. Think carefully about the username, bio, profile picture, and any links. Screenshot the finished profiles and explain every choice you made.</p>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Account created on all 3 platforms</div>
+                <div class="acc-check">✓ Screenshot of each profile/bio</div>
+                <div class="acc-check">✓ Annotation — why that username? Why that bio? Why that image?</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria pass-tag">P5</span>
+              <span class="acc-title">Section 5 — Content Creation &amp; Publishing</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Creating and publishing real posts for the business.</p>
+              <p><strong>In plain English:</strong> You're actually posting on the business's social media now. You must use at least 3 different types of content across your 3 platforms. Don't just post 5 photos — mix it up.</p>
+              <div class="acc-highlight">
+                <strong>Content formats you can use:</strong> photos, videos, reels, TikToks, stories, polls, web links, open questions, special offers, behind-the-scenes content.
+              </div>
+              <p><strong>Three non-negotiables:</strong></p>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Posts published on at least 3 different platforms</div>
+                <div class="acc-check">✓ At least 3 different content formats used</div>
+                <div class="acc-check">✓ Every post annotated — why this format? How does it follow the plan?</div>
+              </div>
+              <p>Complete the Content Matrix in the template first to plan your spread before you start posting.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria pass-tag">P5</span>
+              <span class="acc-title">Section 6 — Online Community Building</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Showing that you actively engaged with people, not just broadcast posts at them.</p>
+              <p><strong>In plain English:</strong> Social media isn't a one-way street. You need to interact. Reply to comments, ask questions, run a poll, use relevant hashtags to get discovered, set up an auto-reply message.</p>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Replied to at least one comment or message</div>
+                <div class="acc-check">✓ Created a poll or survey</div>
+                <div class="acc-check">✓ Used hashtags strategically</div>
+                <div class="acc-check">✓ Set up an auto-response or CTA button</div>
+                <div class="acc-check">✓ Screenshot everything as evidence</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria pass-tag">P6</span>
+              <span class="acc-title">Section 7 — Data Review</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Collecting and analysing the actual statistics from your posts.</p>
+              <p><strong>In plain English:</strong> Every social media platform shows you data — how many people saw your post, liked it, shared it, and who your audience is. You collect that data and write about what it means.</p>
+              <div class="acc-highlight important">
+                🚨 <strong>Real data only.</strong> It does not matter if a post got 1 like. That is your real data and it is fine. Fabricating or estimating statistics will result in a resubmission and a grade cap at Pass — no exceptions.
+              </div>
+              <p>Where to find your data:</p>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Facebook/Instagram — Meta Business Suite → Insights</div>
+                <div class="acc-check">✓ TikTok — Creator Tools → Analytics</div>
+                <div class="acc-check">✓ YouTube — YouTube Studio → Analytics</div>
+                <div class="acc-check">✓ Twitter/X — Analytics tab on each tweet</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria pass-tag">P7</span>
+              <span class="acc-title">Section 8 — SEO Assessment</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Explaining how your social media activity could help the business appear higher in Google search results.</p>
+              <p><strong>In plain English:</strong> SEO means "Search Engine Optimisation" — basically getting Google to notice you. Social media helps with this because when you use the right keywords, post regularly, and get engagement, Google sees the business as more active and relevant.</p>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Explain what SEO is and why it matters for this business</div>
+                <div class="acc-check">✓ How your keyword strategy supports SEO</div>
+                <div class="acc-check">✓ How the profile username/URL helps with SEO</div>
+                <div class="acc-check">✓ Why regular posting matters for search rankings</div>
+                <div class="acc-check">✓ What you'd recommend to improve SEO further</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MERIT -->
+      <div class="band-block">
+        <div class="band-header merit-band">🔶 MERIT — Sections 9–10</div>
+        <div class="accordion">
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria merit-tag">M2</span>
+              <span class="acc-title">Section 9 — Justify Your Planning Decisions</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Going back over every major decision in your plan and giving a proper reason why it was right for this specific business.</p>
+              <p><strong>In plain English:</strong> There's a big difference between describing what you did and justifying it. A description says "I chose Instagram." A justification says "I chose Instagram because 71% of its users are aged 18–34, which matches our target audience of young local customers, directly supporting the business's aim of increasing brand awareness among under-35s in Birmingham."</p>
+              <div class="acc-highlight">
+                <strong>For every decision ask yourself:</strong> "Why was this the RIGHT choice for THIS business?" If you can't answer that — you're describing, not justifying.
+              </div>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Justify your choice of platforms</div>
+                <div class="acc-check">✓ Justify your target audience identification</div>
+                <div class="acc-check">✓ Justify your keyword choices</div>
+                <div class="acc-check">✓ Justify your posting schedule (timing, frequency, content mix)</div>
+                <div class="acc-check">✓ Justify how your plan meets the specific business requirements</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria merit-tag">M3</span>
+              <span class="acc-title">Section 10 — Optimised Content</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Taking posts you've already made and improving them, showing the before and after.</p>
+              <p><strong>In plain English:</strong> "Optimised" just means "made better." Look at your posts and think — could the image be sharper? Could the caption be more engaging? Could you add a hashtag or a call to action? Change it, screenshot both versions, and explain what you improved and why.</p>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ At least 2 posts with before &amp; after screenshots</div>
+                <div class="acc-check">✓ Annotate what changed and why</div>
+                <div class="acc-check">✓ Explain how the optimised version better suits the target audience</div>
+                <div class="acc-check">✓ Show posts tested on at least 2 different devices</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DISTINCTION -->
+      <div class="band-block">
+        <div class="band-header distinction-band">🏆 DISTINCTION — Sections 11–12</div>
+        <div class="accordion">
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria distinction-tag">D2</span>
+              <span class="acc-title">Section 11 — Evaluate the Project</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Writing a full, honest evaluation of your plan and how well it was put into practice.</p>
+              <p><strong>In plain English:</strong> This is your chance to be really honest. What went well? What went badly and why? Did the people who engaged with your posts match the audience you targeted? What would you do completely differently next time? Don't just say "it went well" — give evidence and reasons.</p>
+              <div class="acc-highlight">
+                <strong>A Distinction evaluation does all five of these:</strong>
+              </div>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Judges whether the business requirements were actually met</div>
+                <div class="acc-check">✓ Explains what worked and what didn't — and WHY</div>
+                <div class="acc-check">✓ Discusses legal/ethical issues that came up in your actual posts</div>
+                <div class="acc-check">✓ Links data findings back to your original intentions</div>
+                <div class="acc-check">✓ Makes specific, justified recommendations for the future</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger">
+              <span class="acc-criteria distinction-tag">D3</span>
+              <span class="acc-title">Section 12 — Self-Management Reflection</span>
+              <span class="acc-arrow">▾</span>
+            </button>
+            <div class="acc-body">
+              <p><strong>What you're doing:</strong> Evaluating your own behaviour and professionalism throughout the whole project.</p>
+              <p><strong>In plain English:</strong> This section is about YOU, not the business. Did you meet your deadlines? How did you react when you got feedback you didn't like? Were you professional when talking to the business owner? Give real examples — vague statements won't earn a Distinction.</p>
+              <div class="acc-highlight">
+                <strong>Don't say:</strong> "I managed my time well." <br>
+                <strong>Do say:</strong> "I had planned to complete the posting schedule by 18 March but fell two days behind because I underestimated how long the keyword research would take. I made up the time by working through lunch on 20 March and met the deadline for the business owner meeting."
+              </div>
+              <div class="acc-checklist">
+                <div class="acc-check">✓ Time management table with honest reflection</div>
+                <div class="acc-check">✓ Specific example of responding to feedback</div>
+                <div class="acc-check">✓ Evidence of professionalism with the business owner</div>
+                <div class="acc-check">✓ Communication reflection</div>
+                <div class="acc-check">✓ Creativity and problem-solving examples</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ INTEGRITY ═══════════════════════════ -->
+    <section class="page" id="page-integrity">
+      <div class="page-header">
+        <div class="page-eyebrow">Important</div>
+        <h1 class="page-title">Academic Integrity</h1>
+        <p class="page-sub">Read this carefully before you start. It could affect your grade.</p>
+      </div>
+
+      <div class="integrity-grid">
+        <div class="integrity-card allowed">
+          <div class="integrity-icon">✅</div>
+          <h3>You ARE allowed to use AI for:</h3>
+          <ul>
+            <li>Generating or editing images for your social media posts</li>
+            <li>Helping draft captions or post copy — as long as you review and adapt it yourself</li>
+            <li>Checking grammar or improving your writing</li>
+            <li>Research and brainstorming ideas</li>
+          </ul>
+        </div>
+        <div class="integrity-card forbidden">
+          <div class="integrity-icon">❌</div>
+          <h3>You are NOT allowed to:</h3>
+          <ul>
+            <li>Make up or fabricate analytics data, likes, comments, shares, or reach</li>
+            <li>Use AI to generate fake screenshots of posts or analytics dashboards</li>
+            <li>Invent feedback or meeting notes from the business owner</li>
+            <li>Copy and paste AI-written evaluations, justifications, or reflections as your own work</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="integrity-data">
+        <div class="integrity-data-icon">📊</div>
+        <div>
+          <h3>About your data</h3>
+          <p>Your analytics do not need to be impressive. It does not matter if your post got 1 like or 2 comments — that is your real data and it is perfectly fine to use.</p>
+          <p>What matters is that your <strong>analysis is honest and thoughtful</strong>. A post with 1 like that has a strong written analysis is worth far more than fabricated data with a hollow write-up.</p>
+        </div>
+      </div>
+
+      <div class="integrity-consequence">
+        <div class="consequence-icon">⚠️</div>
+        <div>
+          <h3>Consequence of fabricating data</h3>
+          <p>If it is found that you have made up data, fabricated screenshots, or misrepresented your work in any way:</p>
+          <ul>
+            <li>Your assignment will be returned for <strong>resubmission</strong></li>
+            <li>Your grade will be <strong>capped at a Pass</strong> — regardless of how good the rest of your work is</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ RESOURCES ═══════════════════════════ -->
+    <section class="page" id="page-resources">
+      <div class="page-header">
+        <div class="page-eyebrow">Assignment 02</div>
+        <h1 class="page-title">Resources &amp; Useful Links</h1>
+        <p class="page-sub">Everything you need to support your research and content creation.</p>
+      </div>
+
+      <div class="resources-grid">
+
+        <div class="res-group">
+          <div class="res-group-title">📰 Social Media &amp; Marketing</div>
+          <a class="res-link" href="https://www.socialmediaexaminer.com" target="_blank">
+            <span class="res-name">Social Media Examiner</span>
+            <span class="res-desc">Up-to-date articles on using social media for business</span>
+          </a>
+          <a class="res-link" href="https://www.socialmediatoday.com" target="_blank">
+            <span class="res-name">Social Media Today</span>
+            <span class="res-desc">Social media marketing news and strategies</span>
+          </a>
+          <a class="res-link" href="https://mashable.com/social-media" target="_blank">
+            <span class="res-name">Mashable — Social Media</span>
+            <span class="res-desc">News and trends in social media</span>
+          </a>
+          <a class="res-link" href="https://www.theguardian.com/media/social-media" target="_blank">
+            <span class="res-name">The Guardian — Social Media</span>
+            <span class="res-desc">Journalism and issues around social media</span>
+          </a>
+        </div>
+
+        <div class="res-group">
+          <div class="res-group-title">🔍 SEO &amp; Keywords</div>
+          <a class="res-link" href="https://ads.google.com/home/tools/keyword-planner/" target="_blank">
+            <span class="res-name">Google Keyword Planner</span>
+            <span class="res-desc">Research keywords people actually search for</span>
+          </a>
+          <a class="res-link" href="https://blog.hubspot.com/marketing/what-is-seo-faq-ht" target="_blank">
+            <span class="res-name">HubSpot — What is SEO?</span>
+            <span class="res-desc">Beginner-friendly SEO explainer</span>
+          </a>
+        </div>
+
+        <div class="res-group">
+          <div class="res-group-title">📅 Planning &amp; Scheduling</div>
+          <a class="res-link" href="https://buffer.com/library/schedule-social-media-content-plan/" target="_blank">
+            <span class="res-name">Buffer — Content Scheduling Guide</span>
+            <span class="res-desc">How to plan and schedule social media content</span>
+          </a>
+          <a class="res-link" href="https://blog.hootsuite.com/social-media-templates/" target="_blank">
+            <span class="res-name">Hootsuite — Social Media Templates</span>
+            <span class="res-desc">Free templates for content calendars</span>
+          </a>
+          <a class="res-link" href="https://blog.hootsuite.com/how-to-create-a-social-media-content-calendar/" target="_blank">
+            <span class="res-name">Hootsuite — Content Calendar Guide</span>
+            <span class="res-desc">Why a posting schedule matters</span>
+          </a>
+        </div>
+
+        <div class="res-group">
+          <div class="res-group-title">📊 Analytics</div>
+          <a class="res-link" href="https://www.facebook.com/business/learn" target="_blank">
+            <span class="res-name">Meta Business Learning Lab</span>
+            <span class="res-desc">Free Facebook & Instagram courses</span>
+          </a>
+          <a class="res-link" href="https://www.theguardian.com/technology/2013/jun/10/effective-social-media-analytics" target="_blank">
+            <span class="res-name">Guardian — Effective Social Media Analytics</span>
+            <span class="res-desc">How to understand your social media data</span>
+          </a>
+        </div>
+
+        <div class="res-group">
+          <div class="res-group-title">🎨 Content Creation</div>
+          <a class="res-link" href="https://www.canva.com" target="_blank">
+            <span class="res-name">Canva</span>
+            <span class="res-desc">Free graphic design tool for social media posts</span>
+          </a>
+          <a class="res-link" href="https://www.socialmediaexaminer.com/optimize-images-across-social-networks/" target="_blank">
+            <span class="res-name">Optimising Images for Social Media</span>
+            <span class="res-desc">Correct image sizes for each platform</span>
+          </a>
+        </div>
+
+        <div class="res-group">
+          <div class="res-group-title">📘 BTEC Textbook</div>
+          <a class="res-link" href="https://www.vlebooks.com/Vleweb/Bookshelf/Index/2999516" target="_blank">
+            <span class="res-name">BTEC National Computing Student Book</span>
+            <span class="res-desc">Jenny Phillips — available via VLE ebooks (Pages 22–23 for social media policy)</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ FAQ ═══════════════════════════ -->
+    <section class="page" id="page-faq">
+      <div class="page-header">
+        <div class="page-eyebrow">Assignment 02</div>
+        <h1 class="page-title">Frequently Asked Questions</h1>
+        <p class="page-sub">The most common questions — answered honestly.</p>
+      </div>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-trigger">What kind of business can I use? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p>Any real small business — a corner shop, a family member's business, a friend's venture, or even your own business. The key requirements are: it must be a real business, and it must not already have a strong, active social media presence (otherwise there's nothing for you to do).</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">Can I use a made-up or fictional business? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p>No. The assignment requires you to actually create social media accounts and publish real posts with real data. A fictional business cannot have real analytics, real followers, or a real business owner to review your plan — all of which are required for this assignment.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">What if my posts only get 1 or 2 likes? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p>That's absolutely fine. Use your real data. Markers are not judging how popular your posts were — they're judging the quality of your analysis and reflection. A thoughtful analysis of a post with 1 like is worth far more than a lazy write-up of a post with 100 likes. Be honest and analytical.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">Can I use AI tools like ChatGPT or Claude? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p>Yes — but only for certain things. You can use AI to generate or edit images, help draft post captions (as long as you personalise them), check grammar, or brainstorm ideas. You cannot use AI to write your evaluations, justifications, or reflections — these must be your own thinking. And you absolutely cannot use AI to generate fake data or fake screenshots.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">What if the business owner is hard to contact for the plan review? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p>Try multiple methods — WhatsApp, email, in person. If you genuinely cannot reach the business owner, your tutor can act as a substitute for the plan review meeting only. However, you must show evidence that you attempted to contact the owner first. Don't just skip straight to the tutor — it will be obvious in your work.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">Do I need to create new social media accounts or can I use existing ones? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p>You need to create business accounts specifically for this business. Do not use your personal accounts. Most platforms allow you to create a separate business or creator account even on the same email address or phone number.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">What are the 3 different content formats I need? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p>You need to use at least 3 different types of content across your 3 platforms. Examples include: a static photo with a caption, a short video or reel, a poll, a story, a web link post, an open question post, a special offer graphic, or behind-the-scenes content. Don't post 5 photos and call it 5 pieces of content — vary the format.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">What's the difference between P5, M2, and D2? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p><strong>P5</strong> — You create the posts and document them with screenshots and basic annotations.<br><br>
+            <strong>M2</strong> — You go back and justify every planning decision you made — not describe what you did, but explain why it was the right choice for this specific business.<br><br>
+            <strong>D2</strong> — You evaluate the entire project honestly — what worked, what didn't, why, and what you'd do differently. You link your data findings to your original intentions and make specific recommendations.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">Do I need to delete the red guidance text before submitting? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p>Yes — all red guidance text must be removed before you submit. The guidance text is there to help you while you're writing, not to appear in your final submission. Leaving it in looks unprofessional and can confuse markers about what is your work and what is instruction text.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">What happens if I miss the 15 April deadline? <span class="faq-arrow">▾</span></button>
+          <div class="faq-body">
+            <p>Speak to your tutor as soon as possible if you think you might miss the deadline. Late submissions without an agreed extension may not be accepted or could be capped. Do not leave it to the last minute — the nature of this assignment means you need real data from real posts, which takes time to collect.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>Unit 8 · Business Applications of Social Media · BTEC Level 3</span>
+      <span>Deadline: 15 April 2026</span>
+    </div>
+  </footer>
+
+  <script>
+// ── Page Navigation ──────────────────────────────────────────────
+const navLinks = document.querySelectorAll('.nav-link');
+const pages    = document.querySelectorAll('.page');
+const navCards = document.querySelectorAll('.nav-card[data-goto]');
+
+function showPage(name) {
+  pages.forEach(p => p.classList.remove('active'));
+  navLinks.forEach(l => l.classList.remove('active'));
+
+  const target = document.getElementById('page-' + name);
+  if (target) target.classList.add('active');
+
+  navLinks.forEach(l => {
+    if (l.dataset.page === name) l.classList.add('active');
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // close mobile menu
+  document.getElementById('navLinks').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    showPage(link.dataset.page);
+  });
+});
+
+navCards.forEach(card => {
+  card.addEventListener('click', () => showPage(card.dataset.goto));
+});
+
+// ── Hamburger ─────────────────────────────────────────────────────
+const hamburger  = document.getElementById('hamburger');
+const navLinksEl = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinksEl.classList.toggle('open');
+});
+
+// ── Accordion ─────────────────────────────────────────────────────
+document.querySelectorAll('.acc-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const body    = trigger.nextElementSibling;
+    const isOpen  = trigger.classList.contains('open');
+
+    // Close all in same accordion
+    const accordion = trigger.closest('.accordion');
+    accordion.querySelectorAll('.acc-trigger').forEach(t => {
+      t.classList.remove('open');
+      t.nextElementSibling.classList.remove('open');
+    });
+
+    if (!isOpen) {
+      trigger.classList.add('open');
+      body.classList.add('open');
+    }
+  });
+});
+
+// ── FAQ ───────────────────────────────────────────────────────────
+document.querySelectorAll('.faq-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const body   = trigger.nextElementSibling;
+    const isOpen = trigger.classList.contains('open');
+
+    // Close all FAQs
+    document.querySelectorAll('.faq-trigger').forEach(t => {
+      t.classList.remove('open');
+      t.nextElementSibling.classList.remove('open');
+    });
+
+    if (!isOpen) {
+      trigger.classList.add('open');
+      body.classList.add('open');
+    }
+  });
+});
+
+// ── Countdown to deadline ─────────────────────────────────────────
+function updateCountdown() {
+  const deadline = new Date('2026-04-15T23:59:00');
+  const now      = new Date();
+  const diff     = deadline - now;
+
+  if (diff <= 0) return;
+
+  const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+  // Inject countdown into hero if on home page
+  const deadlineChip = document.querySelector('.date-chip.deadline .date-val');
+  if (deadlineChip) {
+    deadlineChip.textContent = `15 Apr 2026 · ${days}d ${hours}h left`;
+  }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// ── Keyboard navigation ───────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    navLinksEl.classList.remove('open');
+    hamburger.classList.remove('open');
+  }
+});
+
+</script>
+</body>
+</html>
